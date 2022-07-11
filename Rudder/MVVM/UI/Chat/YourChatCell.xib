@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <customFonts key="customFonts">
+        <array key="SF-Pro-Text-Regular.otf">
+            <string>SFProText-Regular</string>
+        </array>
+    </customFonts>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="yourChatCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="yourChatCell" rowHeight="130" id="ER4-Qa-L8B" customClass="YourChatCell" customModule="Rudder" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="504" height="130"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="ER4-Qa-L8B" id="8Lp-uH-jf9">
+                <rect key="frame" x="0.0" y="0.0" width="504" height="130"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p3U-Zb-oDM">
+                        <rect key="frame" x="436" y="101" width="38.5" height="18"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="18" id="JiN-cA-QcR"/>
+                        </constraints>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="15"/>
+                        <color key="textColor" white="0.66666666669999997" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" userInteractionEnabled="NO" contentMode="scaleToFill" scrollEnabled="NO" editable="NO" textAlignment="natural" selectable="NO" translatesAutoresizingMaskIntoConstraints="NO" id="t2z-4h-l1F">
+                        <rect key="frame" x="14" y="10" width="410" height="110"/>
+                        <color key="backgroundColor" red="0.57647058819999997" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                        <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, </string>
+                        <color key="textColor" systemColor="labelColor"/>
+                        <fontDescription key="fontDescription" name="SFProText-Regular" family="SF Pro Text" pointSize="15"/>
+                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="9"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </textView>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="trailing" relation="greaterThanOrEqual" secondItem="t2z-4h-l1F" secondAttribute="trailing" constant="80" id="6V4-96-lvp"/>
+                    <constraint firstAttribute="bottom" secondItem="p3U-Zb-oDM" secondAttribute="bottom" constant="11" id="6vV-mx-ISq"/>
+                    <constraint firstItem="t2z-4h-l1F" firstAttribute="top" secondItem="8Lp-uH-jf9" secondAttribute="top" constant="10" id="F2n-6f-pwz"/>
+                    <constraint firstAttribute="bottom" secondItem="t2z-4h-l1F" secondAttribute="bottom" constant="10" id="TtW-YQ-lrQ"/>
+                    <constraint firstItem="p3U-Zb-oDM" firstAttribute="leading" secondItem="t2z-4h-l1F" secondAttribute="trailing" constant="12" id="qUA-gK-mqG"/>
+                    <constraint firstItem="t2z-4h-l1F" firstAttribute="leading" secondItem="8Lp-uH-jf9" secondAttribute="leading" constant="14" id="wM2-wt-JpG"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="chatBodyView" destination="t2z-4h-l1F" id="znL-OS-mbC"/>
+                <outlet property="timeAgoLabel" destination="p3U-Zb-oDM" id="fyk-Xu-Rjt"/>
+            </connections>
+            <point key="canvasLocation" x="160.86956521739131" y="56.919642857142854"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
