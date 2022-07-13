@@ -194,11 +194,10 @@ extension MyPageViewController {
     }
 }
 
-
-
-//tmp for tmpView
-extension MyPageViewController{
-    @objc func tappedconcern1(_ gesture: UITapGestureRecognizer) {
-        print("tmp view touched")
+extension MyPageViewController {
+    @IBAction func touchCustomAlert(_ sender: UIButton) {
+        let alertView = SampleAlertView()
+        
+        UIApplication.shared.windows.first?.addSubview(alertView.rootView)
     }
 }

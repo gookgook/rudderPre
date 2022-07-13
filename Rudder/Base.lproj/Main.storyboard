@@ -689,11 +689,28 @@
                                     <action selector="touchUpForgotButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XIm-A8-GDX"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Km-5i-sQc" customClass="GradationButton" customModule="Rudder" customModuleProvider="target">
+                                <rect key="frame" x="94" y="712" width="200" height="31"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="200" id="gmZ-f3-afS"/>
+                                </constraints>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                        <color key="value" red="0.57647058819999997" green="0.16078431369999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                        <color key="value" systemColor="systemBlueColor"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="cq8-39-4SF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="22" id="1Vf-Vh-C1t"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Km-5i-sQc" secondAttribute="bottom" constant="119" id="5Kz-MB-xfN"/>
                             <constraint firstItem="9uR-T7-q4l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6mU-VQ-FLS"/>
                             <constraint firstItem="mis-hj-rYH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="17" id="CmZ-sR-ZmL"/>
                             <constraint firstItem="fSk-Sa-PQf" firstAttribute="leading" secondItem="7TE-uM-MtO" secondAttribute="leading" id="HXb-NM-Emx"/>
@@ -707,6 +724,7 @@
                             <constraint firstItem="kTg-G6-rtc" firstAttribute="top" secondItem="7TE-uM-MtO" secondAttribute="bottom" constant="30" id="hMm-hq-Ueq"/>
                             <constraint firstItem="kTg-G6-rtc" firstAttribute="leading" secondItem="4Kw-16-f98" secondAttribute="leading" id="kFp-wN-kNZ"/>
                             <constraint firstItem="Lw3-88-Rej" firstAttribute="width" secondItem="cq8-39-4SF" secondAttribute="width" id="nzQ-0f-vPd"/>
+                            <constraint firstItem="3Km-5i-sQc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="94" id="oY9-L8-exa"/>
                             <constraint firstItem="kTg-G6-rtc" firstAttribute="trailing" secondItem="4Kw-16-f98" secondAttribute="trailing" id="oYU-wf-j38"/>
                             <constraint firstItem="9uR-T7-q4l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="90" id="okx-qT-Zwa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Lw3-88-Rej" secondAttribute="trailing" constant="30" id="qAD-Hf-Jdj"/>
@@ -1092,6 +1110,14 @@
                                                     <segue destination="D9N-SV-6te" kind="show" id="fWg-E4-tSy"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JGB-mo-Kpx">
+                                                <rect key="frame" x="35" y="767" width="132" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="CustomAlertTest"/>
+                                                <connections>
+                                                    <action selector="touchCustomAlert:" destination="zeL-qL-19b" eventType="touchUpInside" id="Tp4-rm-XsY"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -1104,6 +1130,7 @@
                                             <constraint firstItem="vF4-66-ZaS" firstAttribute="trailing" secondItem="CMc-30-I1n" secondAttribute="trailing" id="PbW-GT-uos"/>
                                             <constraint firstItem="mVI-SS-0k0" firstAttribute="top" secondItem="e0V-Z6-t6O" secondAttribute="bottom" constant="22" id="RKf-yh-IG4"/>
                                             <constraint firstItem="CMc-30-I1n" firstAttribute="top" secondItem="hFt-Z0-IJD" secondAttribute="bottom" constant="50" id="Rva-MP-SDV"/>
+                                            <constraint firstItem="JGB-mo-Kpx" firstAttribute="leading" secondItem="IfG-4j-nDB" secondAttribute="leading" constant="35" id="UWE-5i-gvo"/>
                                             <constraint firstItem="e0V-Z6-t6O" firstAttribute="leading" secondItem="CMc-30-I1n" secondAttribute="leading" id="WJr-q5-7p3"/>
                                             <constraint firstItem="vF4-66-ZaS" firstAttribute="top" secondItem="1gY-HY-JJb" secondAttribute="bottom" constant="22" id="XIn-je-FgU"/>
                                             <constraint firstItem="e0V-Z6-t6O" firstAttribute="top" secondItem="vF4-66-ZaS" secondAttribute="bottom" constant="22" id="cjf-oZ-IG6"/>
@@ -1118,6 +1145,7 @@
                                             <constraint firstItem="e0V-Z6-t6O" firstAttribute="trailing" secondItem="CMc-30-I1n" secondAttribute="trailing" id="pXh-Zd-LfY"/>
                                             <constraint firstItem="iWO-zf-2rT" firstAttribute="top" secondItem="mVI-SS-0k0" secondAttribute="bottom" constant="60" id="rsr-KW-hYy"/>
                                             <constraint firstItem="l0v-y9-Rv9" firstAttribute="top" secondItem="CMc-30-I1n" secondAttribute="bottom" constant="22" id="unF-NV-ViF"/>
+                                            <constraint firstItem="JGB-mo-Kpx" firstAttribute="top" secondItem="mVI-SS-0k0" secondAttribute="bottom" constant="34" id="wGZ-2j-WTV"/>
                                             <constraint firstItem="hFt-Z0-IJD" firstAttribute="top" secondItem="IfG-4j-nDB" secondAttribute="top" constant="50" id="x0c-k4-N0a"/>
                                             <constraint firstItem="mVI-SS-0k0" firstAttribute="trailing" secondItem="CMc-30-I1n" secondAttribute="trailing" id="xXY-6r-SZ8"/>
                                             <constraint firstItem="vF4-66-ZaS" firstAttribute="leading" secondItem="CMc-30-I1n" secondAttribute="leading" id="yi0-nb-PlR"/>
@@ -1410,7 +1438,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sS-dz-FZZ">
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2sS-dz-FZZ" customClass="GradationButton" customModule="Rudder" customModuleProvider="target">
                                 <rect key="frame" x="30" y="774" width="354" height="43"/>
                                 <color key="backgroundColor" red="0.57647058823529407" green="0.16078431372549018" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                                 <constraints>
@@ -1424,6 +1452,12 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
+                                        <color key="value" red="0.57647058819999997" green="0.16078431369999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                    </userDefinedRuntimeAttribute>
+                                    <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
+                                        <color key="value" systemColor="systemRedColor"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -2928,6 +2962,14 @@
             <point key="canvasLocation" x="4809" y="-518"/>
         </scene>
     </scenes>
+    <designables>
+        <designable name="2sS-dz-FZZ">
+            <size key="intrinsicContentSize" width="59" height="30"/>
+        </designable>
+        <designable name="3Km-5i-sQc">
+            <size key="intrinsicContentSize" width="67" height="31"/>
+        </designable>
+    </designables>
     <inferredMetricsTieBreakers>
         <segue reference="n7Y-YD-jz8"/>
         <segue reference="bbV-Vj-t9L"/>
@@ -2967,6 +3009,9 @@
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>
+        <systemColor name="systemBlueColor">
+            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
@@ -2981,6 +3026,9 @@
         </systemColor>
         <systemColor name="systemPurpleColor">
             <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemYellowColor">
             <color red="1" green="0.80000000000000004" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
