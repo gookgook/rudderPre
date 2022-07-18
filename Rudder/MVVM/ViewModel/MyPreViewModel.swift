@@ -45,7 +45,7 @@ extension MyPreViewModel {
     }
     
     func requestGroupChatroom(partyId: Int) {
-        RequestMyPartyGroupChatRoom.uploadInfo(partyId: partyId, completion: {(chatRoom: ChatRoom?) in
+        RequestPartyGroupChatRoom.uploadInfo(partyId: partyId, completion: {(chatRoom: ChatRoom?) in
             guard let chatRoom = chatRoom else {
                 self.getGroupChatRoomFlag.value = -1
                 return

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Tmp New View Controller-->
+        <scene sceneID="s0d-6b-0kx">
+            <objects>
+                <viewController storyboardIdentifier="tmpNew" id="Y6W-OH-hqX" customClass="TmpNewViewController" customModule="Rudder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7P5-Xk-43B">
+                                <rect key="frame" x="60" y="323" width="294" height="250"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Alert Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYB-4O-Yo3">
+                                        <rect key="frame" x="62.5" y="34" width="169" height="24"/>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                        <color key="textColor" red="0.85613819940000002" green="0.28461682799999999" blue="0.85560733079999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="네이버 취직하게 해주세요" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3IC-QG-B5W">
+                                        <rect key="frame" x="27" y="81" width="240" height="53"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="53" id="xWH-ol-Bgd"/>
+                                        </constraints>
+                                        <color key="textColor" systemColor="labelColor"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                        <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                    </textView>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aHT-Ol-OSt">
+                                        <rect key="frame" x="23" y="187" width="248" height="43"/>
+                                        <color key="backgroundColor" red="0.57647058819999997" green="0.16078431369999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="43" id="XFV-gr-7MM"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="SUBMIT">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                                <integer key="value" value="7"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="touchUpCloseButtonWith_sender:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="fyx-1C-44m"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstItem="3IC-QG-B5W" firstAttribute="leading" secondItem="7P5-Xk-43B" secondAttribute="leading" constant="27" id="933-7Z-ZiD"/>
+                                    <constraint firstItem="aHT-Ol-OSt" firstAttribute="leading" secondItem="7P5-Xk-43B" secondAttribute="leading" constant="23" id="ASb-96-FCK"/>
+                                    <constraint firstItem="jYB-4O-Yo3" firstAttribute="top" secondItem="7P5-Xk-43B" secondAttribute="top" constant="34" id="BaO-sy-vDs"/>
+                                    <constraint firstItem="3IC-QG-B5W" firstAttribute="top" secondItem="jYB-4O-Yo3" secondAttribute="bottom" constant="23" id="C8O-HO-m3f"/>
+                                    <constraint firstAttribute="trailing" secondItem="aHT-Ol-OSt" secondAttribute="trailing" constant="23" id="Hmk-Ke-y86"/>
+                                    <constraint firstAttribute="trailing" secondItem="3IC-QG-B5W" secondAttribute="trailing" constant="27" id="RAu-Th-10e"/>
+                                    <constraint firstItem="jYB-4O-Yo3" firstAttribute="centerX" secondItem="7P5-Xk-43B" secondAttribute="centerX" id="Wcs-Dd-XRG"/>
+                                    <constraint firstAttribute="height" constant="250" id="bpa-Aj-b5q"/>
+                                    <constraint firstAttribute="bottom" secondItem="aHT-Ol-OSt" secondAttribute="bottom" constant="20" symbolic="YES" id="vkr-9K-CJl"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
+                        <color key="backgroundColor" red="0.68235294117647061" green="0.68235294117647061" blue="0.69803921568627447" alpha="0.59569019039735094" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="7P5-Xk-43B" firstAttribute="centerY" secondItem="5EZ-qb-Rvc" secondAttribute="centerY" id="8yw-UU-UYE"/>
+                            <constraint firstItem="7P5-Xk-43B" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="60" id="adw-la-pRk"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="7P5-Xk-43B" secondAttribute="trailing" constant="60" id="aqR-dY-RUv"/>
+                        </constraints>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="57.971014492753625" y="135.9375"/>
+        </scene>
+    </scenes>
+    <resources>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>

@@ -13,13 +13,14 @@ class SignUpViewModel {
     var userPassword: String!
     var userProfileBody: String = ""
     
-    var nextButtonResultFlag: Observable<String?> = Observable(nil) //School name을 보내줄 수도 있어서 기형적으로 string으로 했음. flag인데 name까지 넘겨준다는게 좀 이상함
-    var signUpResultFlag: Observable<Int?> = Observable(nil)
     var receivedNickname: String!
     var receivedId: Int!
     
     var profileImages: [UIImage] = []
     var imageMetaDatas: [ImageMetaData] = []
+    
+    var nextButtonResultFlag: Observable<String?> = Observable(nil) //School name을 보내줄 수도 있어서 기형적으로 string으로 했음. flag인데 name까지 넘겨준다는게 좀 이상함
+    var signUpResultFlag: Observable<Int?> = Observable(nil)
 }
 
 extension SignUpViewModel {
@@ -40,16 +41,16 @@ extension SignUpViewModel {
         
         RequestSignUp.uploadInfo(userEmail: userEmail, userPassword: userPassword, userProfileBody: userProfileBody, completion: { [self]
             nicknameAndId in
-            guard let nicknameAndId = nicknameAndId else { self.signUpResultFlag.value = -1; return } //문제있으니 끝냄
-            self.receivedNickname = nicknameAndId.userNickname
-            self.receivedId = nicknameAndId.userInfoId
+            guard let nicknameAndId = nicknameAndId else { signUpResultFlag.value = -1; return } //문제있으니 끝냄
+            receivedNickname = nicknameAndId.userNickname
+            receivedId = nicknameAndId.userInfoId
             
             RequestPpImageUrl.uploadInfo(userInfoId: receivedId, imageMetadatas: imageMetaDatas, completion: {
                 urls in
                 guard let urls = urls else { self.signUpResultFlag.value = -1; return }
                 let uploadGroup = DispatchGroup()
                 var everythingOkay: Bool = true //사진 하나라도 업로드 실패하면 포문 끊어주기 위함
-                for i in 0...urls.count-1 {
+                for i in 0..<urls.count {
                     guard everythingOkay else  {self.signUpResultFlag.value = -1; return }
                     uploadGroup.enter()
                     RequestPhotoUpload.uploadInfo(photoURL: urls[i], photoData: self.profileImages[i].jpegData(compressionQuality: 0)!, contentType: self.imageMetaDatas[i].contentType, completion: {

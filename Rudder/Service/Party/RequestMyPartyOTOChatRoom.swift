@@ -1,5 +1,5 @@
 //
-//  RequestPartyOTOChatRoom.swift
+//  RequestMyPartyOTOChatRoom.swift
 //  Rudder
 //
 //  Created by 박민호 on 2022/07/18.
@@ -7,10 +7,10 @@
 
 import Foundation
 
-struct RequestPartyOTOChatRoom {
+struct RequestMyPartyOTOChatRoom {
     //login
-    static func uploadInfo( completion: @escaping ([ChatRoom]?) -> Void) -> Void{ //학교 이름을 넘겨줄 수도 있어서
-        let url = URL(string: (Utils.springUrlKey + "/chat-rooms/party-one-to-one/" ))!
+    static func uploadInfo( partyId: Int ,completion: @escaping ([ChatRoom]?) -> Void) -> Void{ //학교 이름을 넘겨줄 수도 있어서
+        let url = URL(string: (Utils.springUrlKey + "/chat-rooms/party-one-to-one/" + String(partyId)))!
         
         guard let token = UserDefaults.standard.string(forKey: "token") else {
             print("token failure")
@@ -37,16 +37,16 @@ struct RequestPartyOTOChatRoom {
                         completion(nil)
                         return
                     }
-                    let decodedResponse: ResponsePartyOTOChatRoom = try decoder.decode(ResponsePartyOTOChatRoom.self, from: data)
+                    let decodedResponse: ResponseMyPartyOTOChatRoom = try decoder.decode(ResponseMyPartyOTOChatRoom.self, from: data)
                     completion(decodedResponse.chatRooms)
                 } catch {
-                    print("응답 디코딩 실패 PartyOTOChatRoom")
+                    print("응답 디코딩 실패 MyPartyChatRoom")
                     print(error.localizedDescription)
                     dump(error)
                     completion(nil)
                 }
             default :
-                print("Unknown Error PartyOTOChatRoom")
+                print("Unknown Error MyPartyOTOChatRoom")
                 completion(nil)
             }
             return
@@ -55,8 +55,8 @@ struct RequestPartyOTOChatRoom {
     }
 }
 
-extension RequestPartyOTOChatRoom {
-    struct ResponsePartyOTOChatRoom: Codable {
+extension RequestMyPartyOTOChatRoom {
+    struct ResponseMyPartyOTOChatRoom: Codable {
         let chatRooms: [ChatRoom]
     }
 }

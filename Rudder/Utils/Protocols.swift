@@ -38,3 +38,7 @@ protocol DoUpdateLikeButtonDelegate {
 protocol DoUpdateCommentCountDelegate {
     func doUpdateCommentCount(commentCount: Int) // +1 or -1
 }
+
+protocol GoSomePageDelegate: AnyObject {
+    func goSomePage()
+}

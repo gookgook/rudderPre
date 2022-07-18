@@ -9,7 +9,7 @@ import Foundation
 
 struct RequestMakePre {
     //login
-    static func uploadInfo(categoryId: Int, postBody: String, isEmageExist: Bool, completion: @escaping (Int) -> Void) -> Void{
+    static func uploadInfo(alcoholId: Int, location: String, partyDescription: String, partyTime: String, partyTitle: String, totalNumberOfMember: Int, completion: @escaping (Int?) -> Void) -> Void{
         let url = URL(string: Utils.springUrlKey+"/parties")!
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
@@ -23,9 +23,9 @@ struct RequestMakePre {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
         
-        let postToAdd = PostToAdd(categoryId: categoryId, isImageExist: isEmageExist, postBody: postBody)
+        let partyToMake = PartyToMake(alcoholId: alcoholId, location: location, partyDescription: partyDescription, partyTime: partyTime, partyTitle: partyTime, totalNumberOfMember: totalNumberOfMember)
         
-        guard let EncodedUploadData = try? JSONEncoder().encode(postToAdd) else {
+        guard let EncodedUploadData = try? JSONEncoder().encode(partyToMake) else {
             return
         }
       
@@ -52,9 +52,9 @@ struct RequestMakePre {
             
             let decoder:JSONDecoder = JSONDecoder()
             do {
-                let decodedResponse: AddPostResponse = try decoder.decode(AddPostResponse.self, from: data)
+                let decodedResponse:MakePartyResponse = try decoder.decode(MakePartyResponse.self, from: data)
                 DispatchQueue.main.async {
-                    completion(decodedResponse.postId)
+                    completion(decodedResponse.partyId)
                 }
             } catch {
                 print("응답 디코딩 실패 헀음 했음")
@@ -71,7 +71,16 @@ struct RequestMakePre {
 }
 
 extension RequestMakePre {
-    struct AddPostResponse: Codable {
-        let postId: Int
+    struct MakePartyResponse: Codable {
+        let partyId: Int
+    }
+    
+    struct partyToMake: Codable {
+        let alcoholId: Int
+        let location: String
+        let partyDescription: String
+        let partyTime: String
+        let partyTitle: String
+        let totalNumberOfMember: Int
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct RequestMyPartyGroupChatRoom {
+struct RequestPartyGroupChatRoom {
     //login
     static func uploadInfo( partyId: Int ,completion: @escaping (ChatRoom?) -> Void) -> Void{ //학교 이름을 넘겨줄 수도 있어서
         let url = URL(string: (Utils.springUrlKey + "/chat-rooms/party-group/" + String(partyId)))!
