@@ -9,19 +9,21 @@ import UIKit
 import UserNotifications
 import FirebaseCore
 import SquareInAppPaymentsSDK
+import SwiftStomp
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-
-    
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         
         
         // Override point for customization after application launch.
+     
+        //app 꺼질때 disconect 고고
         
         FirebaseApp.configure()
+        
         
         ImageCache.imageCache.removeAllObjects()
         
@@ -114,4 +116,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
 
 }
+
+
+
 

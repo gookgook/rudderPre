@@ -18,6 +18,8 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
+    
+    @IBOutlet weak var gradientButton: UIButton!
 
 }
 
@@ -28,6 +30,7 @@ extension LoginViewController {
         showNotice()
         setUpViews()
         setUpBinding()
+        gradientButton.applyGradient(colors: [UIColor.white.cgColor,UIColor.purple.cgColor])
     }
     
     

@@ -455,6 +455,36 @@
             </objects>
             <point key="canvasLocation" x="-2306" y="-654"/>
         </scene>
+        <!--Pay View Controller-->
+        <scene sceneID="aff-Vv-MBo">
+            <objects>
+                <viewController id="O8c-fl-10s" customClass="PayViewController" customModule="Rudder" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5zn-o1-WvO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="NuQ-tD-fnV">
+                                <rect key="frame" x="173.5" y="405.5" width="67" height="31"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
+                                <connections>
+                                    <action selector="tapPayButton:" destination="O8c-fl-10s" eventType="touchUpInside" id="Pvm-Qp-gnw"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="mcq-vi-FA8"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="NuQ-tD-fnV" firstAttribute="centerY" secondItem="5zn-o1-WvO" secondAttribute="centerY" id="wmh-xb-MXI"/>
+                            <constraint firstItem="NuQ-tD-fnV" firstAttribute="centerX" secondItem="5zn-o1-WvO" secondAttribute="centerX" id="xbm-kC-3Vr"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="3cq-vd-aaA"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cqe-wM-NJ5" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-1770" y="52"/>
+        </scene>
         <!--Find Pw View Controller-->
         <scene sceneID="w28-f2-gY5">
             <objects>
@@ -689,19 +719,18 @@
                                     <action selector="touchUpForgotButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="XIm-A8-GDX"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3Km-5i-sQc" customClass="GradationButton" customModule="Rudder" customModuleProvider="target">
-                                <rect key="frame" x="94" y="712" width="200" height="31"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="b6R-aL-cQz">
+                                <rect key="frame" x="181" y="715" width="100" height="31"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="200" id="gmZ-f3-afS"/>
+                                    <constraint firstAttribute="width" constant="100" id="JQW-v6-1Jj"/>
+                                    <constraint firstAttribute="height" constant="31" id="hTO-rn-rCH"/>
                                 </constraints>
+                                <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
                                 <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="Button"/>
                                 <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="firstColor">
-                                        <color key="value" red="0.57647058819999997" green="0.16078431369999999" blue="1" alpha="1" colorSpace="calibratedRGB"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="color" keyPath="secondColor">
-                                        <color key="value" systemColor="systemBlueColor"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </button>
@@ -710,7 +739,6 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="cq8-39-4SF" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="22" id="1Vf-Vh-C1t"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3Km-5i-sQc" secondAttribute="bottom" constant="119" id="5Kz-MB-xfN"/>
                             <constraint firstItem="9uR-T7-q4l" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="6mU-VQ-FLS"/>
                             <constraint firstItem="mis-hj-rYH" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="17" id="CmZ-sR-ZmL"/>
                             <constraint firstItem="fSk-Sa-PQf" firstAttribute="leading" secondItem="7TE-uM-MtO" secondAttribute="leading" id="HXb-NM-Emx"/>
@@ -723,8 +751,8 @@
                             <constraint firstItem="7TE-uM-MtO" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" constant="-22" id="dlX-1H-PQc"/>
                             <constraint firstItem="kTg-G6-rtc" firstAttribute="top" secondItem="7TE-uM-MtO" secondAttribute="bottom" constant="30" id="hMm-hq-Ueq"/>
                             <constraint firstItem="kTg-G6-rtc" firstAttribute="leading" secondItem="4Kw-16-f98" secondAttribute="leading" id="kFp-wN-kNZ"/>
+                            <constraint firstItem="b6R-aL-cQz" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="181" id="mUa-4t-9HS"/>
                             <constraint firstItem="Lw3-88-Rej" firstAttribute="width" secondItem="cq8-39-4SF" secondAttribute="width" id="nzQ-0f-vPd"/>
-                            <constraint firstItem="3Km-5i-sQc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="94" id="oY9-L8-exa"/>
                             <constraint firstItem="kTg-G6-rtc" firstAttribute="trailing" secondItem="4Kw-16-f98" secondAttribute="trailing" id="oYU-wf-j38"/>
                             <constraint firstItem="9uR-T7-q4l" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="90" id="okx-qT-Zwa"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Lw3-88-Rej" secondAttribute="trailing" constant="30" id="qAD-Hf-Jdj"/>
@@ -734,11 +762,13 @@
                             <constraint firstItem="4Kw-16-f98" firstAttribute="top" secondItem="9uR-T7-q4l" secondAttribute="bottom" constant="110" id="tI2-MM-7Qm"/>
                             <constraint firstItem="fSk-Sa-PQf" firstAttribute="trailing" secondItem="7TE-uM-MtO" secondAttribute="trailing" id="wex-lS-lIC"/>
                             <constraint firstItem="cq8-39-4SF" firstAttribute="top" secondItem="fSk-Sa-PQf" secondAttribute="bottom" constant="50" id="y76-gq-Gzt"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="b6R-aL-cQz" secondAttribute="bottom" constant="116" id="zi3-pU-m4k"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="eo6-Cx-g3c"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
+                        <outlet property="gradientButton" destination="b6R-aL-cQz" id="xBx-ln-D8r"/>
                         <outlet property="signInButton" destination="Lw3-88-Rej" id="TIB-Av-hH9"/>
                         <outlet property="signUpButton" destination="cq8-39-4SF" id="Oho-Vi-gXq"/>
                         <outlet property="spinner" destination="3D0-LV-piv" id="uZC-b8-nEc"/>
@@ -1118,6 +1148,14 @@
                                                     <action selector="touchCustomAlert:" destination="zeL-qL-19b" eventType="touchUpInside" id="Tp4-rm-XsY"/>
                                                 </connections>
                                             </button>
+                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UsW-Oh-X8a">
+                                                <rect key="frame" x="49" y="833" width="68" height="31"/>
+                                                <state key="normal" title="Button"/>
+                                                <buttonConfiguration key="configuration" style="plain" title="go pay"/>
+                                                <connections>
+                                                    <segue destination="O8c-fl-10s" kind="show" id="jBh-ni-rld"/>
+                                                </connections>
+                                            </button>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -1127,6 +1165,8 @@
                                             <constraint firstItem="xIj-7y-QC7" firstAttribute="trailing" secondItem="CMc-30-I1n" secondAttribute="trailing" id="60w-ru-bT2"/>
                                             <constraint firstItem="l0v-y9-Rv9" firstAttribute="trailing" secondItem="CMc-30-I1n" secondAttribute="trailing" id="7xs-S4-gQC"/>
                                             <constraint firstItem="1gY-HY-JJb" firstAttribute="leading" secondItem="CMc-30-I1n" secondAttribute="leading" id="Axj-VD-Ydb"/>
+                                            <constraint firstAttribute="bottom" secondItem="UsW-Oh-X8a" secondAttribute="bottom" constant="32" id="EFb-O2-vDv"/>
+                                            <constraint firstItem="UsW-Oh-X8a" firstAttribute="leading" secondItem="IfG-4j-nDB" secondAttribute="leading" constant="49" id="HR3-VG-Pde"/>
                                             <constraint firstItem="vF4-66-ZaS" firstAttribute="trailing" secondItem="CMc-30-I1n" secondAttribute="trailing" id="PbW-GT-uos"/>
                                             <constraint firstItem="mVI-SS-0k0" firstAttribute="top" secondItem="e0V-Z6-t6O" secondAttribute="bottom" constant="22" id="RKf-yh-IG4"/>
                                             <constraint firstItem="CMc-30-I1n" firstAttribute="top" secondItem="hFt-Z0-IJD" secondAttribute="bottom" constant="50" id="Rva-MP-SDV"/>
@@ -3126,8 +3166,8 @@
         <designable name="2sS-dz-FZZ">
             <size key="intrinsicContentSize" width="59" height="30"/>
         </designable>
-        <designable name="3Km-5i-sQc">
-            <size key="intrinsicContentSize" width="67" height="31"/>
+        <designable name="b6R-aL-cQz">
+            <size key="intrinsicContentSize" width="46" height="30"/>
         </designable>
     </designables>
     <inferredMetricsTieBreakers>
@@ -3168,9 +3208,6 @@
         </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-        </systemColor>
-        <systemColor name="systemBlueColor">
-            <color red="0.0" green="0.47843137254901963" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGray3Color">
             <color red="0.7803921568627451" green="0.7803921568627451" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

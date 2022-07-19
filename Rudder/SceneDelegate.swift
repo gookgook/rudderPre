@@ -7,6 +7,7 @@
 
 import UIKit
 import FirebaseDynamicLinks
+import SwiftStomp
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate{
 
@@ -17,6 +18,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
     var messageNavigationController = UINavigationController()
     var notificationController = UINavigationController()
     let tabBarController = UITabBarController()
+    
+    private var swiftStomp: SwiftStomp!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         
@@ -89,6 +92,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
         let k_moveToNotification = Notification.Name("moveToNotification") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.moveTab(notification:)), name: k_moveToNotification, object: nil)
         
+        
+        initStomp()
+        triggerConnect()
         //let k_moveToNotification = Notification.N name("moveToNotification")
     }
     
@@ -132,5 +138,99 @@ extension SceneDelegate: UITabBarControllerDelegate {
     
     @objc func moveTab(notification: NSNotification){
         self.tabBarController.selectedIndex = 3
+    }
+}
+
+extension SceneDelegate: SwiftStompDelegate {
+    func onConnect(swiftStomp: SwiftStomp, connectType: StompConnectType) {
+            if connectType == .toSocketEndpoint{
+                print("Connected to socket")
+            } else if connectType == .toStomp{
+                print("Connected to stomp")
+                
+                //** Subscribe to topics or queues just after connect to the stomp!
+                swiftStomp.subscribe(to: "/topic/user.34")
+                //swiftStomp.subscribe(to: "/topic/greeting2")
+                
+            }
+        }
+        
+        func onDisconnect(swiftStomp: SwiftStomp, disconnectType: StompDisconnectType) {
+            if disconnectType == .fromSocket{
+                print("Socket disconnected. Disconnect completed")
+            } else if disconnectType == .fromStomp{
+                print("Client disconnected from stomp but socket is still connected!")
+            }
+        }
+        
+        func onMessageReceived(swiftStomp: SwiftStomp, message: Any?, messageId: String, destination: String, headers : [String : String]) {
+            
+            if let message = message as? Data {
+                print("as DATA")
+                //handleMessageBody(message: message)
+            }else if let message = message as? String{
+                let dMessage = message.data(using: .utf8)!
+                print(message)
+                Alert.showAlert(title: message, message: nil, viewController: self.window!.rootViewController!)
+                //handleMessageBody(message: dMessage)
+                print("as STRING")
+            }
+            
+            print()
+        }
+        
+        func onReceipt(swiftStomp: SwiftStomp, receiptId: String) {
+            print("Receipt with id `\(receiptId)` received")
+        }
+        
+        func onError(swiftStomp: SwiftStomp, briefDescription: String, fullDescription: String?, receiptId: String?, type: StompErrorType) {
+            if type == .fromSocket{
+                print("Socket error occurred! [\(briefDescription)]")
+            } else if type == .fromStomp{
+                print("Stomp error occurred! [\(briefDescription)] : \(String(describing: fullDescription))")
+            } else {
+                print("Unknown error occured!")
+            }
+        }
+        
+        func onSocketEvent(eventName: String, description: String) {
+            print("Socket event occured: \(eventName) => \(description)")
+        }
+    
+    private func initStomp(){
+    
+        let url = URL(string: "ws://test.rudderuni.com/ws")!
+        
+        self.swiftStomp = SwiftStomp(host: url)
+        self.swiftStomp.enableLogging = true
+        self.swiftStomp.delegate = self
+        self.swiftStomp.autoReconnect = true
+                
+        self.swiftStomp.enableAutoPing()
+    }
+    
+    @objc func appDidBecomeActive(notification : Notification){
+        if !self.swiftStomp.isConnected{
+            self.swiftStomp.connect()
+        }
+    }
+    
+    @objc func appWillResignActive(notication : Notification){
+        if self.swiftStomp.isConnected{
+            self.swiftStomp.disconnect(force: true)
+        }
+    }
+    
+    func triggerConnect() {
+        if !self.swiftStomp.isConnected{
+            self.swiftStomp.connect()
+        }
+        
+    }
+        
+    func triggerDisconnect(_ sender: Any) {
+        if self.swiftStomp.isConnected{
+            self.swiftStomp.disconnect()
+        }
     }
 }
