@@ -8,6 +8,7 @@
 import UIKit
 
 class OrderView : UIView {
+
     lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -27,6 +28,7 @@ class OrderView : UIView {
         return headerView.closeButton
     }
     
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         commonInit()
@@ -34,14 +36,14 @@ class OrderView : UIView {
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        commonInit()
+        //commonInit()
     }
     
     private func commonInit() {
         backgroundColor = Color.popupBackground
 
         stackView.addArrangedSubview(headerView)
-        stackView.addArrangedSubview(TableRowView(heading: "Ship to", title: "Lauren Nobel", subtitle: "1455 Market Street\nSan Francisco, CA, 94103"))
+        stackView.addArrangedSubview(TableRowView(heading: "Hello Hello", title: "Lauren Nobel", subtitle: "1455 Market Street\nSan Francisco, CA, 94103"))
         stackView.addArrangedSubview(HairlineView())
         stackView.addArrangedSubview(TableRowView(heading: "Total", title: "$1.00", subtitle: nil))
         stackView.addArrangedSubview(HairlineView())

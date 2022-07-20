@@ -208,7 +208,7 @@ extension MyPageViewController: GoSomePageDelegate {
         vc.delegate = self
         
         vc.modalPresentationStyle = .overCurrentContext
-        tabBarController?.present(vc, animated: false, completion: nil)
+        tabBarController?.present(vc, animated: true, completion: nil)
     }
     
 }
