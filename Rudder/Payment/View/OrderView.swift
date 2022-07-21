@@ -19,6 +19,7 @@ class OrderView : UIView {
         return view
     }()
     
+    var str: String!
 
     lazy var addCardButton = ActionButton(backgroundColor: Color.primaryAction, title: "Pay with card", image: nil)
     lazy var applePayButton = ActionButton(backgroundColor: Color.applePayBackground, title: nil, image:UIImage(systemName: "applelogo"))
@@ -29,7 +30,13 @@ class OrderView : UIView {
     }
     
     
-    override init(frame: CGRect) {
+    
+    override convenience init(frame: CGRect) {
+        self.init(frame: frame, str: "mock")
+    }
+    
+    init(frame: CGRect, str: String) {
+        self.str = str
         super.init(frame: frame)
         commonInit()
     }
@@ -43,7 +50,7 @@ class OrderView : UIView {
         backgroundColor = Color.popupBackground
 
         stackView.addArrangedSubview(headerView)
-        stackView.addArrangedSubview(TableRowView(heading: "Hello Hello", title: "Lauren Nobel", subtitle: "1455 Market Street\nSan Francisco, CA, 94103"))
+        stackView.addArrangedSubview(TableRowView(heading: str, title: "Lauren Nobel", subtitle: "1455 Market Street\nSan Francisco, CA, 94103"))
         stackView.addArrangedSubview(HairlineView())
         stackView.addArrangedSubview(TableRowView(heading: "Total", title: "$1.00", subtitle: nil))
         stackView.addArrangedSubview(HairlineView())

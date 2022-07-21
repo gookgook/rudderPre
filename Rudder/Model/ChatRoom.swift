@@ -11,7 +11,7 @@ struct ChatRoom: Codable {
     let chatRoomTitle: String
     let chatRoomId: Int
     let notReadMessageCount: Int
-    let recentMessage: String!
+    var recentMessage: String!
     let recentMessageTime: String!
     //let chatRoomName: String
 }

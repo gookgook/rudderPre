@@ -53,11 +53,18 @@ extension MyPreViewController {
             default : print("something wrong")
             }
         }
+        
+        viewModel.receivedChatFlag.bind{ [weak self] _ in
+            guard let self = self else {return}
+            DispatchQueue.main.async { self.setAGChatView() }
+        }
     }
 }
 
 extension MyPreViewController {
     func setAGChatView() {
+        print("hit here haloha ")
+        print(viewModel.groupChatRoom.recentMessage)
         aGPartyTitle.text = "mockDate"
         aGChatBody.text = viewModel.groupChatRoom.recentMessage
     }

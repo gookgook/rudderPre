@@ -141,6 +141,8 @@ extension SceneDelegate: UITabBarControllerDelegate {
     }
 }
 
+
+//handling socket input
 extension SceneDelegate: SwiftStompDelegate {
     func onConnect(swiftStomp: SwiftStomp, connectType: StompConnectType) {
             if connectType == .toSocketEndpoint{
@@ -149,7 +151,7 @@ extension SceneDelegate: SwiftStompDelegate {
                 print("Connected to stomp")
                 
                 //** Subscribe to topics or queues just after connect to the stomp!
-                swiftStomp.subscribe(to: "/topic/user.34")
+                swiftStomp.subscribe(to: "/queue/user.34")
                 //swiftStomp.subscribe(to: "/topic/greeting2")
                 
             }
@@ -165,14 +167,16 @@ extension SceneDelegate: SwiftStompDelegate {
         
         func onMessageReceived(swiftStomp: SwiftStomp, message: Any?, messageId: String, destination: String, headers : [String : String]) {
             
+            print("message Received")
+            
             if let message = message as? Data {
                 print("as DATA")
-                //handleMessageBody(message: message)
+                //handleMessage(message: message)
             }else if let message = message as? String{
                 let dMessage = message.data(using: .utf8)!
                 print(message)
-                Alert.showAlert(title: message, message: nil, viewController: self.window!.rootViewController!)
-                //handleMessageBody(message: dMessage)
+                /*Alert.showAlert(title: message, message: nil, viewController: self.window!.rootViewController!)*/
+                handleMessage(message: dMessage)
                 print("as STRING")
             }
             
@@ -231,6 +235,28 @@ extension SceneDelegate: SwiftStompDelegate {
     func triggerDisconnect(_ sender: Any) {
         if self.swiftStomp.isConnected{
             self.swiftStomp.disconnect()
+        }
+    }
+}
+
+
+extension SceneDelegate {
+    func handleMessage(message: Data) {
+        let decoder:JSONDecoder = JSONDecoder()
+        do {
+            
+            //let decodedResponse: Chat = try decoder.decode(Chat.self, from: message)
+            let decodedResponse: SocketMessage = try decoder.decode(SocketMessage.self, from: message)
+            let k_chatReceived = Notification.Name("chatReceived")
+            let userInfo: [AnyHashable: Any] = ["receivedChat":decodedResponse.payload]
+            NotificationCenter.default.post(name: k_chatReceived, object: nil, userInfo: userInfo)
+        } catch {
+            print("응답 디코딩 실패")
+            print(error.localizedDescription)
+            dump(error)
+            DispatchQueue.main.async {
+               // completion(-1)
+            }
         }
     }
 }

@@ -10,9 +10,19 @@ import UIKit
 class OrderViewController : UIViewController {
     weak var delegate: OrderViewControllerDelegate?
     var applePayResponse : String?
+    var str: String
+    init(str: String) {
         
+        self.str = str
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func loadView() {
-        let orderView = OrderView()
+        let orderView = OrderView(frame: .zero, str: str)
         self.view = orderView
 
         orderView.addCardButton.addTarget(self, action: #selector(didTapPayButton), for: .touchUpInside)

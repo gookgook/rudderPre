@@ -89,7 +89,7 @@ class ChatViewController: UIViewController, OrderViewControllerDelegate, UIViewC
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var chatTableView: UITableView!
     
-    private var chats: [Chat] = [Chat(chatMessageId: 1, chatMessageBody: "my love", chatMessageTime: "my love", sendUserInfoId: 1, sendUserNickname: "myco sdf", isMine: true)]
+    private var chats: [Chat] = [Chat(chatMessageId: 1, chatMessageBody: "my love", chatMessageTime: "my love", sendUserInfoId: 1, sendUserNickname: "myco sdf", isMine: true, chatRoomId: 234)]
     
     private var swiftStomp: SwiftStomp!
     private var messageIndex = 0
@@ -256,7 +256,8 @@ extension ChatViewController {
                 
                 guard decodedResponse.sendUserInfoId != self.userInfoId else {return}
                 
-                self.chats.append(Chat(chatMessageId: decodedResponse.chatMessageId, chatMessageBody: decodedResponse.chatMessageBody, chatMessageTime: decodedResponse.chatMessageTime, sendUserInfoId: decodedResponse.sendUserInfoId, sendUserNickname: decodedResponse.sendUserNickname, isMine: decodedResponse.isMine))
+                self.chats.append(Chat(chatMessageId: decodedResponse.chatMessageId, chatMessageBody: decodedResponse.chatMessageBody, chatMessageTime: decodedResponse.chatMessageTime, sendUserInfoId: decodedResponse.sendUserInfoId, sendUserNickname: decodedResponse.sendUserNickname, isMine: decodedResponse.isMine, chatRoomId: 123))
+                //mock
                 
              
                 
@@ -280,7 +281,7 @@ extension ChatViewController {
     
     @IBAction func sendChat(_ sender: UIButton) {
         
-        self.chats.append(Chat(chatMessageId: 123, chatMessageBody: textField.text!, chatMessageTime: "123", sendUserInfoId: userInfoId, sendUserNickname: "mockNickname", isMine: true))
+        self.chats.append(Chat(chatMessageId: 123, chatMessageBody: textField.text!, chatMessageTime: "123", sendUserInfoId: userInfoId, sendUserNickname: "mockNickname", isMine: true, chatRoomId: 123))
         
      
         
@@ -349,7 +350,7 @@ extension ChatViewController {
     
     private func showOrderSheet() {
            // Open the buy modal
-           let orderViewController = OrderViewController()
+           let orderViewController = OrderViewController(str: "Tae")
            orderViewController.delegate = self
            let nc = OrderNavigationController(rootViewController: orderViewController)
            nc.modalPresentationStyle = .custom
