@@ -4,12 +4,13 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
-        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatRoomCell" rowHeight="101" id="sfR-kf-dnA" customClass="ChatRoomCell" customModule="Rudder" customModuleProvider="target">
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="chatRoomCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatRoomCell" rowHeight="101" id="sfR-kf-dnA" customClass="ChatRoomCell" customModule="Rudder" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfR-kf-dnA" id="ufo-J7-lrL">
@@ -31,7 +32,7 @@
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nxq-Al-gc1">
                         <rect key="frame" x="127" y="21" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                        <nil key="textColor"/>
+                        <color key="textColor" systemColor="systemIndigoColor"/>
                         <nil key="highlightedColor"/>
                     </label>
                 </subviews>
@@ -39,6 +40,7 @@
                     <constraint firstAttribute="bottom" secondItem="h1G-tT-ZkK" secondAttribute="bottom" id="BOU-HT-0Gm"/>
                     <constraint firstItem="AyD-LK-Qr2" firstAttribute="top" secondItem="nxq-Al-gc1" secondAttribute="bottom" constant="20" id="LzY-4b-P2F"/>
                     <constraint firstItem="nxq-Al-gc1" firstAttribute="top" secondItem="ufo-J7-lrL" secondAttribute="top" constant="21" id="PbP-yT-Hpm"/>
+                    <constraint firstAttribute="bottomMargin" secondItem="AyD-LK-Qr2" secondAttribute="bottom" constant="7" id="QsF-Vu-2vL"/>
                     <constraint firstItem="nxq-Al-gc1" firstAttribute="leading" secondItem="h1G-tT-ZkK" secondAttribute="trailing" constant="27" id="mVV-8R-QsC"/>
                     <constraint firstItem="h1G-tT-ZkK" firstAttribute="top" secondItem="ufo-J7-lrL" secondAttribute="top" id="o2b-9e-Q9V"/>
                     <constraint firstItem="AyD-LK-Qr2" firstAttribute="leading" secondItem="h1G-tT-ZkK" secondAttribute="trailing" constant="27" id="qbC-WG-tiH"/>
@@ -53,4 +55,9 @@
             <point key="canvasLocation" x="8.6956521739130448" y="151.00446428571428"/>
         </tableViewCell>
     </objects>
+    <resources>
+        <systemColor name="systemIndigoColor">
+            <color red="0.34509803921568627" green="0.33725490196078434" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
 </document>

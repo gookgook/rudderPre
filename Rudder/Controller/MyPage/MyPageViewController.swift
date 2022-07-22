@@ -60,7 +60,7 @@ extension MyPageViewController{
         //UserDefaults.standard.removeObject(forKey: "token")
         Alert.showAlertWithCB(title: "Are you sure you want to logout?", message: nil, isConditional: true, viewController: self, completionBlock: {status in
             if status {
-                TmpViewController.doLogout = true
+                //TmpViewController.doLogout = true
                 self.tabBarController?.selectedIndex = 0
             }
         })
@@ -152,17 +152,17 @@ extension MyPageViewController : DoUpdateCharacterDelegate {
     }
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoCharacterChange" {
-            guard let changeCharacterViewController: ChangeCharacterViewController =
-                segue.destination as? ChangeCharacterViewController else {
+           /* guard let changeCharacterViewController: ChangeCharacterViewController =
+                segue.destination as? ChangeCharacterViewController else { //이부분 뭔소리??
                 return
             }
-            changeCharacterViewController.delegate = self
+            changeCharacterViewController.delegate = self*/
         }else if segue.identifier == "GoMyPost" {
-            guard let myPostCommentViewController: MyPostCommentViewController =
+            /*guard let myPostCommentViewController: MyPostCommentViewController =
                 segue.destination as? MyPostCommentViewController else {
                 return
             }
-            myPostCommentViewController.myPostOrComment = myPostOrComment //0이 post 1이 comment
+            myPostCommentViewController.myPostOrComment = myPostOrComment //0이 post 1이 comment*/
         }
 
     }

@@ -24,7 +24,8 @@ class MyPreViewModel {
     let getGroupChatRoomFlag: Observable<Int?> = Observable(nil)
     let getOTOChatRoomFlag: Observable<Int?> = Observable(nil)
     
-    let receivedChatFlag: Observable<Int?> = Observable(nil)
+    let receivedGroupChatFlag: Observable<Int?> = Observable(nil)
+    var receivedOTOChatFlag: [Observable<Int?>] = []
     //let currentPartyInfo:
 }
 
@@ -39,6 +40,7 @@ extension MyPreViewModel {
             self.getPartyDatesFlag.value = 1
         })
     }
+    
     
     func requestPartyApplicants(partyId: Int) {
         RequestMyPartyApplicants.uploadInfo(partyId: partyId, completion: {(myPartyApplicants: [PartyApplicant]?) in
@@ -57,8 +59,8 @@ extension MyPreViewModel {
                 self.getGroupChatRoomFlag.value = -1
                 return
             }
-            self.getGroupChatRoomFlag.value = 1
             self.groupChatRoom = chatRoom
+            self.getGroupChatRoomFlag.value = 1
         })
     }
     
@@ -69,15 +71,29 @@ extension MyPreViewModel {
                 self.getOTOChatRoomFlag.value = -1
                 return
             }
-            self.getOTOChatRoomFlag.value = 1
             self.otoChatRooms = chatRooms
+            self.getOTOChatRoomFlag.value = 1
+            for _ in 0..<self.otoChatRooms.count {
+                self.receivedOTOChatFlag.append(Observable(nil))
+            }
         })
     }
     
     @objc func receivedChat(notification: NSNotification){
         let currentChat = notification.userInfo!["receivedChat"] as? Chat
-        groupChatRoom.recentMessage = currentChat?.chatMessageBody
-        receivedChatFlag.value = 1
+        
+        if currentChat?.chatRoomId == groupChatRoom.chatRoomId {
+            groupChatRoom.recentMessage = currentChat?.chatMessageBody
+            receivedGroupChatFlag.value = 1
+        } else {
+            for i in 0..<otoChatRooms.count {
+                if otoChatRooms[i].chatRoomId == currentChat?.chatRoomId {
+                    otoChatRooms[i].recentMessage = currentChat?.chatMessageBody
+                    receivedOTOChatFlag[i].value = 1
+                    break
+                }
+            }
+        }
     }
 }
 

@@ -13,7 +13,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
 
     var window: UIWindow?
     
-    var navigationController = UINavigationController()
+    var mainNavigationController = UINavigationController()
     var myNavigationController = UINavigationController()
     var messageNavigationController = UINavigationController()
     var notificationController = UINavigationController()
@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
         guard let winScene = (scene as? UIWindowScene) else { return }
         //let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let TmpVC = storyboard.instantiateViewController(identifier: "TmpViewController") as? TmpViewController else {
+        guard let PartyMainVC = storyboard.instantiateViewController(identifier: "PartyMainViewController") as? PartyMainViewController else {
             print("Something wrong in storyboard")
             return
         }
@@ -58,12 +58,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
             print("token already exists")
             //navigationController = UINavigationController(rootViewController: LoginVC)
             Utils.firstScreen = 1
-            navigationController.pushViewController(TmpVC, animated: true)
-            navigationController.viewControllers.insert(LoginVC, at: 0)
+            mainNavigationController.pushViewController(PartyMainVC, animated: true)
+            mainNavigationController.viewControllers.insert(LoginVC, at: 0)
             
         }else{
             Utils.firstScreen = 0
-            navigationController = UINavigationController(rootViewController: LoginVC)
+            mainNavigationController = UINavigationController(rootViewController: LoginVC)
         }
         
         myNavigationController = UINavigationController(rootViewController: MyVC)
@@ -71,18 +71,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
         notificationController = UINavigationController(rootViewController: NotificationVC)
         
         tabBarController.tabBar.tintColor = MyColor.rudderPurple
-        let naviTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "board"), tag: 0)
+        let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "board"), tag: 0)
         let myPageTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "myPage"), tag: 1)
         let messageTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "envelope"), tag: 2)
         let notificationTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 3)
         //tag와 tab bar 순서 안맞는 사소한 문제
-        navigationController.tabBarItem = naviTabBarItem
+        mainNavigationController.tabBarItem = mainTabBarItem
         myNavigationController.tabBarItem = myPageTabBarItem
         messageNavigationController.tabBarItem = messageTabBarItem
         notificationController.tabBarItem = notificationTabBarItem
         
         
-        let controllers = [navigationController, messageNavigationController,  myNavigationController,notificationController]
+        let controllers = [mainNavigationController, messageNavigationController,  myNavigationController,notificationController]
         tabBarController.setViewControllers(controllers, animated: true)
         //tabBarController.tabBar.selectedImageTintColor = UIColor(red: 147/255, green: 41/255, blue: 209/255, alpha: 1)
         window = UIWindow(windowScene: winScene)

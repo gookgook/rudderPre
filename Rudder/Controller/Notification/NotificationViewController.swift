@@ -141,7 +141,7 @@ extension NotificationViewController {
            
            guard index.row < userNotifications.count else { return }
            
-           guard let notiPostViewController: NotiPostViewController =
+          /* guard let notiPostViewController: NotiPostViewController =
                segue.destination as? NotiPostViewController else {
                    return
            }
@@ -149,7 +149,7 @@ extension NotificationViewController {
            //communityPostViewController.delegate = self
            
             let userNotification: UserNotification = userNotifications[index.row]
-            notiPostViewController.postId = userNotification.itemId
+            notiPostViewController.postId = userNotification.itemId*/
            
        }
     }

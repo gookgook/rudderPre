@@ -20,6 +20,7 @@ class MyPreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUpTableView()
         setUpBinding()
         viewModel.requestPartyDates()
     }
@@ -54,25 +55,52 @@ extension MyPreViewController {
             }
         }
         
-        viewModel.receivedChatFlag.bind{ [weak self] _ in
+        viewModel.getOTOChatRoomFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                self.messagesTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
+                self.setOTOChatBinding()
+            }
+        }
+        
+        viewModel.receivedGroupChatFlag.bind{ [weak self] _ in
             guard let self = self else {return}
             DispatchQueue.main.async { self.setAGChatView() }
+        }
+    }
+    
+    func setOTOChatBinding() {
+        for i in 0..<viewModel.otoChatRooms.count {
+            viewModel.receivedOTOChatFlag[i].bind{ [weak self] _ in
+                guard let self = self else {return}
+                let indexPath = IndexPath(row: i, section: 0)
+                self.messagesTableView.reloadRows(at: [indexPath], with: .none)
+            }
         }
     }
 }
 
 extension MyPreViewController {
+    func setUpTableView() {
+        let cellNib: UINib = UINib.init(nibName: "ChatRoomCell", bundle: nil)
+        self.messagesTableView.register(cellNib, forCellReuseIdentifier: "chatRoomCell")
+        self.messagesTableView.estimatedRowHeight = 200 //autolatyout 잘 작동하게 대략적인 높이?
+        self.messagesTableView.rowHeight = UITableView.automaticDimension
+    }
+}
+
+extension MyPreViewController {
     func setAGChatView() {
-        print("hit here haloha ")
-        print(viewModel.groupChatRoom.recentMessage)
         aGPartyTitle.text = "mockDate"
         aGChatBody.text = viewModel.groupChatRoom.recentMessage
     }
     
     func setApplicantsView() {
-        
         var tmp: NSLayoutXAxisAnchor
         tmp = applcantsView.leadingAnchor
+        
+        //print("party Id ", String(viewModel.))
+        print("applications count", String(viewModel.myPartyApplicants.count))
         
         for i in 0..<viewModel.myPartyApplicants.count  {
             let imageView = UIImageView()
