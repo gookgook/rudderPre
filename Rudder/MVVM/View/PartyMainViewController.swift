@@ -18,6 +18,21 @@ class PartyMainViewController: UIViewController {
         setUpBinding()
         setUpTableView()
         viewModel.requestPartyDates(endPartyId: -1)
+        self.navigationItem.hidesBackButton = true
+        
+        let k_doLogout = Notification.Name("doLogout") //이거이름재설정 필요
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doLogout), name: k_doLogout, object: nil)
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        setBarStyle()
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
+    }
+    
+    @objc func doLogout(){
+        UserDefaults.standard.removeObject(forKey: "token")
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 
@@ -30,7 +45,6 @@ extension PartyMainViewController {
                     print(self.viewModel.parties.count)
                     self.partyTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
                 }
-               
             }
         }
     }
@@ -70,5 +84,32 @@ extension PartyMainViewController: UITableViewDelegate, UITableViewDataSource {
         cell.configure(party: party, tableView: partyTableView, indexPath: indexPath)
         
         return cell
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let _: UITableViewCell = tableView.cellForRow(at: indexPath) {
+            self.performSegue(withIdentifier: "GoPartyDetail", sender: indexPath.row)
+            // cell.selectionStyle = .none
+        }
+    }
+}
+
+extension PartyMainViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let partyDetailViewController: PartyDetailViewController =
+            segue.destination as? PartyDetailViewController else {
+            return
+        }
+        partyDetailViewController.partyId = viewModel.parties[sender as! Int].partyId
+    }
+}
+
+extension PartyMainViewController {
+    func setBarStyle(){
+        self.navigationController?.navigationItem.hidesBackButton = true
+        
+        self.tabBarController?.tabBar.isTranslucent = false
+        self.tabBarController?.tabBar.isHidden = false
+        self.tabBarController?.tabBar.backgroundColor = UIColor.white
     }
 }

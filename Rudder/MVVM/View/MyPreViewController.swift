@@ -30,6 +30,7 @@ extension MyPreViewController {
     func setUpBinding(){
         viewModel.getPartyDatesFlag.bind{ [weak self] status in
             guard let self = self else {return}
+            
             if status == 1 { self.viewModel.requestGroupChatroom(partyId: self.viewModel.myPartyDates[0].partyId)}
             else { print("party date wrong") }
         }

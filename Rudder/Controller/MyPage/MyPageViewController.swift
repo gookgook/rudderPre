@@ -57,10 +57,10 @@ extension MyPageViewController{
     }
     @objc func touchUpLogoutButton(_ sender: UIButton){
         print("logout touched")
-        //UserDefaults.standard.removeObject(forKey: "token")
         Alert.showAlertWithCB(title: "Are you sure you want to logout?", message: nil, isConditional: true, viewController: self, completionBlock: {status in
             if status {
-                //TmpViewController.doLogout = true
+                let k_doLogout = Notification.Name("doLogout")
+                NotificationCenter.default.post(name: k_doLogout, object: nil, userInfo: nil)
                 self.tabBarController?.selectedIndex = 0
             }
         })

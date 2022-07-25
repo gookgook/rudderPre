@@ -42,3 +42,7 @@ protocol DoUpdateCommentCountDelegate {
 protocol GoSomePageDelegate: AnyObject {
     func goSomePage()
 }
+
+protocol DoApplyDelegate: AnyObject {
+    func doApply()
+}

@@ -61,7 +61,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     @available(iOS 10.0, *)
     public func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
         print("pushpush touched when background")
-        NotificationViewController.notiRefresh = true
+        //NotificationViewController.notiRefresh = true
         let k_moveToNotification = Notification.Name("moveToNotification") //이거이름재설정 필요
         NotificationCenter.default.post(name: k_moveToNotification, object: nil, userInfo: nil)
         //self.tabBarController?.selectedIndex = 0

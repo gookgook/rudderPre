@@ -18,8 +18,6 @@ class LoginViewController: UIViewController {
     
     @IBOutlet weak var signUpButton: UIButton!
     @IBOutlet weak var signInButton: UIButton!
-    
-    @IBOutlet weak var gradientButton: UIButton!
 
 }
 
@@ -30,7 +28,7 @@ extension LoginViewController {
         showNotice()
         setUpViews()
         setUpBinding()
-        gradientButton.applyGradient(colors: [UIColor.white.cgColor,UIColor.purple.cgColor])
+//        gradientButton.applyGradient(colors: [UIColor.white.cgColor,UIColor.purple.cgColor])
     }
     
     
@@ -62,7 +60,7 @@ extension LoginViewController {
             DispatchQueue.main.async { self.spinner.stopAnimating() }
             switch status {
             case nil : break
-            case 1 : DispatchQueue.main.async {self.performSegue(withIdentifier: "GoCommunity", sender: nil)}
+            case 1 : DispatchQueue.main.async {self.performSegue(withIdentifier: "GoPartyMain", sender: nil)}
             case 2 : DispatchQueue.main.async { Alert.showAlert(title: "Verify your account through your university email", message: nil, viewController: self) }
             case 3, 4 : DispatchQueue.main.async { Alert.showAlert(title: "Wrong", message: nil, viewController: self) }
             case 5 : DispatchQueue.main.async { Alert.showAlert(title: "One or more field is empty", message: nil, viewController: self) }
