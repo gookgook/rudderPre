@@ -44,5 +44,5 @@ protocol GoSomePageDelegate: AnyObject {
 }
 
 protocol DoApplyDelegate: AnyObject {
-    func doApply()
+    func doApply(numberOfApplicants: Int)
 }

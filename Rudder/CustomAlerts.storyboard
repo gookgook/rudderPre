@@ -90,10 +90,10 @@
             </objects>
             <point key="canvasLocation" x="57.971014492753625" y="135.9375"/>
         </scene>
-        <!--View Controller-->
+        <!--With Friends Alert View Controller-->
         <scene sceneID="pmY-xi-GCF">
             <objects>
-                <viewController storyboardIdentifier="tmpNew" id="iSV-UP-jLu" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="WithFriendsAlert" id="iSV-UP-jLu" customClass="WithFriendsAlertViewController" customModule="Rudder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="4si-HE-ZVz">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -134,7 +134,7 @@
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
-                                            <action selector="touchUpCloseButtonWith_sender:" destination="iSV-UP-jLu" eventType="touchUpInside" id="cBL-aK-ksM"/>
+                                            <action selector="touchUpApplyButton:" destination="iSV-UP-jLu" eventType="touchUpInside" id="OTB-yf-3Vk"/>
                                         </connections>
                                     </button>
                                     <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="XC8-u2-nn0">
@@ -174,6 +174,9 @@
                             <constraint firstItem="Ufc-0B-bfG" firstAttribute="centerY" secondItem="4si-HE-ZVz" secondAttribute="centerY" id="r5F-fe-kkP"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="numberField" destination="XC8-u2-nn0" id="71B-3g-UKf"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="oq8-zl-AKP" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

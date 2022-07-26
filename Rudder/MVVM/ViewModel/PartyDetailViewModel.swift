@@ -11,6 +11,7 @@ class PartyDetailViewModel {
     var partyDetail: PartyDetail!
     
     let getPartyDetailFlag: Observable<Int?> = Observable(nil)
+    let applyResultFlag: Observable<Int?> = Observable(nil)
 }
 
 extension PartyDetailViewModel {
@@ -22,6 +23,12 @@ extension PartyDetailViewModel {
             }
             self.partyDetail = partyDetail
             self.getPartyDetailFlag.value = 1
+        })
+    }
+    func requestApplyParty(numberApplicants: Int) {
+        RequestApplyParty.uploadInfo(partyId: partyDetail.partyId, numberApplicants: numberApplicants, completion: {
+            status in
+            self.applyResultFlag.value = status
         })
     }
 }

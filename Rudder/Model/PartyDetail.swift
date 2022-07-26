@@ -20,4 +20,5 @@ struct PartyDetail: Codable {
     let partyTitle: String
     let totalNumberOfMember: Int
     let universityName: String
+    let partyStatus: String
 }

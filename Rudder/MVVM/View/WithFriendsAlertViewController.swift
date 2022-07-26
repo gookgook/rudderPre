@@ -11,15 +11,14 @@ class WithFriendsAlertViewController: UIViewController {
     
     weak var delegate: DoApplyDelegate?
     
-    @IBOutlet weak var applyButton: UIButton!
     @IBOutlet weak var numberField: UITextField!
     
     override func viewDidLoad() {
         super.viewDidLoad()
     }
     
-    @IBAction func touchUpApplyButton(_sender: UIButton){
+    @IBAction func touchUpApplyButton(_ sender: UIButton){
+        delegate?.doApply(numberOfApplicants: Int(numberField.text!)!)
         dismiss(animated: false, completion: nil)
-        delegate?.doApply()
     }
 }
