@@ -56,7 +56,6 @@ extension MyApplicationsViewModel {
             self.getAppliedPreFlag.value = 1
         })
     }
-    
     func requestOTOChatRoom() {
         RequestPartyOTOChatRoom.uploadInfo(completion: {(chatRooms: [ChatRoom]?)
             in
