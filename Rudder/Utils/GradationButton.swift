@@ -24,6 +24,10 @@ extension UIButton {
         gradientLayer.shadowOpacity = 0.3
         gradientLayer.masksToBounds = false
 
+        if self.layer.sublayers?[0] is CAGradientLayer {
+            self.layer.sublayers?[0].removeFromSuperlayer()
+        }
+        
         self.layer.insertSublayer(gradientLayer, at: 0)
         self.contentVerticalAlignment = .center
         self.setTitleColor(UIColor.white, for: .normal)

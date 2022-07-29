@@ -7,23 +7,22 @@
 
 import UIKit
 import UserNotifications
-import FirebaseCore
+import Firebase
 import SquareInAppPaymentsSDK
 import SwiftStomp
 
 @main
-class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        
-        
+       
         // Override point for customization after application launch.
      
         //app 꺼질때 disconect 고고
         
         FirebaseApp.configure()
-        
+        Messaging.messaging().delegate = self
         
         ImageCache.imageCache.removeAllObjects()
         
@@ -85,8 +84,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
 
         // 콘솔에 토큰 값을 표시해 줍니다.
         UserDefaults.standard.set(deviceTokenString, forKey: "ApnToken")
+        //Messaging.messaging().apnsToken = deviceToken
         print("APNs device token: \(deviceTokenString)")
 
+    }
+    
+    func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
+            // 이 받은 값을 서버로 보내주어야함.
+            print("FCM Token: \(fcmToken)")
     }
     
     func application(_ application: UIApplication,

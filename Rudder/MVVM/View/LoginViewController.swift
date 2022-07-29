@@ -104,7 +104,7 @@ extension LoginViewController {
     @IBAction func touchUpSignUpButton(_ sender: UIButton){
         print("GoSignUp Touched")
         
-        DispatchQueue.main.async {self.performSegue(withIdentifier: "GoAgreement", sender: sender)}
+        DispatchQueue.main.async {self.performSegue(withIdentifier: "GoSignUp", sender: sender)}
     }
 }
 

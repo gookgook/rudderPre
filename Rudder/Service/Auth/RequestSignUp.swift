@@ -9,14 +9,14 @@ import Foundation
 
 struct RequestSignUp {
     //login
-    static func uploadInfo(userEmail: String, userPassword: String, userProfileBody: String, completion: @escaping (NicknameAndId?) -> Void) -> Void{
+    static func uploadInfo(promotionMailAgreement: Bool, userEmail: String, userPassword: String, userNickname: String ,userProfileBody: String, completion: @escaping (Int?) -> Void) -> Void{
         let url = URL(string: Utils.springUrlKey+"/user-infos")!
     
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
       
-        let signUpInfo = SignUpInfo(userEmail: userEmail, userPassword: userPassword, userProfileBody: userProfileBody)
+        let signUpInfo = SignUpInfo(promotionMailAgreement: promotionMailAgreement, userEmail: userEmail, userPassword: userPassword, userNickname: userNickname, userProfileBody: userProfileBody)
         
         guard let EncodedUploadData = try? JSONEncoder().encode(signUpInfo) else {
             return
@@ -44,8 +44,7 @@ struct RequestSignUp {
                         return
                     }
                     let decodedResponse: SignUpResponse = try decoder.decode(SignUpResponse.self, from: data)
-                    let nicknameAndId = NicknameAndId(userInfoId: decodedResponse.userInfoId, userNickname: decodedResponse.userNickname)
-                    completion(nicknameAndId)
+                    completion(decodedResponse.userInfoId)
                 } catch {
                     print("응답 디코딩 실패 회원가입시 닉네임이 받는부분")
                     print(error.localizedDescription)
@@ -67,12 +66,13 @@ struct RequestSignUp {
 
 extension RequestSignUp {
     struct SignUpInfo : Codable {
+        let promotionMailAgreement: Bool
         let userEmail: String
         let userPassword: String
+        let userNickname: String
         let userProfileBody: String
     }
     struct SignUpResponse : Codable {
-        let userNickname: String
         let userInfoId: Int
     }
 }

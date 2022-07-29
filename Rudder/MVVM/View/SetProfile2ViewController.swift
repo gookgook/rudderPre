@@ -7,16 +7,15 @@
 
 import UIKit
 
-class SetProfileViewController: UIViewController, UIImagePickerControllerDelegate & UINavigationControllerDelegate {
+class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
     var currentImagePicker: Int = 1
     
     
-    var viewModel: SignUpViewModel? // SignUpViewController 에서 넘겨줄거임
+    var viewModel: SignUpViewModel? // setProfile1Viewcontroller 에서 넘겨줄거임
     @IBOutlet weak var spView: UIView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var profileBody: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,7 +24,6 @@ class SetProfileViewController: UIViewController, UIImagePickerControllerDelegat
     }
     
     @IBAction func touchUpSignUpButton(_ sender: UIButton){
-        viewModel?.userProfileBody = profileBody.text
         viewModel?.requestSignUp()
     }
     
@@ -44,7 +42,7 @@ class SetProfileViewController: UIViewController, UIImagePickerControllerDelegat
     }
 }
 
-extension SetProfileViewController {
+extension SetProfile2ViewController {
     
     @IBAction func pickImage1(_ sender: UIButton){
         currentImagePicker = 0
@@ -73,7 +71,7 @@ extension SetProfileViewController {
 }
 
 
-extension SetProfileViewController {
+extension SetProfile2ViewController {
     
     func setImagePicker(){
         self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴

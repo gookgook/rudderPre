@@ -12,21 +12,13 @@ class AgreementViewController: UIViewController {
     
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
-    @IBOutlet weak var agreeButton: UIButton!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        agreeButton.isEnabled = false
-        agreeButton.backgroundColor = MyColor.superLightGray
-        
         setBar()
         webView.navigationDelegate = self
         
-        /*guard let url = URL(string: "https://sites.google.com/view/mateprivacyterms") else {
-            return
-        }*/
         guard let url = URL(string: "https://sites.google.com/view/mateprivacyterms") else {
             return
         }
@@ -40,9 +32,6 @@ class AgreementViewController: UIViewController {
         setBarStyle()
     }
     
-    @IBAction func touchUpAgreeButton(_ sender: UIButton){
-        self.performSegue(withIdentifier: "GoSignUp", sender: nil)
-    }
 }
 
 extension AgreementViewController: WKNavigationDelegate {
@@ -53,8 +42,6 @@ extension AgreementViewController: WKNavigationDelegate {
     }
     func webView(_ webView: WKWebView, didFinish navigation: WKNavigation!) {
         spinner.stopAnimating()
-        agreeButton.isEnabled = true
-        agreeButton.backgroundColor = MyColor.rudderPurple
         print("load finish")
     }
     func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
@@ -93,5 +80,6 @@ extension AgreementViewController {
     @objc func goBack(_ sender: UIBarButtonItem){
         print("go Back touched")
         self.navigationController?.popViewController(animated: true)
+        dismiss(animated: true, completion: nil)
     }
 }

@@ -11,9 +11,11 @@ import UIKit
 class SignUpViewModel {
     var userEmail: String!
     var userPassword: String!
+    var userNickname: String!
     var userProfileBody: String = ""
     
-    var receivedNickname: String!
+    var promotionMailAgreement: Bool!
+    
     var receivedId: Int!
     
     var profileImages: [UIImage] = []
@@ -39,11 +41,10 @@ extension SignUpViewModel {
         guard (profileImages.count >= ConstStrings.MINIMUM_PHOTO_COUNT && profileImages.count <= ConstStrings.MAXIMUM_PHOTO_COUNT) else { signUpResultFlag.value = 5; return }
         guard userProfileBody.count >= ConstStrings.MINIMUM_PROFILEBODY_COUNT else { signUpResultFlag.value = 4 ; return }
         
-        RequestSignUp.uploadInfo(userEmail: userEmail, userPassword: userPassword, userProfileBody: userProfileBody, completion: { [self]
-            nicknameAndId in
-            guard let nicknameAndId = nicknameAndId else { signUpResultFlag.value = -1; return } //문제있으니 끝냄
-            receivedNickname = nicknameAndId.userNickname
-            receivedId = nicknameAndId.userInfoId
+        RequestSignUp.uploadInfo(promotionMailAgreement: promotionMailAgreement, userEmail: userEmail, userPassword: userPassword, userNickname: userNickname, userProfileBody: userProfileBody, completion: { [self]
+            userInfoId in
+            guard let userInfoId = userInfoId else { signUpResultFlag.value = -1; return } //문제있으니 끝냄
+            receivedId = userInfoId
             
             RequestPpImageUrl.uploadInfo(userInfoId: receivedId, imageMetadatas: imageMetaDatas, completion: {
                 urls in

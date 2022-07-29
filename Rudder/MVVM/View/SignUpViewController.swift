@@ -30,12 +30,21 @@ class SignUpViewController: UIViewController {
         hideKeyboardWhenTappedAround()
         setUpBinding()
         setUIs()
+        
+        signUpButton.isEnabled = false
+        signUpButton.backgroundColor = MyColor.superLightGray
+        uniEmailField.addTarget(self, action: #selector(self.userIdFieldChanged), for: .editingChanged)
+        userPasswordField.addTarget(self, action: #selector(self.userPasswordFieldChanged), for: .editingChanged)
     }
     
     @IBAction func touchUpSignUpButton(_ sender: UIButton){
         viewModel.userEmail = uniEmailField.text
         viewModel.userPassword = userPasswordField.text
         viewModel.sendValidateRequest()
+    }
+
+    @IBAction func touchUpTermButton(_ sender: UIButton){
+        self.performSegue(withIdentifier: "ShowTerms", sender: nil)
     }
 }
 
@@ -51,7 +60,7 @@ extension SignUpViewController {
                 case "-1" : Alert.showAlert(title: "Server Error", message: nil, viewController: self)
                 default :
                     //이부분에 school name alert로 띄워주자?
-                    self.performSegue(withIdentifier: "GoSetProfile", sender: nil)
+                    self.performSegue(withIdentifier: "GoSetProfile1", sender: nil)
                 }
             }
         }
@@ -97,8 +106,8 @@ extension SignUpViewController {
         uniEmailField.delegate = self
         userPasswordField.delegate = self
         
-        uniEmailField.addTarget(self, action: #selector(self.userIdFieldChanged), for: .editingChanged)
-        userPasswordField.addTarget(self, action: #selector(self.userPasswordFieldChanged), for: .editingChanged)
+        uniEmailField.addLeftPadding(padding: 10)
+        userPasswordField.addLeftPadding(padding: 10)
     }
 }
 
@@ -120,6 +129,10 @@ extension SignUpViewController {
         }, completion: {(isCompleted) in
             toastLabel.removeFromSuperview()
         })
+    }
+    
+    @IBAction func didTapAutoLogin(_ sender: UIButton) {
+        sender.isSelected.toggle()
     }
 }
 
@@ -162,6 +175,7 @@ extension SignUpViewController {
         if isFinished.uniEmail && isFinished.password {
             signUpButton.isEnabled = true
             signUpButton.backgroundColor = MyColor.rudderPurple
+            signUpButton.applyGradient(colors: MyColor.gPurple)
         }
     }
     
@@ -173,8 +187,8 @@ extension SignUpViewController {
 
 extension SignUpViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let setProfileViewController: SetProfileViewController =
-            segue.destination as? SetProfileViewController else {
+        guard let setProfileViewController: SetProfile2ViewController =
+            segue.destination as? SetProfile2ViewController else {
             return
         }
         setProfileViewController.viewModel = viewModel
