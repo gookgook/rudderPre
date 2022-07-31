@@ -14,8 +14,14 @@ class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelega
     
     
     var viewModel: SignUpViewModel? // setProfile1Viewcontroller 에서 넘겨줄거임
-    @IBOutlet weak var spView: UIView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
+    @IBOutlet weak var imagePickView1: ButtonView!
+    @IBOutlet weak var imagePickView2: ButtonView!
+    @IBOutlet weak var imagePickView3: ButtonView!
+    @IBOutlet weak var imagePickView4: ButtonView!
+    @IBOutlet weak var imagePickView5: ButtonView!
+    @IBOutlet weak var imagePickView6: ButtonView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -44,29 +50,49 @@ class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelega
 
 extension SetProfile2ViewController {
     
-    @IBAction func pickImage1(_ sender: UIButton){
+    @objc func pickImage1(_ sender: ButtonView){
         currentImagePicker = 0
         self.present(self.imagePicker, animated: true)
     }
-    @IBAction func pickImage2(_ sender: UIButton){
+    @objc func pickImage2(_ sender: UIButton){
         currentImagePicker = 1
         self.present(self.imagePicker, animated: true)
     }
-    @IBAction func pickImage3(_ sender: UIButton){
+    @objc func pickImage3(_ sender: UIButton){
         currentImagePicker = 2
         self.present(self.imagePicker, animated: true)
     }
-    @IBAction func pickImage4(_ sender: UIButton){
+    @objc func pickImage4(_ sender: UIButton){
         currentImagePicker = 3
         self.present(self.imagePicker, animated: true)
     }
-    @IBAction func pickImage5(_ sender: UIButton){
+    @objc func pickImage5(_ sender: UIButton){
         currentImagePicker = 4
         self.present(self.imagePicker, animated: true)
     }
-    @IBAction func pickImage6(_ sender: UIButton){
+    @objc func pickImage6(_ sender: UIButton){
         currentImagePicker = 5
         self.present(self.imagePicker, animated: true)
+    }
+    
+    func setImageToView(image: UIImage){
+        let imageView = UIImageView(image: image)
+        
+        //imageView.frame = CGRect(x: spView.frame.origin.x, y: spView.frame.origin.y + spView.frame.height + 60, width: 120, height: 120)
+
+        //spView.addSubview(imageView)
+       // imagePickView1.contentMode = .scaleAspectFit
+        imagePickView1.addSubview(imageView)
+       // imageView.frame = imagePickView1.frame
+        /*switch currentImagePicker{
+        case 1:
+            
+        case 2:
+        case 3:
+        case 4:
+        case 5:
+        default:
+        }*/
     }
 }
 
@@ -74,6 +100,15 @@ extension SetProfile2ViewController {
 extension SetProfile2ViewController {
     
     func setImagePicker(){
+        
+        imagePickView1.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickImage1(_:))))
+        imagePickView2.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickImage2(_:))))
+        imagePickView3.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickImage3(_:))))
+        imagePickView4.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickImage4(_:))))
+        imagePickView5.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickImage5(_:))))
+        imagePickView6.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickImage6(_:))))
+        
+        
         self.imagePicker.sourceType = .photoLibrary // 앨범에서 가져옴
             self.imagePicker.allowsEditing = true // 수정 가능 여부
             self.imagePicker.delegate = self // picker delegate
@@ -113,15 +148,9 @@ extension SetProfile2ViewController {
             //self.profileImageView.image = newImage // 받아온 이미지를 update
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
     
-
-        let imageView = UIImageView(image: newImage!)
-        imageView.frame = CGRect(x: spView.frame.origin.x, y: spView.frame.origin.y + spView.frame.height + 60, width: 120, height: 120)
-
-        spView.addSubview(imageView)
+        setImageToView(image: newImage!)
         viewModel.profileImages.append(newImage!)
         
-        
-        print(imageString!)
         print("photo count ",String(viewModel.profileImages.count))
         
         }

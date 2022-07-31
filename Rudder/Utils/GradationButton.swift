@@ -34,4 +34,10 @@ extension UIButton {
         self.titleLabel?.font = UIFont.boldSystemFont(ofSize: 17.0)
         self.titleLabel?.textColor = UIColor.white
     }
+    
+    func removeGradient() {
+        if self.layer.sublayers?[0] is CAGradientLayer {
+            self.layer.sublayers?[0].removeFromSuperlayer()
+        }
+    }
 }

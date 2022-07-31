@@ -80,6 +80,6 @@ extension AgreementViewController {
     @objc func goBack(_ sender: UIBarButtonItem){
         print("go Back touched")
         self.navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+        //dismiss(animated: true, completion: nil)
     }
 }

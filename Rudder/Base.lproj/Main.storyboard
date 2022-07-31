@@ -640,11 +640,11 @@
             <objects>
                 <viewController id="Va0-nm-W21" customClass="AgreementViewController" customModule="Rudder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="oiP-Tx-oJV">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <wkWebView contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="rQy-0i-lkE">
-                                <rect key="frame" x="0.0" y="44" width="414" height="798"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                 <wkWebViewConfiguration key="configuration">
                                     <audiovisualMediaTypes key="mediaTypesRequiringUserActionForPlayback" none="YES"/>
@@ -652,9 +652,15 @@
                                 </wkWebViewConfiguration>
                             </wkWebView>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="ej8-YO-EFl">
-                                <rect key="frame" x="197" y="411" width="20" height="20"/>
+                                <rect key="frame" x="197" y="438" width="20" height="20"/>
                                 <color key="color" red="0.57647058819999997" green="0.16078431369999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
                             </activityIndicatorView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="y66-k6-F0x">
+                                <rect key="frame" x="349" y="66" width="24" height="14"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" title=""/>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="wPf-ie-szz"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -675,7 +681,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="boB-aL-x0i" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-1355" y="1639"/>
+            <point key="canvasLocation" x="-1355.072463768116" y="1638.6160714285713"/>
         </scene>
         <!--My Page View Controller-->
         <scene sceneID="DJI-BZ-KOO">
@@ -1123,7 +1129,7 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="7"/>
+                                        <integer key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
@@ -1183,6 +1189,7 @@
                                 <state key="selected" image="checkmark.square.fill" catalog="system"/>
                                 <connections>
                                     <action selector="didTapAutoLogin:" destination="RXZ-hh-etL" eventType="touchUpInside" id="vi9-2G-ZMq"/>
+                                    <action selector="touchUpAgreeButton:" destination="RXZ-hh-etL" eventType="touchUpInside" id="xud-6J-Zui"/>
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="agree our" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="zzj-lU-3sJ">
@@ -1256,7 +1263,7 @@
                         <outlet property="uniEmailField" destination="TEY-UA-cA3" id="oQS-c9-n2J"/>
                         <outlet property="userPasswordField" destination="diZ-GA-3NY" id="Vns-wj-tFt"/>
                         <segue destination="KLd-YW-CR8" kind="show" identifier="GoSetProfile1" id="P9o-57-ss0"/>
-                        <segue destination="Va0-nm-W21" kind="presentation" identifier="ShowTerms" id="vbC-cu-nCB"/>
+                        <segue destination="Va0-nm-W21" kind="show" identifier="ShowTerms" id="vbC-cu-nCB"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Xps-69-iOf" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -1271,54 +1278,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="8Zv-h8-8vc">
-                                <rect key="frame" x="86" y="167" width="33" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="+"/>
-                                <connections>
-                                    <action selector="pickImage1:" destination="Yjv-Hh-4n8" eventType="touchUpInside" id="6Et-j4-2dF"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="yxV-Mp-HKD">
-                                <rect key="frame" x="281" y="293" width="33" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="+"/>
-                                <connections>
-                                    <action selector="pickImage4:" destination="Yjv-Hh-4n8" eventType="touchUpInside" id="23H-qY-cfd"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="4VH-9I-TB3">
-                                <rect key="frame" x="281" y="167" width="33" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="+"/>
-                                <connections>
-                                    <action selector="pickImage2:" destination="Yjv-Hh-4n8" eventType="touchUpInside" id="yrl-ra-OsR"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="jZ6-ga-T5S">
-                                <rect key="frame" x="86" y="293" width="33" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="+"/>
-                                <connections>
-                                    <action selector="pickImage3:" destination="Yjv-Hh-4n8" eventType="touchUpInside" id="kc4-rU-gt3"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="OQi-aS-zZQ">
-                                <rect key="frame" x="86" y="433" width="33" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="+"/>
-                                <connections>
-                                    <action selector="pickImage5:" destination="Yjv-Hh-4n8" eventType="touchUpInside" id="u0y-N8-fJc"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gqZ-0b-Mtb">
-                                <rect key="frame" x="281" y="433" width="33" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="+"/>
-                                <connections>
-                                    <action selector="pickImage6:" destination="Yjv-Hh-4n8" eventType="touchUpInside" id="Y9W-ys-wFv"/>
-                                </connections>
-                            </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ld-Pc-Vii">
                                 <rect key="frame" x="30" y="797" width="354" height="43"/>
                                 <color key="backgroundColor" red="0.57647058819999997" green="0.16078431369999999" blue="0.81960784310000001" alpha="1" colorSpace="calibratedRGB"/>
@@ -1339,35 +1298,195 @@
                                     <action selector="touchUpSignUpButton:" destination="RXZ-hh-etL" eventType="touchUpInside" id="iIi-Ej-WSk"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Profile" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pJd-2l-vpT">
+                                <rect key="frame" x="28" y="118" width="88" height="36"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="30"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Bn9-ZC-7BG" customClass="ButtonView" customModule="Rudder" customModuleProvider="target">
+                                <rect key="frame" x="28" y="189" width="107.5" height="132"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Mt4-6e-E2b">
+                                        <rect key="frame" x="44.5" y="58" width="18" height="16"/>
+                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.86274509799999999" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="Bn9-ZC-7BG" secondAttribute="height" multiplier="108:133" id="851-P2-5x9"/>
+                                    <constraint firstItem="Mt4-6e-E2b" firstAttribute="centerY" secondItem="Bn9-ZC-7BG" secondAttribute="centerY" id="SwZ-Xt-eUe"/>
+                                    <constraint firstItem="Mt4-6e-E2b" firstAttribute="centerX" secondItem="Bn9-ZC-7BG" secondAttribute="centerX" id="l3T-TO-m4l"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kZn-FI-GAR" customClass="ButtonView" customModule="Rudder" customModuleProvider="target">
+                                <rect key="frame" x="278.5" y="189" width="107.5" height="132"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AgI-sd-cW7">
+                                        <rect key="frame" x="45" y="58" width="18" height="16"/>
+                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstItem="AgI-sd-cW7" firstAttribute="centerY" secondItem="kZn-FI-GAR" secondAttribute="centerY" id="IOy-1S-4jp"/>
+                                    <constraint firstItem="AgI-sd-cW7" firstAttribute="centerX" secondItem="kZn-FI-GAR" secondAttribute="centerX" id="xgN-gp-r5P"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uSO-fI-OkT" customClass="ButtonView" customModule="Rudder" customModuleProvider="target">
+                                <rect key="frame" x="153.5" y="189" width="107" height="132"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="uvK-tr-zZM">
+                                        <rect key="frame" x="44.5" y="58" width="18" height="16"/>
+                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" red="0.96862745100000003" green="0.86274509799999999" blue="0.95294117649999999" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <constraints>
+                                    <constraint firstItem="uvK-tr-zZM" firstAttribute="centerX" secondItem="uSO-fI-OkT" secondAttribute="centerX" id="h8U-t6-VfO"/>
+                                    <constraint firstItem="uvK-tr-zZM" firstAttribute="centerY" secondItem="uSO-fI-OkT" secondAttribute="centerY" id="zVW-8k-fum"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oqN-d2-4cY" customClass="ButtonView" customModule="Rudder" customModuleProvider="target">
+                                <rect key="frame" x="28" y="339" width="107.5" height="132.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Cfl-Ri-YeY">
+                                        <rect key="frame" x="44.5" y="58.5" width="18" height="16"/>
+                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstItem="Cfl-Ri-YeY" firstAttribute="centerY" secondItem="oqN-d2-4cY" secondAttribute="centerY" id="6Vd-zO-ceD"/>
+                                    <constraint firstAttribute="width" secondItem="oqN-d2-4cY" secondAttribute="height" multiplier="108:133" id="EO0-hA-BKh"/>
+                                    <constraint firstItem="Cfl-Ri-YeY" firstAttribute="centerX" secondItem="oqN-d2-4cY" secondAttribute="centerX" id="Qxh-9i-KZt"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lxi-bg-Fez" customClass="ButtonView" customModule="Rudder" customModuleProvider="target">
+                                <rect key="frame" x="153.5" y="339" width="107" height="132.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7w6-hO-WZi">
+                                        <rect key="frame" x="44.5" y="58.5" width="18" height="16"/>
+                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="lxi-bg-Fez" secondAttribute="height" multiplier="108:133" id="0aK-u5-cVG"/>
+                                    <constraint firstItem="7w6-hO-WZi" firstAttribute="centerY" secondItem="lxi-bg-Fez" secondAttribute="centerY" id="9aO-tR-ZfG"/>
+                                    <constraint firstItem="7w6-hO-WZi" firstAttribute="centerX" secondItem="lxi-bg-Fez" secondAttribute="centerX" id="dXs-hr-SVG"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="L0j-rs-m0v" customClass="ButtonView" customModule="Rudder" customModuleProvider="target">
+                                <rect key="frame" x="278.5" y="339" width="107.5" height="132.5"/>
+                                <subviews>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plus" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="7OT-fC-OJv">
+                                        <rect key="frame" x="45" y="58.5" width="18" height="16"/>
+                                        <color key="tintColor" systemColor="systemGrayColor"/>
+                                    </imageView>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemGray5Color"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="L0j-rs-m0v" secondAttribute="height" multiplier="108:133" id="Cdu-rv-ewe"/>
+                                    <constraint firstItem="7OT-fC-OJv" firstAttribute="centerX" secondItem="L0j-rs-m0v" secondAttribute="centerX" id="aoc-D6-sXN"/>
+                                    <constraint firstItem="7OT-fC-OJv" firstAttribute="centerY" secondItem="L0j-rs-m0v" secondAttribute="centerY" id="eSx-Eq-scD"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="7"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Minimum 2 photos are needed" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ntc-zt-dco">
+                                <rect key="frame" x="121" y="487.5" width="172" height="15"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                <color key="textColor" systemColor="systemGrayColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="h8D-Vi-aUd"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="gqZ-0b-Mtb" firstAttribute="top" secondItem="yxV-Mp-HKD" secondAttribute="bottom" constant="109" id="0VM-Do-7Dg"/>
-                            <constraint firstItem="jZ6-ga-T5S" firstAttribute="leading" secondItem="h8D-Vi-aUd" secondAttribute="leading" constant="86" id="1NS-Ww-gPk"/>
-                            <constraint firstItem="4VH-9I-TB3" firstAttribute="top" secondItem="h8D-Vi-aUd" secondAttribute="top" constant="79" id="4nB-Uo-448"/>
-                            <constraint firstItem="8Zv-h8-8vc" firstAttribute="top" secondItem="h8D-Vi-aUd" secondAttribute="top" constant="79" id="9UT-qq-nNI"/>
-                            <constraint firstItem="yxV-Mp-HKD" firstAttribute="leading" secondItem="jZ6-ga-T5S" secondAttribute="trailing" constant="162" id="9Z5-Dc-IJT"/>
+                            <constraint firstItem="uSO-fI-OkT" firstAttribute="width" secondItem="Bn9-ZC-7BG" secondAttribute="width" id="3X5-Tf-8fi"/>
+                            <constraint firstItem="kZn-FI-GAR" firstAttribute="top" secondItem="Bn9-ZC-7BG" secondAttribute="top" id="5lg-if-7om"/>
+                            <constraint firstItem="ntc-zt-dco" firstAttribute="top" secondItem="oqN-d2-4cY" secondAttribute="bottom" constant="16" id="7nE-qF-eYo"/>
+                            <constraint firstItem="kZn-FI-GAR" firstAttribute="width" secondItem="Bn9-ZC-7BG" secondAttribute="width" id="AUg-jV-swB"/>
+                            <constraint firstItem="oqN-d2-4cY" firstAttribute="leading" secondItem="h8D-Vi-aUd" secondAttribute="leading" constant="28" id="CdA-rI-PUp"/>
                             <constraint firstItem="h8D-Vi-aUd" firstAttribute="trailing" secondItem="2Ld-Pc-Vii" secondAttribute="trailing" constant="30" id="DhA-V0-ooU"/>
+                            <constraint firstItem="Bn9-ZC-7BG" firstAttribute="top" secondItem="pJd-2l-vpT" secondAttribute="bottom" constant="35" id="ERr-L3-m8e"/>
+                            <constraint firstItem="uSO-fI-OkT" firstAttribute="leading" secondItem="Bn9-ZC-7BG" secondAttribute="trailing" constant="18" id="EbL-XV-fkk"/>
+                            <constraint firstItem="kZn-FI-GAR" firstAttribute="leading" secondItem="uSO-fI-OkT" secondAttribute="trailing" constant="18" id="EmY-qC-gbL"/>
                             <constraint firstItem="h8D-Vi-aUd" firstAttribute="bottom" secondItem="2Ld-Pc-Vii" secondAttribute="bottom" constant="22" id="Ft9-hc-xCk"/>
-                            <constraint firstItem="8Zv-h8-8vc" firstAttribute="leading" secondItem="h8D-Vi-aUd" secondAttribute="leading" constant="86" id="QfJ-gB-L7E"/>
-                            <constraint firstItem="OQi-aS-zZQ" firstAttribute="top" secondItem="jZ6-ga-T5S" secondAttribute="bottom" constant="109" id="RII-BO-2L1"/>
-                            <constraint firstItem="jZ6-ga-T5S" firstAttribute="top" secondItem="8Zv-h8-8vc" secondAttribute="bottom" constant="95" id="RbP-Vh-WIE"/>
-                            <constraint firstItem="yxV-Mp-HKD" firstAttribute="top" secondItem="4VH-9I-TB3" secondAttribute="bottom" constant="95" id="Tio-ba-v2h"/>
-                            <constraint firstItem="OQi-aS-zZQ" firstAttribute="leading" secondItem="h8D-Vi-aUd" secondAttribute="leading" constant="86" id="WNG-Bc-wnu"/>
+                            <constraint firstItem="lxi-bg-Fez" firstAttribute="width" secondItem="oqN-d2-4cY" secondAttribute="width" id="Ged-9T-ohX"/>
+                            <constraint firstItem="uSO-fI-OkT" firstAttribute="bottom" secondItem="Bn9-ZC-7BG" secondAttribute="bottom" id="IIC-fw-B9C"/>
+                            <constraint firstItem="pJd-2l-vpT" firstAttribute="leading" secondItem="h8D-Vi-aUd" secondAttribute="leading" constant="28" id="KKs-RK-kPD"/>
+                            <constraint firstItem="L0j-rs-m0v" firstAttribute="leading" secondItem="lxi-bg-Fez" secondAttribute="trailing" constant="18" id="LTR-Gw-519"/>
+                            <constraint firstItem="oqN-d2-4cY" firstAttribute="top" secondItem="Bn9-ZC-7BG" secondAttribute="bottom" constant="18" id="OAJ-3l-nv5"/>
+                            <constraint firstItem="ntc-zt-dco" firstAttribute="centerX" secondItem="YSB-Jm-Zw2" secondAttribute="centerX" id="PpV-6w-Igo"/>
+                            <constraint firstItem="L0j-rs-m0v" firstAttribute="width" secondItem="L0j-rs-m0v" secondAttribute="height" multiplier="108:133" id="Svh-dR-rnr"/>
+                            <constraint firstItem="L0j-rs-m0v" firstAttribute="width" secondItem="L0j-rs-m0v" secondAttribute="height" multiplier="108:133" id="YNv-4o-PK6"/>
+                            <constraint firstItem="h8D-Vi-aUd" firstAttribute="trailing" secondItem="L0j-rs-m0v" secondAttribute="trailing" constant="28" id="ZLw-Z9-bn2"/>
+                            <constraint firstItem="kZn-FI-GAR" firstAttribute="bottom" secondItem="Bn9-ZC-7BG" secondAttribute="bottom" id="bEv-k9-r1h"/>
+                            <constraint firstItem="L0j-rs-m0v" firstAttribute="bottom" secondItem="oqN-d2-4cY" secondAttribute="bottom" id="dCb-Sx-otb"/>
+                            <constraint firstItem="oqN-d2-4cY" firstAttribute="width" secondItem="oqN-d2-4cY" secondAttribute="height" multiplier="108:133" id="e45-je-zeg"/>
+                            <constraint firstItem="L0j-rs-m0v" firstAttribute="top" secondItem="oqN-d2-4cY" secondAttribute="top" id="fhs-an-FhV"/>
                             <constraint firstItem="2Ld-Pc-Vii" firstAttribute="leading" secondItem="h8D-Vi-aUd" secondAttribute="leading" constant="30" id="glr-dR-EkL"/>
-                            <constraint firstItem="4VH-9I-TB3" firstAttribute="leading" secondItem="8Zv-h8-8vc" secondAttribute="trailing" constant="162" id="iER-vE-g5Q"/>
-                            <constraint firstItem="gqZ-0b-Mtb" firstAttribute="leading" secondItem="OQi-aS-zZQ" secondAttribute="trailing" constant="162" id="pAb-Ao-KyA"/>
+                            <constraint firstItem="lxi-bg-Fez" firstAttribute="leading" secondItem="oqN-d2-4cY" secondAttribute="trailing" constant="18" id="haB-8c-6Lc"/>
+                            <constraint firstItem="pJd-2l-vpT" firstAttribute="top" secondItem="h8D-Vi-aUd" secondAttribute="top" constant="30" id="j98-DS-wqR"/>
+                            <constraint firstItem="lxi-bg-Fez" firstAttribute="top" secondItem="oqN-d2-4cY" secondAttribute="top" id="k2Z-4z-vbj"/>
+                            <constraint firstItem="lxi-bg-Fez" firstAttribute="width" secondItem="lxi-bg-Fez" secondAttribute="height" multiplier="108:133" id="nZw-Mb-8NZ"/>
+                            <constraint firstItem="Bn9-ZC-7BG" firstAttribute="leading" secondItem="h8D-Vi-aUd" secondAttribute="leading" constant="28" id="oQz-fC-Pge"/>
+                            <constraint firstItem="uSO-fI-OkT" firstAttribute="top" secondItem="Bn9-ZC-7BG" secondAttribute="top" id="p1h-U9-bLL"/>
+                            <constraint firstItem="L0j-rs-m0v" firstAttribute="width" secondItem="oqN-d2-4cY" secondAttribute="width" id="sJe-Nb-8xG"/>
+                            <constraint firstItem="lxi-bg-Fez" firstAttribute="width" secondItem="lxi-bg-Fez" secondAttribute="height" multiplier="108:133" id="tJV-xt-wwP"/>
+                            <constraint firstItem="h8D-Vi-aUd" firstAttribute="trailing" secondItem="kZn-FI-GAR" secondAttribute="trailing" constant="28" id="yzz-w2-uFn"/>
+                            <constraint firstItem="lxi-bg-Fez" firstAttribute="bottom" secondItem="oqN-d2-4cY" secondAttribute="bottom" id="zbF-FE-zAg"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Oz6-dz-f7M"/>
                     <connections>
-                        <outlet property="spView" destination="YSB-Jm-Zw2" id="6vc-OH-Iyi"/>
+                        <outlet property="imagePickView1" destination="Bn9-ZC-7BG" id="BiK-E5-klO"/>
+                        <outlet property="imagePickView2" destination="uSO-fI-OkT" id="h9s-1x-4dx"/>
+                        <outlet property="imagePickView3" destination="kZn-FI-GAR" id="G6Q-Bz-9lM"/>
+                        <outlet property="imagePickView4" destination="oqN-d2-4cY" id="SqT-nC-CaP"/>
+                        <outlet property="imagePickView5" destination="lxi-bg-Fez" id="0f3-UQ-gjM"/>
+                        <outlet property="imagePickView6" destination="L0j-rs-m0v" id="ypz-bc-naN"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2jd-6M-Udx" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="390" y="956"/>
+            <point key="canvasLocation" x="389.85507246376812" y="955.58035714285711"/>
         </scene>
         <!--View Controller-->
         <scene sceneID="hl3-bF-mjH">
@@ -1746,10 +1865,10 @@
             </objects>
             <point key="canvasLocation" x="1108.6956521739132" y="983.70535714285711"/>
         </scene>
-        <!--View Controller-->
+        <!--Set Profile1 View Controller-->
         <scene sceneID="uNC-8l-ZJ9">
             <objects>
-                <viewController id="KLd-YW-CR8" sceneMemberID="viewController">
+                <viewController id="KLd-YW-CR8" customClass="SetProfile1ViewController" customModule="Rudder" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="VOA-d5-PxP">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1822,11 +1941,12 @@
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="7"/>
+                                        <integer key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="touchUpSignUpButton:" destination="RXZ-hh-etL" eventType="touchUpInside" id="1D4-uL-pv1"/>
+                                    <action selector="touchUpSignUpButton:" destination="KLd-YW-CR8" eventType="touchUpInside" id="lbS-ny-F2t"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -1854,6 +1974,8 @@
                     </view>
                     <navigationItem key="navigationItem" id="6HK-Aa-j1p"/>
                     <connections>
+                        <outlet property="nickNameField" destination="rBi-Na-bc0" id="Z0Z-TA-opn"/>
+                        <outlet property="profileBody" destination="CwK-Cj-jyS" id="PNG-79-4eE"/>
                         <segue destination="Yjv-Hh-4n8" kind="show" identifier="GoSetProfile2" id="PLt-Ow-jFz"/>
                     </connections>
                 </viewController>
@@ -2520,6 +2642,7 @@
         <image name="note.text" catalog="system" width="128" height="106"/>
         <image name="person.crop.circle" catalog="system" width="128" height="121"/>
         <image name="person.fill.questionmark" catalog="system" width="128" height="104"/>
+        <image name="plus" catalog="system" width="128" height="113"/>
         <image name="questionmark.circle.fill" catalog="system" width="128" height="121"/>
         <image name="rectangle.grid.2x2.fill" catalog="system" width="128" height="99"/>
         <image name="shortLine" width="87" height="1"/>
@@ -2535,6 +2658,9 @@
         </systemColor>
         <systemColor name="systemGray4Color">
             <color red="0.81960784313725488" green="0.81960784313725488" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+        <systemColor name="systemGray5Color">
+            <color red="0.89803921568627454" green="0.89803921568627454" blue="0.91764705882352937" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
         <systemColor name="systemGrayColor">
             <color red="0.55686274509803924" green="0.55686274509803924" blue="0.57647058823529407" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>

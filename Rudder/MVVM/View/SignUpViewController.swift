@@ -23,7 +23,17 @@ class SignUpViewController: UIViewController {
     @IBOutlet weak var IdImage: UIImageView!
     
     @IBOutlet weak var signUpButton: UIButton!
-    var isFinished = IsFinished(uniEmail: false, password: false)
+    var isFinished = IsFinished(uniEmail: false, password: false, terms: false)
+    
+    struct IsFinished {
+        var uniEmail: Bool
+        var password: Bool
+        var terms: Bool
+    }
+    
+}
+
+extension SignUpViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,6 +55,11 @@ class SignUpViewController: UIViewController {
 
     @IBAction func touchUpTermButton(_ sender: UIButton){
         self.performSegue(withIdentifier: "ShowTerms", sender: nil)
+    }
+    
+    @IBAction func touchUpAgreeButton(_ sender: UIButton){
+        isFinished.terms = !isFinished.terms
+        somethingChanged()
     }
 }
 
@@ -172,26 +187,22 @@ extension SignUpViewController {
     private func somethingChanged(){
         signUpButton.isEnabled = false
         signUpButton.backgroundColor = MyColor.superLightGray
-        if isFinished.uniEmail && isFinished.password {
+        signUpButton.removeGradient()
+        if isFinished.uniEmail && isFinished.password && isFinished.terms{
             signUpButton.isEnabled = true
-            signUpButton.backgroundColor = MyColor.rudderPurple
             signUpButton.applyGradient(colors: MyColor.gPurple)
         }
     }
-    
-    struct IsFinished {
-        var uniEmail: Bool
-        var password: Bool
-    }
+
 }
 
 extension SignUpViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let setProfileViewController: SetProfile2ViewController =
-            segue.destination as? SetProfile2ViewController else {
+        guard let setProfile1ViewController: SetProfile1ViewController =
+            segue.destination as? SetProfile1ViewController else {
             return
         }
-        setProfileViewController.viewModel = viewModel
+        setProfile1ViewController.viewModel = viewModel
     }
 }
 

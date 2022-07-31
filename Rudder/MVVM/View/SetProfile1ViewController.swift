@@ -30,4 +30,14 @@ extension SetProfile1ViewController {
         self.performSegue(withIdentifier: "GoSetProfile2", sender: sender)
     }
 }
+
+extension SetProfile1ViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let setProfile2ViewController: SetProfile2ViewController =
+            segue.destination as? SetProfile2ViewController else {
+            return
+        }
+        setProfile2ViewController.viewModel = viewModel
+    }
+}
     
