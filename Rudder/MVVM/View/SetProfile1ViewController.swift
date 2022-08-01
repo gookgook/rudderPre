@@ -14,8 +14,11 @@ class SetProfile1ViewController: UIViewController {
     @IBOutlet weak var nickNameField: UITextField!
     @IBOutlet weak var profileBody: UITextView!
     
+    @IBOutlet weak var signUpButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUIs()
     }
 }
 
@@ -41,3 +44,10 @@ extension SetProfile1ViewController {
     }
 }
     
+extension SetProfile1ViewController {
+    func setUIs(){
+        nickNameField.addLeftPadding(padding: 10)
+        profileBody.textContainer.lineFragmentPadding = 10
+        signUpButton.applyGradient(colors: MyColor.gPurple)
+    }
+}

@@ -23,6 +23,7 @@ class SignUpViewModel {
     
     var nextButtonResultFlag: Observable<String?> = Observable(nil) //School name을 보내줄 수도 있어서 기형적으로 string으로 했음. flag인데 name까지 넘겨준다는게 좀 이상함
     var signUpResultFlag: Observable<Int?> = Observable(nil)
+    
 }
 
 extension SignUpViewModel {

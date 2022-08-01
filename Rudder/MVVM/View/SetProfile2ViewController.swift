@@ -10,7 +10,7 @@ import UIKit
 class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     let imagePicker = UIImagePickerController()
-    var currentImagePicker: Int = 1
+    var currentImagePicker: Int = 0
     
     
     var viewModel: SignUpViewModel? // setProfile1Viewcontroller 에서 넘겨줄거임
@@ -23,10 +23,15 @@ class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelega
     @IBOutlet weak var imagePickView5: ButtonView!
     @IBOutlet weak var imagePickView6: ButtonView!
     
+    @IBOutlet weak var signUpButton: UIButton!
+    
+    var availablePicker = 0
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setImagePicker()
         setUpBinding()
+        setUIs()
     }
     
     @IBAction func touchUpSignUpButton(_ sender: UIButton){
@@ -52,47 +57,49 @@ extension SetProfile2ViewController {
     
     @objc func pickImage1(_ sender: ButtonView){
         currentImagePicker = 0
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
-    @objc func pickImage2(_ sender: UIButton){
+    @objc func pickImage2(_ sender: ButtonView){
         currentImagePicker = 1
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
-    @objc func pickImage3(_ sender: UIButton){
+    @objc func pickImage3(_ sender: ButtonView){
         currentImagePicker = 2
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
-    @objc func pickImage4(_ sender: UIButton){
+    @objc func pickImage4(_ sender: ButtonView){
         currentImagePicker = 3
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
-    @objc func pickImage5(_ sender: UIButton){
+    @objc func pickImage5(_ sender: ButtonView){
         currentImagePicker = 4
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
-    @objc func pickImage6(_ sender: UIButton){
+    @objc func pickImage6(_ sender: ButtonView){
         currentImagePicker = 5
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
     
     func setImageToView(image: UIImage){
         let imageView = UIImageView(image: image)
         
-        //imageView.frame = CGRect(x: spView.frame.origin.x, y: spView.frame.origin.y + spView.frame.height + 60, width: 120, height: 120)
+        switch currentImagePicker{
+        case 0: imageView.frame = imagePickView1.frame
+        case 1: imageView.frame = imagePickView2.frame
+        case 2: imageView.frame = imagePickView3.frame
+        case 3: imageView.frame = imagePickView4.frame
+        case 4: imageView.frame = imagePickView5.frame
+        case 5: imageView.frame = imagePickView6.frame
+        default: return
+        }
+        self.view.addSubview(imageView)
 
-        //spView.addSubview(imageView)
-       // imagePickView1.contentMode = .scaleAspectFit
-        imagePickView1.addSubview(imageView)
-       // imageView.frame = imagePickView1.frame
-        /*switch currentImagePicker{
-        case 1:
-            
-        case 2:
-        case 3:
-        case 4:
-        case 5:
-        default:
-        }*/
     }
 }
 
@@ -144,14 +151,23 @@ extension SetProfile2ViewController {
             return
         }
         
+        setImageToView(image: newImage!)
         viewModel.imageMetaDatas.append(imageMetadata)
+        viewModel.profileImages.append(newImage!)
             //self.profileImageView.image = newImage // 받아온 이미지를 update
+        availablePicker = currentImagePicker + 1
         picker.dismiss(animated: true, completion: nil) // picker를 닫아줌
     
-        setImageToView(image: newImage!)
-        viewModel.profileImages.append(newImage!)
+        
         
         print("photo count ",String(viewModel.profileImages.count))
         
         }
+}
+
+
+extension SetProfile2ViewController {
+    func setUIs(){
+        signUpButton.applyGradient(colors: MyColor.gPurple)
+    }
 }
