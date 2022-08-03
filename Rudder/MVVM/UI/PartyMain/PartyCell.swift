@@ -26,7 +26,7 @@ extension PartyCell {
     func configure(party: Party, tableView: UITableView, indexPath: IndexPath) {
         RequestImage.downloadImage(from: URL(string: party.partyThumbnailUrl)!, imageView: partyThumbnailView)
         universityNameLabel.text = party.universityName
-        dateLabel.text = party.partyTime
+        dateLabel.text = Utils.stringDate(date: party.partyTime) 
         partyTitleView.text = party.partyTitle
         memberNumberLabel.text = String(party.currentNumberOfMember) + " / "+String(party.totalNumberOfMember)
         beerTypeLabel.text = "Rudder Beer"

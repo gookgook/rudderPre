@@ -1,16 +1,15 @@
 //
-//  RequestParties.swift
+//  RequestOldChat.swift
 //  Rudder
 //
-//  Created by 박민호 on 2022/07/07.
+//  Created by 박민호 on 2022/08/03.
 //
 
 import Foundation
 
-struct RequestParties {
-    //login
-    static func uploadInfo( endPartyId:Int, completion: @escaping ([Party]?) -> Void) -> Void{ //학교 이름을 넘겨줄 수도 있어서
-        var url = URLComponents(string: (Utils.springUrlKey + "/parties"))!
+struct RequestOldChat {
+    static func uploadInfo( chatRoomId:Int, endChatMessageId:Int, completion: @escaping ([Chat]?) -> Void) -> Void{ //학교 이름을 넘겨줄 수도 있어서
+        var url = URLComponents(string: (Utils.springUrlKey + "/chat-messages/" + String(chatRoomId)))!
         
         guard let token = UserDefaults.standard.string(forKey: "token") else {
             print("token failure")
@@ -18,7 +17,7 @@ struct RequestParties {
         }
 
         
-        if endPartyId != -1 { url.queryItems = [ URLQueryItem(name: "endPartyId", value: String(endPartyId)) ] }
+        if endChatMessageId != -1 { url.queryItems = [ URLQueryItem(name: "endChatMessageId", value: String(endChatMessageId)) ] }
         
         var request = URLRequest(url: url.url!)
         request.httpMethod = "GET"
@@ -41,16 +40,16 @@ struct RequestParties {
                         completion(nil)
                         return
                     }
-                    let decodedResponse: PartyResponse = try decoder.decode(PartyResponse.self, from: data)
-                    completion(decodedResponse.parties)
+                    let decodedResponse: ChatResponse = try decoder.decode(ChatResponse.self, from: data)
+                    completion(decodedResponse.chatMessages)
                 } catch {
-                    print("응답 디코딩 실패 MyPartyDates")
+                    print("응답 디코딩 실패 Old Chats")
                     print(error.localizedDescription)
                     dump(error)
                     completion(nil)
                  }
             default :
-                print("Unknown Error MyPartyDates")
+                print("Unknown Error Old Chats")
                 completion(nil)
             }
             return
@@ -59,9 +58,8 @@ struct RequestParties {
     }
 }
 
-
-extension RequestParties {
-    struct PartyResponse: Codable{
-        let parties: [Party]
+extension RequestOldChat {
+    struct ChatResponse: Codable {
+        let chatMessages: [Chat]
     }
 }

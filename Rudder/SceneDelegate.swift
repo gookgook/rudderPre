@@ -116,7 +116,6 @@ extension SceneDelegate {
                     self.handleIncomingDynamicLink(dynamicLink)
                 }
             }
-            
         }
     }
     
@@ -151,7 +150,7 @@ extension SceneDelegate: SwiftStompDelegate {
                 print("Connected to stomp")
                 
                 //** Subscribe to topics or queues just after connect to the stomp!
-                swiftStomp.subscribe(to: "/queue/user.34")
+                swiftStomp.subscribe(to: "/queue/user.218")
                 //swiftStomp.subscribe(to: "/topic/greeting2")
                 
             }

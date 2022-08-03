@@ -138,4 +138,21 @@ extension MyPreViewController:UITableViewDelegate, UITableViewDataSource {
         
         return cell
     }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        if let _: UITableViewCell = tableView.cellForRow(at: indexPath) {
+            self.performSegue(withIdentifier: "GoChatRoom", sender: indexPath.row)
+            // cell.selectionStyle = .none
+        }
+    }
+}
+
+extension MyPreViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let chatViewController: ChatViewController =
+            segue.destination as? ChatViewController else {
+            return
+        }
+        chatViewController.chatRoomId = viewModel.otoChatRooms[sender as! Int].chatRoomId
+    }
 }

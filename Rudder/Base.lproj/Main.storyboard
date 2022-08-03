@@ -1813,16 +1813,11 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits"/>
                             </textField>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" id="U08-fK-2T5">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" id="U08-fK-2T5">
                                 <rect key="frame" x="0.0" y="399" width="414" height="44"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="color" systemColor="systemPurpleColor"/>
                             </activityIndicatorView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="B7o-o0-X0u">
-                                <rect key="frame" x="269" y="797" width="69" height="31"/>
-                                <state key="normal" title="Button"/>
-                                <buttonConfiguration key="configuration" style="plain" title="parties"/>
-                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="lg1-n1-d9S"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
@@ -1830,10 +1825,8 @@
                             <constraint firstItem="lg1-n1-d9S" firstAttribute="trailing" secondItem="ZIf-iu-xph" secondAttribute="trailing" id="11y-na-8bL"/>
                             <constraint firstItem="kZd-Dz-aOs" firstAttribute="leading" secondItem="lg1-n1-d9S" secondAttribute="leading" constant="20" id="ANl-Wf-qAi"/>
                             <constraint firstItem="ZIf-iu-xph" firstAttribute="leading" secondItem="lg1-n1-d9S" secondAttribute="leading" id="Hfp-xM-uJz"/>
-                            <constraint firstItem="lg1-n1-d9S" firstAttribute="bottom" secondItem="B7o-o0-X0u" secondAttribute="bottom" constant="14" id="MCS-6e-Uqv"/>
                             <constraint firstItem="lg1-n1-d9S" firstAttribute="trailing" secondItem="kZd-Dz-aOs" secondAttribute="trailing" constant="20" id="SjZ-1I-hBe"/>
                             <constraint firstItem="lg1-n1-d9S" firstAttribute="bottom" secondItem="mWA-FR-Eoh" secondAttribute="bottom" constant="43" id="dMe-nM-nRz"/>
-                            <constraint firstItem="lg1-n1-d9S" firstAttribute="trailing" secondItem="B7o-o0-X0u" secondAttribute="trailing" constant="76" id="iJg-jn-lFG"/>
                             <constraint firstItem="ZIf-iu-xph" firstAttribute="top" secondItem="lg1-n1-d9S" secondAttribute="top" id="sOo-ng-vbe"/>
                             <constraint firstItem="kZd-Dz-aOs" firstAttribute="top" secondItem="ZIf-iu-xph" secondAttribute="bottom" id="uL9-8J-fQB"/>
                             <constraint firstItem="mWA-FR-Eoh" firstAttribute="top" secondItem="kZd-Dz-aOs" secondAttribute="bottom" constant="25" id="yZs-Uh-rVI"/>
@@ -2131,6 +2124,7 @@
                         <outlet property="aGPartyTitle" destination="soI-iq-SR1" id="LYP-He-Apz"/>
                         <outlet property="applcantsView" destination="kdO-l5-ixv" id="nIz-Wi-o2P"/>
                         <outlet property="messagesTableView" destination="Bmh-Hd-M6q" id="ca6-bN-doz"/>
+                        <segue destination="IUu-Sl-oAc" kind="show" identifier="GoChatRoom" id="zRe-JV-8Mm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQY-Dz-Shl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2373,7 +2367,8 @@
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="A67-rb-ufg">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="862"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="sectionIndexBackgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.99215686274509807" alpha="1" colorSpace="calibratedRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="2bb-01-lA9" id="V5X-kv-5ef"/>
                                     <outlet property="delegate" destination="2bb-01-lA9" id="ujP-zq-ipZ"/>
@@ -2386,7 +2381,7 @@
                             </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="WO5-vN-PBg"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="WO5-vN-PBg" firstAttribute="bottom" secondItem="xfW-Nk-NA6" secondAttribute="bottom" constant="20" id="0U1-uA-jnW"/>
                             <constraint firstItem="A67-rb-ufg" firstAttribute="top" secondItem="w3k-i0-Xgl" secondAttribute="top" id="3B3-qz-bDy"/>
@@ -2612,6 +2607,9 @@
             <point key="canvasLocation" x="2821.739130434783" y="1861.2723214285713"/>
         </scene>
     </scenes>
+    <inferredMetricsTieBreakers>
+        <segue reference="zRe-JV-8Mm"/>
+    </inferredMetricsTieBreakers>
     <resources>
         <image name="NewLogo" width="3513" height="632"/>
         <image name="arrow.right.square" catalog="system" width="128" height="114"/>

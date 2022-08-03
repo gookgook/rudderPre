@@ -25,6 +25,20 @@ class Utils {
         }
     }
     
+    static func stringDate(date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.isLenient = true
+        dateFormatter.dateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let sDateFormatter = DateFormatter()
+        sDateFormatter.dateFormat="MMM d"
+        sDateFormatter.locale = Locale(identifier: "en")
+        let tdate = dateFormatter.date(from: date)
+        let datestring = sDateFormatter.string(from: tdate!)
+        return datestring
+        
+        
+    }
+    
     static var noticeShowed:Bool = false
     static var firstScreen:Int = 0 //0 is loginVC, 1 is tmpVC
     

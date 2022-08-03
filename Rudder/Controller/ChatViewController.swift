@@ -10,18 +10,26 @@ import UIKit
 class ChatViewController: UIViewController{
     
     var userInfoId: Int! //채팅 구별 위해
+    var chatRoomId: Int!
+    var endChatMessageId: Int  = -1
+    var nowPaging: Bool = false
+    var isInit: Bool = true
     
     @IBOutlet weak var textField: UITextField!
     @IBOutlet weak var chatTableView: UITableView!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
-    private var chats: [Chat] = [Chat(chatMessageId: 1, chatMessageBody: "my love", chatMessageTime: "my love", sendUserInfoId: 1, sendUserNickname: "myco sdf", isMine: true, chatRoomId: 234)]
-    
+    private var chats: [Chat] = []
     private var messageIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        spinner.startAnimating()
+        
+        requestOldChats(endChatMessageId: -1)
+        let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedChat(notification:)), name: k_moveToNotification, object: nil)
 
         userInfoId = UserDefaults.standard.integer(forKey: "userInfoId")
         chatTableView.separatorStyle = .none
@@ -37,59 +45,50 @@ class ChatViewController: UIViewController{
         self.chatTableView.estimatedRowHeight = 200 //autolatyout 잘 작동하게 대략적인 높이?
         self.chatTableView.rowHeight = UITableView.automaticDimension
         // Do any additional setup after loading the view.
+        
+        
+        
+    }
+
+    
+    @objc func receivedChat(notification: NSNotification){
+        let currentChat = notification.userInfo!["receivedChat"] as? Chat
+        handleMessageBody(chat: currentChat!)
     }
 }
 
 
 extension ChatViewController {
-    func handleMessageBody(message: Data){
+    func handleMessageBody(chat: Chat){
         print("touch here")
-        let decoder:JSONDecoder = JSONDecoder()
-        do {
-            
-            let decodedResponse: Chat = try decoder.decode(Chat.self, from: message)
-            DispatchQueue.main.async {
+        print("비교" + String(chat.sendUserInfoId) + " " + String(self.userInfoId))
                 
-                print("비교" + String(decodedResponse.sendUserInfoId) + " " + String(self.userInfoId))
-                
-                guard decodedResponse.sendUserInfoId != self.userInfoId else {return}
-                
-                self.chats.append(Chat(chatMessageId: decodedResponse.chatMessageId, chatMessageBody: decodedResponse.chatMessageBody, chatMessageTime: decodedResponse.chatMessageTime, sendUserInfoId: decodedResponse.sendUserInfoId, sendUserNickname: decodedResponse.sendUserNickname, isMine: decodedResponse.isMine, chatRoomId: 123))
-                //mock
-                
-             
-                
-                self.chatTableView.beginUpdates()
-                self.chatTableView.insertRows(at: [IndexPath.init(row: self.chats.count-1, section: 0)], with: .none)
-                self.chatTableView.endUpdates()
-                let indexPath = NSIndexPath(item: self.chats.count-1, section: 0);
-                self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: UITableView.ScrollPosition.middle, animated: true)
-                //self.textField.text = decodedResponse.chatMessageBody
-               // completion(decodedResponse.likeCount)
-            }
-        } catch {
-            print("응답 디코딩 실패")
-            print(error.localizedDescription)
-            dump(error)
-            DispatchQueue.main.async {
-               // completion(-1)
-            }
+        if chat.sendUserInfoId == self.userInfoId && chat.chatRoomId == self.chatRoomId{
+            self.spinner.stopAnimating()
+            self.view.isUserInteractionEnabled = true
         }
-    }
-    
-    @IBAction func sendChat(_ sender: UIButton) {
-        
-        self.chats.append(Chat(chatMessageId: 123, chatMessageBody: textField.text!, chatMessageTime: "123", sendUserInfoId: userInfoId, sendUserNickname: "mockNickname", isMine: true, chatRoomId: 123))
-        
-     
+                
+        self.chats.append(chat)
         
         self.chatTableView.beginUpdates()
         self.chatTableView.insertRows(at: [IndexPath.init(row: self.chats.count-1, section: 0)], with: .none)
         self.chatTableView.endUpdates()
         let indexPath = NSIndexPath(item: self.chats.count-1, section: 0);
         self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: UITableView.ScrollPosition.middle, animated: true)
+                //self.textField.text = decodedResponse.chatMessageBody
+               // completion(decodedResponse.likeCount)
         
-        RequestSendChat.uploadInfo(channelId: 1, chatBody: textField.text!, completion: {
+    }
+    
+        
+
+    
+    @IBAction func sendChat(_ sender: UIButton) {
+        
+        spinner.startAnimating()
+        self.view.isUserInteractionEnabled = false
+        
+        RequestSendChat.uploadInfo(channelId: chatRoomId, chatBody: textField.text!, completion: {
            status in
             if status == 1 {
                 print("send chat success")
@@ -131,13 +130,43 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
      
         
     }
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        /*if let cell: UITableViewCell = tableView.cellForRow(at: indexPath) {
-            indexPathForSelectedRow = indexPath as NSIndexPath
-            self.performSegue(withIdentifier: "ShowMessageRoom", sender: cell)
-            //indexPathForSelectedRow = indexPath as NSIndexPath
-           // cell.selectionStyle = .none
-        }*/
-    }
 }
 
+
+extension ChatViewController {
+    func requestOldChats(endChatMessageId: Int) {
+        RequestOldChat.uploadInfo(chatRoomId: chatRoomId, endChatMessageId: endChatMessageId, completion: {(chats: [Chat]?) in
+            DispatchQueue.main.async {
+                self.spinner.stopAnimating()
+            }
+            guard var chats = chats else { return }
+            guard chats.count != 0 else {
+                DispatchQueue.main.async {Alert.showAlert(title: "No more chats", message: nil, viewController: self) }
+                return
+            }
+            
+            chats.reverse()
+            
+            print("chat count ",String(chats.count))
+            self.endChatMessageId = chats[0].chatMessageId
+            self.chats = chats + self.chats
+            DispatchQueue.main.async{
+                self.chatTableView.reloadSections(IndexSet(0...0),
+                                                  with: UITableView.RowAnimation.automatic)
+                var indexPath = NSIndexPath(item: chats.count, section: 0)
+                if self.isInit { indexPath = NSIndexPath(item: chats.count - 1, section: 0) }
+                self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: UITableView.ScrollPosition.top, animated: false)
+            }
+            self.nowPaging = false
+        })
+    }
+    
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.contentOffset.y <= 0 else { return }
+        if !nowPaging {
+            nowPaging = true
+            spinner.startAnimating()
+            requestOldChats(endChatMessageId: endChatMessageId)
+        }
+   }
+}
