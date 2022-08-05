@@ -18,10 +18,10 @@ class PartyDetailViewController: UIViewController {
     @IBOutlet weak var partyThumbnailImageView: UIImageView!
     @IBOutlet weak var applyCountLabel: UILabel!
     
-    @IBOutlet weak var alcoholView: UIView!
+    /*@IBOutlet weak var alcoholView: UIView!
     @IBOutlet weak var alcoholImageView: UIImageView!
     @IBOutlet weak var alcoholName: UILabel!
-    @IBOutlet weak var alcoholPriceLabel: UILabel!
+    @IBOutlet weak var alcoholPriceLabel: UILabel!*/
     
     @IBOutlet weak var partyTitleView: UITextView!
     @IBOutlet weak var DateLabel: UILabel!
@@ -52,15 +52,15 @@ extension PartyDetailViewController {
                 
                 DispatchQueue.main.async {
                     RequestImage.downloadImage(from: URL(string: partyDetail.partyThumbnailUrl)!, imageView: self.partyThumbnailImageView )
-                    RequestImage.downloadImage(from: URL(string: partyDetail.alcoholImageUrl)!, imageView: self.alcoholImageView)
+                    /*RequestImage.downloadImage(from: URL(string: partyDetail.alcoholImageUrl)!, imageView: self.alcoholImageView)*/
                     self.applyCountLabel.text = String(partyDetail.applyCount)
                     self.partyTitleView.text = partyDetail.partyTitle
                     self.DateLabel.text = String(Utils.timeAgo(postDate: partyDetail.partyTime))
                     self.LocationLabel.text = partyDetail.partyLocation
                     self.PartyDescriptionView.text = partyDetail.partyDescription
-                    self.alcoholName.text = partyDetail.alcoholName
-                    self.alcoholPriceLabel.text = "+ " + partyDetail.alcoholCurrency + String(partyDetail.alcoholPrice)
-                    self.alcoholPriceLabel.text! +=  " / " + String(partyDetail.alcoholCount) + " " + partyDetail.alcoholUnit
+                    //self.alcoholName.text = partyDetail.alcoholName
+                    /*self.alcoholPriceLabel.text = "+ " + partyDetail.alcoholCurrency + String(partyDetail.alcoholPrice)
+                    self.alcoholPriceLabel.text! +=  " / " + String(partyDetail.alcoholCount) + " " + partyDetail.alcoholUnit*/
                     if partyDetail.partyStatus != "NONE" {
                         self.applyButton.isEnabled = false
                         self.applyButton.backgroundColor = MyColor.superLightGray
@@ -108,6 +108,6 @@ extension PartyDetailViewController {
         self.tabBarController?.tabBar.isTranslucent = true
     }
     func setStyle(){
-        ColorDesign.setShadow(view: alcoholView)
+        //ColorDesign.setShadow(view: alcoholView)
     }
 }

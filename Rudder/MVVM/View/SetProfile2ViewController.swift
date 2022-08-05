@@ -9,11 +9,10 @@ import UIKit
 
 class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    var viewModel: SignUpViewModel? // setProfile1Viewcontroller 에서 넘겨줄거임
+    
     let imagePicker = UIImagePickerController()
     var currentImagePicker: Int = 0
-    
-    
-    var viewModel: SignUpViewModel? // setProfile1Viewcontroller 에서 넘겨줄거임
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var imagePickView1: ButtonView!

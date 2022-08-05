@@ -14,6 +14,7 @@ class MyPreViewController: UIViewController {
     //@IBOutlet weak var aGChatView: UIView!
     @IBOutlet weak var aGPartyTitle: UILabel! //accepted group chat view
     @IBOutlet weak var aGChatBody: UILabel!
+    @IBOutlet weak var aGChatImageView: UIImageView!
     
     @IBOutlet weak var applcantsView: UIView!
     @IBOutlet weak var messagesTableView: UITableView!
@@ -94,6 +95,7 @@ extension MyPreViewController {
     func setAGChatView() {
         aGPartyTitle.text = "mockDate"
         aGChatBody.text = viewModel.groupChatRoom.recentMessage
+        RequestImage.downloadImage(from: URL(string: viewModel.groupChatRoom.chatRoomImageUrl)!, imageView: aGChatImageView)
     }
     
     func setApplicantsView() {
@@ -110,7 +112,8 @@ extension MyPreViewController {
             imageView.widthAnchor.constraint(equalToConstant: 100).isActive = true
             imageView.topAnchor.constraint(equalTo: applcantsView.topAnchor).isActive = true
             imageView.bottomAnchor.constraint(equalTo: applcantsView.bottomAnchor).isActive = true
-            imageView.leadingAnchor.constraint(equalTo: tmp).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
+            imageView.layer.cornerRadius = 15
             
             imageView.image = UIImage(systemName: "xmark")
             RequestImage.downloadImage(from: URL(string: viewModel.myPartyApplicants[i].partyProfileImageUrl)!, imageView: imageView)

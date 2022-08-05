@@ -46,3 +46,7 @@ protocol GoSomePageDelegate: AnyObject {
 protocol DoApplyDelegate: AnyObject {
     func doApply(numberOfApplicants: Int)
 }
+
+protocol DoRefreshPartyDelegate: AnyObject {
+    func doRefreshParty()
+}

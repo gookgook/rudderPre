@@ -8,10 +8,10 @@
 import Foundation
 
 struct PartyDetail: Codable {
-    let alcoholCount: Int
+    /*let alcoholCount: Int
     let alcoholCurrency, alcoholImageUrl, alcoholName: String
     let alcoholPrice: Int
-    let alcoholUnit: String
+    let alcoholUnit: String*/
     let applyCount, currentNumberOfMember: Int
     let partyDescription: String
     let partyId: Int

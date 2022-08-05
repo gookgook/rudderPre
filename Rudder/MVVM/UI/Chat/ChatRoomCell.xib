@@ -13,15 +13,21 @@
         <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="chatRoomCell" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" reuseIdentifier="chatRoomCell" rowHeight="101" id="sfR-kf-dnA" customClass="ChatRoomCell" customModule="Rudder" customModuleProvider="target">
             <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
             <autoresizingMask key="autoresizingMask"/>
-            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfR-kf-dnA" id="ufo-J7-lrL">
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="sfR-kf-dnA" id="ufo-J7-lrL">
                 <rect key="frame" x="0.0" y="0.0" width="414" height="101"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="h1G-tT-ZkK">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="101"/>
+                        <rect key="frame" x="0.0" y="0.0" width="100" height="100"/>
                         <constraints>
+                            <constraint firstAttribute="height" constant="100" id="6xP-I3-lnp"/>
                             <constraint firstAttribute="width" constant="100" id="iKp-TF-ZKG"/>
                         </constraints>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                <integer key="value" value="50"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="AyD-LK-Qr2">
                         <rect key="frame" x="127" y="62" width="42" height="21"/>
@@ -40,7 +46,6 @@
                     <constraint firstAttribute="bottom" secondItem="h1G-tT-ZkK" secondAttribute="bottom" id="BOU-HT-0Gm"/>
                     <constraint firstItem="AyD-LK-Qr2" firstAttribute="top" secondItem="nxq-Al-gc1" secondAttribute="bottom" constant="20" id="LzY-4b-P2F"/>
                     <constraint firstItem="nxq-Al-gc1" firstAttribute="top" secondItem="ufo-J7-lrL" secondAttribute="top" constant="21" id="PbP-yT-Hpm"/>
-                    <constraint firstAttribute="bottomMargin" secondItem="AyD-LK-Qr2" secondAttribute="bottom" constant="7" id="QsF-Vu-2vL"/>
                     <constraint firstItem="nxq-Al-gc1" firstAttribute="leading" secondItem="h1G-tT-ZkK" secondAttribute="trailing" constant="27" id="mVV-8R-QsC"/>
                     <constraint firstItem="h1G-tT-ZkK" firstAttribute="top" secondItem="ufo-J7-lrL" secondAttribute="top" id="o2b-9e-Q9V"/>
                     <constraint firstItem="AyD-LK-Qr2" firstAttribute="leading" secondItem="h1G-tT-ZkK" secondAttribute="trailing" constant="27" id="qbC-WG-tiH"/>

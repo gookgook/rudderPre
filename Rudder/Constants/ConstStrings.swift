@@ -13,4 +13,6 @@ class ConstStrings {
     static let MINIMUM_PHOTO_COUNT = 2
     static let MAXIMUM_PHOTO_COUNT = 6
     static let MINIMUM_PROFILEBODY_COUNT = 20
+    static let MINIMINI_PARTY_PARTICIPANTS = 5
+    static let MAXIMINI_PARTY_PARTICIPANTS = 10
 }

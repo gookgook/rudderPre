@@ -9,7 +9,7 @@ import Foundation
 
 struct RequestMakePre {
     //login
-    static func uploadInfo(alcoholId: Int, location: String, partyDescription: String, partyTime: String, partyTitle: String, totalNumberOfMember: Int, completion: @escaping (Int?) -> Void) -> Void{
+    static func uploadInfo(location: String, partyDescription: String, partyTime: String, partyTitle: String, totalNumberOfMember: Int, completion: @escaping (Int?) -> Void) -> Void{
         let url = URL(string: Utils.springUrlKey+"/parties")!
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
@@ -23,7 +23,7 @@ struct RequestMakePre {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
         
-        let partyToMake = PartyToMake(alcoholId: alcoholId, location: location, partyDescription: partyDescription, partyTime: partyTime, partyTitle: partyTime, totalNumberOfMember: totalNumberOfMember)
+        let partyToMake = PartyToMake(location: location, partyDescription: partyDescription, partyTime: partyTime, partyTitle: partyTime, totalNumberOfMember: totalNumberOfMember)
         
         guard let EncodedUploadData = try? JSONEncoder().encode(partyToMake) else {
             return
@@ -75,8 +75,7 @@ extension RequestMakePre {
         let partyId: Int
     }
     
-    struct partyToMake: Codable {
-        let alcoholId: Int
+    struct PartyToMake: Codable {
         let location: String
         let partyDescription: String
         let partyTime: String

@@ -13,5 +13,6 @@ struct ChatRoom: Codable {
     let notReadMessageCount: Int
     var recentMessage: String!
     let recentMessageTime: String!
+    let chatRoomImageUrl: String
     //let chatRoomName: String
 }

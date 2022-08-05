@@ -13,22 +13,30 @@ class MakePreViewModel {
     var partyDate: String! // timestamp로?
     var participantNumber: Int!
     var locationString: String!
-    var alcoholId: Int!
+    //var alcoholId: Int!
     var partyDescription: String!
     
-    var pickUpPlaces: [PickUpPlace] = []
-    var alcohols: [Alcohol] = []
+    //var pickUpPlaces: [PickUpPlace] = []
+    //var alcohols: [Alcohol] = []
     
     var thumbnailImage: UIImage!
     var imageMetaData: ImageMetaData!
     
-    var getAlcoholInfoFlag: Observable<Int?> = Observable(nil)
-    var getPickUpPlacesFlag: Observable<Int?> = Observable(nil)
+    var minimumParticipants: [Int] = []
+    
+    /*var getAlcoholInfoFlag: Observable<Int?> = Observable(nil)
+    var getPickUpPlacesFlag: Observable<Int?> = Observable(nil)*/
     var makePartyResultFlag: Observable<Int?> = Observable(nil)
+    
+    init() {
+        for i in ConstStrings.MINIMINI_PARTY_PARTICIPANTS...ConstStrings.MAXIMINI_PARTY_PARTICIPANTS {
+            minimumParticipants.append(i)
+        }
+    }
 }
 
 extension MakePreViewModel {
-    func requestPickUpPlaces() {
+    /*func requestPickUpPlaces() {
         RequestPickUpPlaces.uploadInfo( completion: { (pickUpPlaces: [PickUpPlace]?) in
             guard let pickUpPlaces = pickUpPlaces else {
                 self.getPickUpPlacesFlag.value = -1
@@ -48,10 +56,15 @@ extension MakePreViewModel {
             self.alcohols = alcohols
             self.getAlcoholInfoFlag.value = 1
         })
-    }
+    }*/
     
     func requestMakeParty() {
-        RequestMakePre.uploadInfo(alcoholId: alcoholId, location: locationString, partyDescription: partyDescription, partyTime: partyDate, partyTitle: partyTitle, totalNumberOfMember: participantNumber, completion: { [self]
+        if thumbnailImage == nil || partyTitle == nil || partyDate == nil || participantNumber == 0 || locationString == nil || partyDescription == nil {
+          
+            makePartyResultFlag.value = -2
+            return
+        }
+        RequestMakePre.uploadInfo (location: locationString, partyDescription: partyDescription, partyTime: partyDate, partyTitle: partyTitle, totalNumberOfMember: participantNumber, completion: { [self]
             partyId in
             guard let partyId = partyId else { makePartyResultFlag.value = -1; return }
             RequestPtImageUrl.uploadInfo(partyId: partyId, imageMetadata: imageMetaData, completion: {

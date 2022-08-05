@@ -10,7 +10,7 @@ import UIKit
 class PartyCell : UITableViewCell {
     
     @IBOutlet weak var partyThumbnailView: UIImageView!
-    @IBOutlet weak var universityNameLabel: UILabel!
+    @IBOutlet weak var universityLogoImageView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var partyTitleView: UITextView!
     @IBOutlet weak var memberNumberLabel: UILabel!
@@ -19,13 +19,15 @@ class PartyCell : UITableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        universityLogoImageView.layer.borderColor = UIColor.systemGray4.cgColor
+        universityLogoImageView.layer.borderWidth = 0.5
     }
 }
 
 extension PartyCell {
     func configure(party: Party, tableView: UITableView, indexPath: IndexPath) {
         RequestImage.downloadImage(from: URL(string: party.partyThumbnailUrl)!, imageView: partyThumbnailView)
-        universityNameLabel.text = party.universityName
+        RequestImage.downloadImage(from: URL(string: party.universityLogoUrl)!, imageView: universityLogoImageView)
         dateLabel.text = Utils.stringDate(date: party.partyTime) 
         partyTitleView.text = party.partyTitle
         memberNumberLabel.text = String(party.currentNumberOfMember) + " / "+String(party.totalNumberOfMember)

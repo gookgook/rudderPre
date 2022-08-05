@@ -30,6 +30,12 @@ class PartyMainViewController: UIViewController {
         self.navigationController?.setNavigationBarHidden(false, animated: animated)
     }
     
+}
+extension PartyMainViewController: DoRefreshPartyDelegate{
+    func doRefreshParty() {
+        self.viewModel.reloadPosts()
+    }
+    
     @objc func doLogout(){
         UserDefaults.standard.removeObject(forKey: "token")
         self.navigationController?.popToRootViewController(animated: true)
@@ -88,6 +94,7 @@ extension PartyMainViewController: UITableViewDelegate, UITableViewDataSource {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _: UITableViewCell = tableView.cellForRow(at: indexPath) {
+            
             self.performSegue(withIdentifier: "GoPartyDetail", sender: indexPath.row)
             // cell.selectionStyle = .none
         }
@@ -96,11 +103,19 @@ extension PartyMainViewController: UITableViewDelegate, UITableViewDataSource {
 
 extension PartyMainViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        guard let partyDetailViewController: PartyDetailViewController =
-            segue.destination as? PartyDetailViewController else {
-            return
+        if segue.identifier == "GoPartyDetail" {
+            guard let partyDetailViewController: PartyDetailViewController =
+                segue.destination as? PartyDetailViewController else {
+                return
+            }
+            partyDetailViewController.partyId = viewModel.parties[sender as! Int].partyId
+        } else {
+            guard let makePreViewController: MakePreViewController =
+                segue.destination as? MakePreViewController else {
+                return
+            }
+            makePreViewController.delegate = self
         }
-        partyDetailViewController.partyId = viewModel.parties[sender as! Int].partyId
     }
 }
 

@@ -49,5 +49,16 @@ extension SetProfile1ViewController {
         nickNameField.addLeftPadding(padding: 10)
         profileBody.textContainer.lineFragmentPadding = 10
         signUpButton.applyGradient(colors: MyColor.gPurple)
+        hideKeyboardWhenTappedAround()
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }
