@@ -1,15 +1,15 @@
 //
-//  RequestPartyDetail.swift
+//  RequestProfile.swift
 //  Rudder
 //
-//  Created by 박민호 on 2022/07/25.
+//  Created by 박민호 on 2022/08/08.
 //
 
 import Foundation
 
-struct RequestPartyDetail {
-    static func uploadInfo( partyId: Int, completion: @escaping (PartyDetail?) -> Void) -> Void{ //학교 이름을 넘겨줄 수도 있어서
-        let url = URLComponents(string: (Utils.springUrlKey + "/parties/" + String(partyId)))!
+struct RequestProfile{
+    static func uploadInfo( userInfoId: Int, completion: @escaping (PartyProfile?) -> Void) -> Void{ //학교 이름을 넘겨줄 수도 있어서
+        let url = URLComponents(string: (Utils.springUrlKey + "/party-profiles/" + String(userInfoId)))!
         
         guard let token = UserDefaults.standard.string(forKey: "token") else {
             print("token failure")
@@ -36,8 +36,8 @@ struct RequestPartyDetail {
                         completion(nil)
                         return
                     }
-                    let decodedResponse: PartyResponse = try decoder.decode(PartyResponse.self, from: data)
-                    completion(decodedResponse.partyDetail)
+                    let decodedResponse: ProfileResponse = try decoder.decode(ProfileResponse.self, from: data)
+                    completion(decodedResponse.partyProfile)
                 } catch {
                     print("응답 디코딩 실패 MyPartyDates")
                     print(error.localizedDescription)
@@ -54,9 +54,8 @@ struct RequestPartyDetail {
     }
 }
 
-extension RequestPartyDetail {
-    struct PartyResponse: Codable{
-        let partyDetail: PartyDetail
+extension RequestProfile {
+    struct ProfileResponse: Codable{
+        let partyProfile: PartyProfile
     }
 }
-

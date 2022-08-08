@@ -21,6 +21,7 @@ class ChatRoomCell : UITableViewCell {
 extension ChatRoomCell {
     func configure(chatRoom: ChatRoom, tableView: UITableView, indexPath: IndexPath) {
         
+        RequestImage.downloadImage(from: URL(string: chatRoom.chatRoomImageUrl)!, imageView: profileImageView)
         
         self.nickNameLabel.text = chatRoom.chatRoomTitle
         self.recentMessageLabel.text = chatRoom.recentMessage

@@ -10,4 +10,5 @@ import Foundation
 struct PartyApplicant: Codable {
     let partyProfileImageUrl: String
     let userInfoId: Int
+    let partyMemberId: Int
 }

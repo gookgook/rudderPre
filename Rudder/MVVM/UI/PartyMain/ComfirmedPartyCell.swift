@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ComfirmedPartyCell : UITableViewCell {
+/*class ComfirmedPartyCell : UITableViewCell {
     
     @IBOutlet weak var partyThumbnailView: UIImageView!
     @IBOutlet weak var dateLabel: UILabel!
@@ -26,4 +26,4 @@ extension ComfirmedPartyCell {
         dateLabel.text = Utils.stringDate(date: party.partyTime)
         partyTitleView.text = party.partyTitle
     }
-}
+}*/

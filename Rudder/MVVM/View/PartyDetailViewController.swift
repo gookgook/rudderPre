@@ -14,6 +14,8 @@ class PartyDetailViewController: UIViewController {
     var partyId: Int!
     
     var numberOfApplicants: Int!
+    
+    @IBOutlet weak var scrollView: UIScrollView!
 
     @IBOutlet weak var partyThumbnailImageView: UIImageView!
     @IBOutlet weak var applyCountLabel: UILabel!
@@ -34,6 +36,8 @@ class PartyDetailViewController: UIViewController {
         super.viewDidLoad()
         setUpBinding()
         viewModel.requestPartyDetail(partyId: partyId)
+        
+        //self.navigationController?.navigationBar.layer.zPosition = 1
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -103,9 +107,15 @@ extension PartyDetailViewController: DoApplyDelegate {
 
 extension PartyDetailViewController {
     func setBar(){
-        self.navigationController?.setNavigationBarHidden(true, animated: false)
+        self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.tabBarController?.tabBar.isHidden = true
         self.tabBarController?.tabBar.isTranslucent = true
+        
+        scrollView.contentInsetAdjustmentBehavior = .never // notchㄸ까지 채우기 위해서
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
+        self.navigationController?.navigationBar.shadowImage = UIImage()
+        self.navigationController?.navigationBar.isTranslucent = true
+        self.navigationController?.view.backgroundColor = .clear
     }
     func setStyle(){
         //ColorDesign.setShadow(view: alcoholView)

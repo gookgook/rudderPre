@@ -15,4 +15,5 @@ class MyColor {
     static let startPurple = UIColor(red: 110/255, green: 0/255, blue: 219/255, alpha: 1)
     static let endPurple = UIColor(red: 166/255, green: 77/255, blue: 255/255, alpha: 1)
     static let gPurple = [startPurple.cgColor,endPurple.cgColor]
+    static let opaGray = UIColor(red: 100/255, green: 100/255, blue: 100/255, alpha: 0.6)
 }
