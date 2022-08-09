@@ -20,13 +20,13 @@
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7P5-Xk-43B">
                                 <rect key="frame" x="60" y="323" width="294" height="250"/>
                                 <subviews>
-                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Custom Alert Test" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYB-4O-Yo3">
-                                        <rect key="frame" x="62.5" y="34" width="169" height="24"/>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Good Choice!" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="jYB-4O-Yo3">
+                                        <rect key="frame" x="83.5" y="34" width="127" height="24"/>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
                                         <color key="textColor" red="0.85613819940000002" green="0.28461682799999999" blue="0.85560733079999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
-                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="네이버 취직하게 해주세요" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3IC-QG-B5W">
+                                    <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="This is accepting the group not indivisual" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="3IC-QG-B5W">
                                         <rect key="frame" x="27" y="81" width="240" height="53"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
@@ -43,7 +43,7 @@
                                             <constraint firstAttribute="height" constant="43" id="XFV-gr-7MM"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
-                                        <state key="normal" title="SUBMIT">
+                                        <state key="normal" title="Group Accept">
                                             <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         </state>
                                         <userDefinedRuntimeAttributes>

@@ -1975,7 +1975,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="MRR-XF-ex0">
-                                <rect key="frame" x="0.0" y="88" width="414" height="414"/>
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="414"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="MRR-XF-ex0" secondAttribute="height" multiplier="1:1" id="YmR-9C-wjj"/>
                                 </constraints>
@@ -2018,12 +2018,13 @@
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                                 <connections>
+                                    <action selector="touchUpAcceptButton:" destination="DGH-E9-VkW" eventType="touchUpInside" id="a4q-Sj-zW7"/>
                                     <action selector="touchUpSignUpButton:" destination="RXZ-hh-etL" eventType="touchUpInside" id="NOp-8Q-GYK"/>
                                     <action selector="touchUpSignUpButton:" destination="KLd-YW-CR8" eventType="touchUpInside" id="xwJ-Tq-PiH"/>
                                 </connections>
                             </button>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="I4H-Dj-mhU">
-                                <rect key="frame" x="187" y="457" width="40" height="40"/>
+                                <rect key="frame" x="187" y="369" width="40" height="40"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="40" id="7Qc-Bb-DGG"/>
                                     <constraint firstAttribute="width" constant="40" id="bYb-eb-hcJ"/>
@@ -2036,7 +2037,7 @@
                                 </userDefinedRuntimeAttributes>
                             </imageView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="oDw-bj-fr8">
-                                <rect key="frame" x="28" y="474" width="358" height="328"/>
+                                <rect key="frame" x="28" y="386" width="358" height="416"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Max" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rgN-XW-gnv">
                                         <rect key="frame" x="159" y="33" width="40" height="25.5"/>
@@ -2045,19 +2046,14 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                     <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" text="Let's get drunk and play as hell!!" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="1An-HZ-e4x">
-                                        <rect key="frame" x="20" y="66.5" width="318" height="241.5"/>
+                                        <rect key="frame" x="20" y="66.5" width="318" height="329.5"/>
                                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <fontDescription key="fontDescription" type="system" pointSize="15"/>
                                         <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                        <userDefinedRuntimeAttributes>
-                                            <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
-                                            <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="20"/>
-                                            </userDefinedRuntimeAttribute>
-                                        </userDefinedRuntimeAttributes>
                                     </textView>
                                 </subviews>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="1An-HZ-e4x" secondAttribute="trailing" constant="20" id="JaU-Wn-AQu"/>
                                     <constraint firstAttribute="bottom" secondItem="1An-HZ-e4x" secondAttribute="bottom" constant="20" id="Kuy-hz-99P"/>
@@ -2067,8 +2063,9 @@
                                     <constraint firstItem="rgN-XW-gnv" firstAttribute="centerX" secondItem="oDw-bj-fr8" secondAttribute="centerX" id="eyc-j2-20v"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
+                                        <integer key="value" value="20"/>
                                     </userDefinedRuntimeAttribute>
                                 </userDefinedRuntimeAttributes>
                             </view>
@@ -2079,7 +2076,7 @@
                             <constraint firstItem="yNk-iC-RUy" firstAttribute="trailing" secondItem="MRR-XF-ex0" secondAttribute="trailing" id="0gi-kw-sBf"/>
                             <constraint firstItem="dOq-wz-u3y" firstAttribute="leading" secondItem="yNk-iC-RUy" secondAttribute="leading" constant="28" id="Byj-Cd-iMj"/>
                             <constraint firstItem="yNk-iC-RUy" firstAttribute="trailing" secondItem="bK5-u3-Axj" secondAttribute="trailing" constant="28" id="Dtg-KN-iNK"/>
-                            <constraint firstItem="MRR-XF-ex0" firstAttribute="top" secondItem="yNk-iC-RUy" secondAttribute="top" id="GCO-78-kL3"/>
+                            <constraint firstItem="MRR-XF-ex0" firstAttribute="top" secondItem="9qD-RF-2XL" secondAttribute="top" id="GCO-78-kL3"/>
                             <constraint firstItem="MRR-XF-ex0" firstAttribute="leading" secondItem="yNk-iC-RUy" secondAttribute="leading" id="MKT-Rh-Ooi"/>
                             <constraint firstItem="bK5-u3-Axj" firstAttribute="leading" secondItem="yNk-iC-RUy" secondAttribute="centerX" constant="6" id="WSt-Bc-rEC"/>
                             <constraint firstItem="MRR-XF-ex0" firstAttribute="bottom" secondItem="I4H-Dj-mhU" secondAttribute="bottom" constant="5" id="YcR-Fr-6TY"/>
@@ -2099,7 +2096,7 @@
                         <outlet property="nicknameLabel" destination="rgN-XW-gnv" id="CfC-iJ-go7"/>
                         <outlet property="profileBodyView" destination="1An-HZ-e4x" id="Ptn-FU-iQW"/>
                         <outlet property="profileImageView" destination="MRR-XF-ex0" id="CJs-gI-Uwo"/>
-                        <outlet property="profileView" destination="oDw-bj-fr8" id="SQe-gK-iUI"/>
+                        <outlet property="profileView" destination="oDw-bj-fr8" id="Rqf-Zq-cxT"/>
                         <outlet property="universityLogoView" destination="I4H-Dj-mhU" id="YZZ-5h-4Sq"/>
                     </connections>
                 </viewController>
@@ -2293,6 +2290,7 @@
                         <outlet property="partyDatePicker" destination="Mmo-TT-dKf" id="75l-7R-l6E"/>
                         <segue destination="IUu-Sl-oAc" kind="show" identifier="GoChatRoom" id="zRe-JV-8Mm"/>
                         <segue destination="DGH-E9-VkW" kind="show" identifier="GoProfile" id="RTw-xJ-l1L"/>
+                        <segue destination="IUu-Sl-oAc" kind="show" identifier="GoGroupChatRoom" id="PuC-HZ-L8S"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GQY-Dz-Shl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2705,7 +2703,7 @@
         </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="zRe-JV-8Mm"/>
+        <segue reference="PuC-HZ-L8S"/>
     </inferredMetricsTieBreakers>
     <resources>
         <image name="NewLogo" width="3513" height="632"/>

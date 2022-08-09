@@ -11,8 +11,9 @@ class ProfileViewController: UIViewController {
     
     let viewModel = ProfileViewModel()
     
-    var userInfoId: Int!
-
+    var applicant: PartyApplicant!
+    var partyId: Int!
+    
     @IBOutlet weak var profileView: UIView!
     
     @IBOutlet weak var profileImageView: UIImageView!
@@ -23,11 +24,15 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var acceptButton: UIButton!
     
+    @IBAction func touchUpAcceptButton(_ sender: UIButton){
+        viewModel.requestAcceptApplicant(partyId: partyId, partyMemberId: applicant.partyMemberId)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUIs()
         setUpBinding()
-        viewModel.requestProfile(userInfoId: userInfoId)
+        viewModel.requestProfile(userInfoId: applicant.userInfoId)
     }
 }
 
@@ -45,21 +50,40 @@ extension ProfileViewController {
                 }
             }
         }
+        viewModel.acceptResultFlag.bind{[weak self] status in
+            guard let self = self else {return}
+            guard status == 1 else {
+                DispatchQueue.main.async { Alert.showAlert(title: "Server Error", message: nil, viewController: self) }
+                return
+            }
+            DispatchQueue.main.async {
+                let storyboard = UIStoryboard(name: "CustomAlerts", bundle: nil)
+
+                let vc = storyboard.instantiateViewController(withIdentifier: "tmpNew") as! TmpNewViewController
+                //vc.delegate = self
+                vc.modalPresentationStyle = .overCurrentContext
+                self.tabBarController?.present(vc, animated: true, completion: nil)
+            }
+            
+        }
     }
 }
 
 extension ProfileViewController {
     func setUIs(){
+        
         ColorDesign.setShadow(view: profileView)
+        
+        universityLogoView.layer.zPosition = 1
         
         self.navigationController?.setNavigationBarHidden(false, animated: false)
         self.tabBarController?.tabBar.isHidden = true
         self.tabBarController?.tabBar.isTranslucent = true
         
-        //profileImageView.contentInsetAdjustmentBehavior = .never // notchㄸ까지 채우기 위해서
-        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default)
+        self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: .default) //UIImage.init(named: "transparent.png")
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
+        
     }
 }

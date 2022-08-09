@@ -148,6 +148,12 @@ extension MyPreViewController {
         aGPartyTitle.text = "mockDate"
         aGChatBody.text = viewModel.groupChatRoom.recentMessage
         RequestImage.downloadImage(from: URL(string: viewModel.groupChatRoom.chatRoomImageUrl)!, imageView: aGChatImageView)
+        aGChatImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchAGChatRoom(_:))))
+        aGChatImageView.isUserInteractionEnabled = true
+    }
+    
+    @objc func touchAGChatRoom(_ sender: Any?){
+        self.performSegue(withIdentifier: "GoGroupChatRoom", sender: nil)
     }
     
     func setApplicantsView() {
@@ -167,8 +173,10 @@ extension MyPreViewController {
             imageView.leadingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
             imageView.layer.cornerRadius = 15
             imageView.clipsToBounds = true
-            imageView.tag = viewModel.myPartyApplicants[i].userInfoId
+            imageView.tag = i
+            
             imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchApplicant(_:))))
+            imageView.isUserInteractionEnabled = true
             imageView.isUserInteractionEnabled = true
             
             RequestImage.downloadImage(from: URL(string: viewModel.myPartyApplicants[i].partyProfileImageUrl)!, imageView: imageView)
@@ -176,7 +184,7 @@ extension MyPreViewController {
             let nicknameLabel = UILabel()
             nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
             applcantsView.addSubview(nicknameLabel)
-            nicknameLabel.text = "Test"
+            nicknameLabel.text = viewModel.myPartyApplicants[i].userNickname
             nicknameLabel.textColor = UIColor.white
             nicknameLabel.font = UIFont(name: "SF Pro Text", size: 15)
             nicknameLabel.layer.zPosition = 1
@@ -187,7 +195,7 @@ extension MyPreViewController {
             let numberLabel = UILabel()
             numberLabel.translatesAutoresizingMaskIntoConstraints = false
             applcantsView.addSubview(numberLabel)
-            numberLabel.text = "+2"
+            numberLabel.text = "+"+String(viewModel.myPartyApplicants[i].numberApplicants)
             numberLabel.textColor = UIColor.white
             numberLabel.font = UIFont(name: "SF Pro Text", size: 15)
             numberLabel.layer.zPosition = 1
@@ -206,9 +214,11 @@ extension MyPreViewController {
         }
         applcantsView.trailingAnchor.constraint(equalTo: tmp).isActive = true
     }
-    @objc func touchApplicant(_ sender: UIImageView) {
+    @objc func touchApplicant(_ sender: UITapGestureRecognizer) {
         print("touch sodfju asdf")
-        self.performSegue(withIdentifier: "GoProfile", sender: sender.tag)
+        if let imageView = sender.view as? UIImageView{
+            self.performSegue(withIdentifier: "GoProfile", sender: imageView.tag)
+        }
     }
 }
 
@@ -251,11 +261,19 @@ extension MyPreViewController {
                 return
             }
             chatViewController.chatRoomId = viewModel.otoChatRooms[sender as! Int].chatRoomId
-        }else {
+        }else if segue.identifier == "GoGroupChatRoom"{
+            guard let chatViewController: ChatViewController =
+                segue.destination as? ChatViewController else {
+                return
+            }
+            chatViewController.chatRoomId = viewModel.groupChatRoom.chatRoomId
+        
+        }else{
             guard let profileViewController: ProfileViewController = segue.destination as? ProfileViewController else {
                 return
             }
-            profileViewController.userInfoId = sender as? Int
+            profileViewController.applicant = viewModel.myPartyApplicants[(sender as? Int)!]
+            profileViewController.partyId = viewModel.myPartyDates[currentPartyNo].partyId
         }
     }
 }

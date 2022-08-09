@@ -4,11 +4,10 @@
 //
 //  Created by 박민호 on 2022/08/08.
 //
-
-/*import Foundation
+import Foundation
 
 struct RequestAcceptApplicant {
-    static func uploadInfo(profileImageId: Int, completion: @escaping (Int) -> Void) -> Void{
+    static func uploadInfo(partyId: Int, partyMemberId: Int,completion: @escaping (Int) -> Void) -> Void{
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
               token.isEmpty == false else {
@@ -16,13 +15,13 @@ struct RequestAcceptApplicant {
             return
         }
         
-        let ccRequest = CcRequest(profileImageId: profileImageId)
+        let arRequest = ApproveRequest(partyMemberId: partyMemberId)
         
-        guard let EncodedUploadData = try? JSONEncoder().encode(ccRequest) else {
+        guard let EncodedUploadData = try? JSONEncoder().encode(arRequest) else {
           return
         }
         
-        let url = URL(string: Utils.springUrlKey+"/user-profiles/profileImage")!
+        let url = URL(string: Utils.springUrlKey+"/"+String(partyId)+"/approve")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -31,43 +30,24 @@ struct RequestAcceptApplicant {
         let task = URLSession.shared.uploadTask(with: request, from: EncodedUploadData, completionHandler: { (data, response, error) in
             if let error = error {
                 print ("error: \(error)")
+                completion(-1)
                 return
             }
             guard let response = response as? HTTPURLResponse,
                 (200...299).contains(response.statusCode) else {
                 print ("server error")
+                completion(-1)
                 return
             }
-            
-            guard let data = data, error == nil else {
-                print("server error")
-                return
-            }
-            
-            let decoder:JSONDecoder = JSONDecoder()
-            do {
-                
-                let decodedResponse: ResponseTypical = try decoder.decode(ResponseTypical.self, from: data)
-                if decodedResponse.results.isSuccess { completion(1) }// main thread에다가 넣어야하나? UI update때매? requestUpdateCategory에서는 그렇게 했음
-                else{ completion(-1) }
-                
-            } catch {
-                print("응답 디코딩 실패")
-                print(error.localizedDescription)
-                dump(error)
-                DispatchQueue.main.async {  //왜 dispatchqueue에 넣음? UI때문?
-                    completion(-1)
-                }
-            }
-            
             completion(1)
+            
         })
         task.resume()
     }
 }
 extension RequestAcceptApplicant {
 
-    struct CcRequest: Codable {
-        let profileImageId: Int
+    struct ApproveRequest: Codable {
+        let partyMemberId: Int
     }
- }*/
+ }

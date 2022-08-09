@@ -11,6 +11,7 @@ class ProfileViewModel {
     var profile: PartyProfile!
     
     let getProfileFlag: Observable<Int?>  = Observable(nil)
+    let acceptResultFlag: Observable<Int?> = Observable(nil)
 }
 
 extension ProfileViewModel {
@@ -22,6 +23,13 @@ extension ProfileViewModel {
             }
             self.profile = partyProfile
             self.getProfileFlag.value = 1
+        })
+    }
+    
+    func requestAcceptApplicant(partyId: Int, partyMemberId: Int){
+        RequestAcceptApplicant.uploadInfo(partyId: partyMemberId, partyMemberId: partyMemberId, completion: {
+            status in
+            self.acceptResultFlag.value = status
         })
     }
 }

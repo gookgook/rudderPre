@@ -11,4 +11,6 @@ struct PartyApplicant: Codable {
     let partyProfileImageUrl: String
     let userInfoId: Int
     let partyMemberId: Int
+    let numberApplicants: Int
+    let userNickname: String
 }
