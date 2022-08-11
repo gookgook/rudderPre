@@ -15,18 +15,6 @@ protocol DoUpdateCharacterDelegate {
     func doUpdateCharacter()
 }
 
-protocol DoUpdateMessageDelegate {
-    func doUpdateMessage()
-}
-
-protocol DoUpdateMessageRoomDelegate {
-    func doUpdateMessageRoom()
-}
-
-protocol DoUpdateMessageDirectDelegate {
-    func doUpdateMessageDirect()
-}
-
 protocol DoUpdatePostBodyDelegate {
     func doUpdatePostBody(postBody: String)
 }
@@ -49,4 +37,8 @@ protocol DoApplyDelegate: AnyObject {
 
 protocol DoRefreshPartyDelegate: AnyObject {
     func doRefreshParty()
+}
+
+protocol DoGoChatRoomDelegate: AnyObject {
+    func doGoChatRoomDelegate(chatRoomId: Int)
 }

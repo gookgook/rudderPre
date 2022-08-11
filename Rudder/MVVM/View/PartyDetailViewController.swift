@@ -59,7 +59,7 @@ extension PartyDetailViewController {
                     /*RequestImage.downloadImage(from: URL(string: partyDetail.alcoholImageUrl)!, imageView: self.alcoholImageView)*/
                     self.applyCountLabel.text = String(partyDetail.applyCount)
                     self.partyTitleView.text = partyDetail.partyTitle
-                    self.DateLabel.text = String(Utils.timeAgo(postDate: partyDetail.partyTime))
+                    self.DateLabel.text = String(Utils.stringDate(date: partyDetail.partyTime))
                     self.LocationLabel.text = partyDetail.partyLocation
                     self.PartyDescriptionView.text = partyDetail.partyDescription
                     //self.alcoholName.text = partyDetail.alcoholName

@@ -14,7 +14,7 @@ class SignUpViewModel {
     var userNickname: String!
     var userProfileBody: String = ""
     
-    var promotionMailAgreement: Bool!
+    var promotionMailAgreement: Bool = true
     
     var receivedId: Int!
     

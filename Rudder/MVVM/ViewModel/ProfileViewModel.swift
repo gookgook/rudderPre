@@ -12,6 +12,7 @@ class ProfileViewModel {
     
     let getProfileFlag: Observable<Int?>  = Observable(nil)
     let acceptResultFlag: Observable<Int?> = Observable(nil)
+    let sendMessageFlag: Observable<Int?> = Observable(nil)
 }
 
 extension ProfileViewModel {
@@ -27,9 +28,16 @@ extension ProfileViewModel {
     }
     
     func requestAcceptApplicant(partyId: Int, partyMemberId: Int){
-        RequestAcceptApplicant.uploadInfo(partyId: partyMemberId, partyMemberId: partyMemberId, completion: {
+        RequestAcceptApplicant.uploadInfo(partyId: partyId, partyMemberId: partyMemberId, completion: {
             status in
             self.acceptResultFlag.value = status
+        })
+    }
+    
+    func requestSendMessage(partyId: Int, applicantUserInfoId: Int) {
+        let myUserInfoId = UserDefaults.standard.integer(forKey: "userInfoId")
+        RequestCreateChatRoom.uploadInfo(partyId: partyId, userInfoIdList: [myUserInfoId,applicantUserInfoId], completion: {(chatRoomId: Int?) in
+            self.sendMessageFlag.value = chatRoomId
         })
     }
 }

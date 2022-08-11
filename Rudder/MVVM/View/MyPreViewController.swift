@@ -42,6 +42,12 @@ extension MyPreViewController {
             guard let self = self else {return}
             
             if status == 1 {
+                
+                guard self.viewModel.myPartyDates.count > 0 else {
+                    Alert.showAlert(title: "You didn't host any party", message: nil, viewController: self)
+                    return
+                }
+                
                 self.viewModel.requestGroupChatroom(partyId: self.viewModel.myPartyDates[self.currentPartyNo].partyId)
                 DispatchQueue.main.async {self.setPartyDatePicker()}
             }
@@ -189,6 +195,7 @@ extension MyPreViewController {
             nicknameLabel.font = UIFont(name: "SF Pro Text", size: 15)
             nicknameLabel.layer.zPosition = 1
             nicknameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
+            nicknameLabel.widthAnchor.constraint(equalToConstant: 55).isActive = true
             nicknameLabel.leadingAnchor.constraint(equalTo: tmp, constant: 20).isActive = true
             nicknameLabel.bottomAnchor.constraint(equalTo: applcantsView.bottomAnchor, constant: -5).isActive = true
             
@@ -253,6 +260,15 @@ extension MyPreViewController:UITableViewDelegate, UITableViewDataSource {
     }
 }
 
+extension MyPreViewController: DoGoChatRoomDelegate {
+    
+    func doGoChatRoomDelegate(chatRoomId: Int) {
+        self.viewModel.requestOTOChatRoom(partyId:  self.viewModel.myPartyDates[self.currentPartyNo].partyId)
+        self.performSegue(withIdentifier: "GoChatRoomDirect", sender: chatRoomId) //profile에서 새로 만들어져서
+        
+    }
+}
+
 extension MyPreViewController {
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "GoChatRoom" {
@@ -268,12 +284,21 @@ extension MyPreViewController {
             }
             chatViewController.chatRoomId = viewModel.groupChatRoom.chatRoomId
         
+        }else if segue.identifier == "GoChatRoomDirect" {
+            guard let chatViewController: ChatViewController =
+                segue.destination as? ChatViewController else {
+                return
+            }
+            chatViewController.chatRoomId = sender as? Int
+            
         }else{
             guard let profileViewController: ProfileViewController = segue.destination as? ProfileViewController else {
                 return
             }
             profileViewController.applicant = viewModel.myPartyApplicants[(sender as? Int)!]
             profileViewController.partyId = viewModel.myPartyDates[currentPartyNo].partyId
+            profileViewController.delegate = self
+            
         }
     }
 }

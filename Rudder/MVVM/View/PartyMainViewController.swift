@@ -123,6 +123,15 @@ extension PartyMainViewController {
     func setBarStyle(){
         self.navigationController?.navigationItem.hidesBackButton = true
         
+        let logoContainer = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 19))
+
+         let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 19))
+         imageView.contentMode = .scaleAspectFit
+         let image = UIImage(named: "NewLogo")
+         imageView.image = image
+         logoContainer.addSubview(imageView)
+        self.navigationItem.titleView = logoContainer
+        
         self.tabBarController?.tabBar.isTranslucent = false
         self.tabBarController?.tabBar.isHidden = false
         self.tabBarController?.tabBar.backgroundColor = UIColor.white

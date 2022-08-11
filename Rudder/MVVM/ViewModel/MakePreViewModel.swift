@@ -64,6 +64,7 @@ extension MakePreViewModel {
             makePartyResultFlag.value = -2
             return
         }
+        
         RequestMakePre.uploadInfo (location: locationString, partyDescription: partyDescription, partyTime: partyDate, partyTitle: partyTitle, totalNumberOfMember: participantNumber, completion: { [self]
             partyId in
             guard let partyId = partyId else { makePartyResultFlag.value = -1; return }

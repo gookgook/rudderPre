@@ -11,7 +11,9 @@ class ProfileViewController: UIViewController {
     
     let viewModel = ProfileViewModel()
     
-    var applicant: PartyApplicant!
+    var delegate: DoGoChatRoomDelegate!
+    
+    var applicant: PartyApplicant! //모종의 이유로 앞화면에서 받아옴
     var partyId: Int!
     
     @IBOutlet weak var profileView: UIView!
@@ -25,7 +27,12 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var acceptButton: UIButton!
     
     @IBAction func touchUpAcceptButton(_ sender: UIButton){
+        print("partyId")
         viewModel.requestAcceptApplicant(partyId: partyId, partyMemberId: applicant.partyMemberId)
+    }
+    
+    @IBAction func touchUpMessageButton(_ sender: UIButton){
+        viewModel.requestSendMessage(partyId: partyId, applicantUserInfoId: applicant.userInfoId)
     }
     
     override func viewDidLoad() {
@@ -65,6 +72,18 @@ extension ProfileViewController {
                 self.tabBarController?.present(vc, animated: true, completion: nil)
             }
             
+        }
+        viewModel.sendMessageFlag.bind{[weak self] chatRoomId in
+            guard let self = self else {return}
+            guard let chatRoomId = chatRoomId else {
+                DispatchQueue.main.async { Alert.showAlert(title: "Server Error", message: nil, viewController: self) }
+                return
+            }
+            DispatchQueue.main.async {
+                
+                self.navigationController?.popViewController(animated: true)
+                self.delegate.doGoChatRoomDelegate(chatRoomId: chatRoomId)
+            }
         }
     }
 }

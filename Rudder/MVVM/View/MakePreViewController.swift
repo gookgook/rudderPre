@@ -72,6 +72,8 @@ extension MakePreViewController {
 extension MakePreViewController {
     @IBAction func changeDatePicker(_ sender: UIDatePicker) {
         let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+       // print(formatter.string(from: sender.date))
         viewModel.partyDate = formatter.string(from: sender.date)
     }
 }

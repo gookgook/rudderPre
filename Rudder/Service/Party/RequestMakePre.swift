@@ -23,7 +23,10 @@ struct RequestMakePre {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
         
-        let partyToMake = PartyToMake(location: location, partyDescription: partyDescription, partyTime: partyTime, partyTitle: partyTime, totalNumberOfMember: totalNumberOfMember)
+        print("partyTime ",partyTime)
+        print("partyTitle ",partyTitle)
+        
+        let partyToMake = PartyToMake(location: location, partyDescription: partyDescription, partyTime: partyTime, partyTitle: partyTitle, totalNumberOfMember: totalNumberOfMember)
         
         guard let EncodedUploadData = try? JSONEncoder().encode(partyToMake) else {
             return

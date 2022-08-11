@@ -21,7 +21,9 @@ struct RequestAcceptApplicant {
           return
         }
         
-        let url = URL(string: Utils.springUrlKey+"/"+String(partyId)+"/approve")!
+        print("partyId ",String(partyId),"partyMemId",String(partyMemberId))
+        
+        let url = URL(string: Utils.springUrlKey+"/parties/"+String(partyId)+"/approve")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
@@ -33,6 +35,8 @@ struct RequestAcceptApplicant {
                 completion(-1)
                 return
             }
+            
+            
             guard let response = response as? HTTPURLResponse,
                 (200...299).contains(response.statusCode) else {
                 print ("server error")

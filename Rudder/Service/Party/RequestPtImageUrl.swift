@@ -12,9 +12,16 @@ struct RequestPtImageUrl { //Request Party-profile image upload url
     static func uploadInfo(partyId: Int,imageMetadata: ImageMetaData, completion: @escaping ([String]?) -> Void) -> Void{ // completion optional!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
         let url : URL = URL(string: "http://test.rudderuni.com/parties/image-upload-url/generate")!
      
+        
+        guard let token = UserDefaults.standard.string(forKey: "token") else {
+            print("token failure")
+            return
+        }
+        
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+        request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
 
         let urlGetRequest = UrlGetRequest(imageMetaData: imageMetadata, partyId: partyId)
         
@@ -25,6 +32,7 @@ struct RequestPtImageUrl { //Request Party-profile image upload url
                 print ("error: \(error)")
                 return
             }
+            
             guard let response = response as? HTTPURLResponse,
                 (200...299).contains(response.statusCode) else {
                 print ("server error sdfgsdfg")

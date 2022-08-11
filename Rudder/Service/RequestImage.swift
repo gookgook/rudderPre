@@ -28,6 +28,7 @@ struct RequestImage {
             // always update the UI from the main thread
     
             let image = UIImage(data: data)
+    
             guard image != nil else {return }
             ImageCache.imageCache.setObject(image!, forKey: cacheKey as NSString)
             DispatchQueue.main.async {imageView.image = image! }
