@@ -5,7 +5,7 @@
 //  Created by 박민호 on 2022/07/19.
 //
 
-import UIKit
+/*import UIKit
 import SquareInAppPaymentsSDK
 
 class PayViewController: UIViewController, UIViewControllerTransitioningDelegate {
@@ -138,5 +138,5 @@ extension PayViewController : OrderViewControllerDelegate ,SQIPCardEntryViewCont
         print("finish")
     }
 }
-
+*/
 

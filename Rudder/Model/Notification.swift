@@ -8,10 +8,10 @@
 import Foundation
 
 struct UserNotification: Codable {
-    let itemBody : String
-    let itemId : Int
-    let itemTitle : String
     let notificationId: Int
+    let notificationTitle: String
+    let notificationBody: String
+    let itemId: Int
     let notificationTime: String
-    let notificationType: Int
+    let notificationType: String
 }

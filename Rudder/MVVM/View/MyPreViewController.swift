@@ -33,6 +33,14 @@ class MyPreViewController: UIViewController {
         setUpTableView()
         setUpBinding()
         viewModel.requestPartyDates()
+        
+        let k_doLogout = Notification.Name("doLogout") //이거이름재설정 필요
+        NotificationCenter.default.addObserver(self, selector: #selector(self.doLogout), name: k_doLogout, object: nil)
+    }
+    
+    @objc func doLogout(){
+        UserDefaults.standard.removeObject(forKey: "token")
+        self.navigationController?.popToRootViewController(animated: true)
     }
 }
 

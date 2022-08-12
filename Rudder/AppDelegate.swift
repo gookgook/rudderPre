@@ -8,7 +8,7 @@
 import UIKit
 import UserNotifications
 import Firebase
-import SquareInAppPaymentsSDK
+//import SquareInAppPaymentsSDK
 import SwiftStomp
 
 @main
@@ -16,7 +16,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-       
+    
         // Override point for customization after application launch.
      
         //app 꺼질때 disconect 고고
@@ -53,7 +53,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
                         }
                     }
                 }
-        SQIPInAppPaymentsSDK.squareApplicationID = "sandbox-sq0idb-mYMqDFLaO2hb5hwq7NXmig"
+        //SQIPInAppPaymentsSDK.squareApplicationID = "sandbox-sq0idb-mYMqDFLaO2hb5hwq7NXmig"
         return true
     }
     

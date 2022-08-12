@@ -57,7 +57,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
         if UserDefaults.standard.string(forKey: "token") != nil{
             print("token already exists")
             //navigationController = UINavigationController(rootViewController: LoginVC)
-            Utils.firstScreen = 1
+            Utils.firstScreen = 1 //아마 지워야함
             mainNavigationController.pushViewController(PartyMainVC, animated: true)
             mainNavigationController.viewControllers.insert(LoginVC, at: 0)
             
@@ -150,7 +150,7 @@ extension SceneDelegate: SwiftStompDelegate {
                 print("Connected to stomp")
                 
                 //** Subscribe to topics or queues just after connect to the stomp!
-                swiftStomp.subscribe(to: "/queue/user.218")
+                swiftStomp.subscribe(to: "/queue/user.347") //userInfoId로 바꾸라
                 //swiftStomp.subscribe(to: "/topic/greeting2")
                 
             }
@@ -241,7 +241,7 @@ extension SceneDelegate: SwiftStompDelegate {
 
 extension SceneDelegate {
     func handleMessage(message: Data) {
-        let decoder:JSONDecoder = JSONDecoder()
+        /*let decoder:JSONDecoder = JSONDecoder()
         do {
             
             //let decodedResponse: Chat = try decoder.decode(Chat.self, from: message)
@@ -256,6 +256,20 @@ extension SceneDelegate {
             DispatchQueue.main.async {
                // completion(-1)
             }
+        }*/
+        let decoder: JSONDecoder = JSONDecoder()
+        do {
+            let myStruct = try decoder.decode(SocketMessage.self, from: message)
+            switch myStruct.socketMessage {
+            case .chat(let chat):
+                print("is Chat "+String(chat.chatRoomId))
+            case .notification(let notification):
+                print("is Notification " + String(notification.notificationId))
+            default:
+                print("unsupported format")
+            }
+        }catch{
+            print("dynamic decoding error")
         }
     }
 }

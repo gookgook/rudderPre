@@ -11,17 +11,17 @@ class PartyMainViewController: UIViewController {
     
     let viewModel = PartyMainViewModel()
     
+    var nowPaging: Bool = false
+    var endPartyId: Int = -1
+    
     @IBOutlet weak var partyTableView: UITableView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBinding()
         setUpTableView()
-        viewModel.requestPartyDates(endPartyId: -1)
+        viewModel.requestPartyDates(endPartyId: endPartyId)
         self.navigationItem.hidesBackButton = true
-        
-        let k_doLogout = Notification.Name("doLogout") //이거이름재설정 필요
-        NotificationCenter.default.addObserver(self, selector: #selector(self.doLogout), name: k_doLogout, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -36,9 +36,12 @@ extension PartyMainViewController: DoRefreshPartyDelegate{
         self.viewModel.reloadPosts()
     }
     
-    @objc func doLogout(){
-        UserDefaults.standard.removeObject(forKey: "token")
-        self.navigationController?.popToRootViewController(animated: true)
+    @IBAction func touchUpMyProfile(_ sender: UIBarButtonItem){
+        self.performSegue(withIdentifier: "GoMyProfile", sender: nil)
+    }
+    
+    @IBAction func touchUpNotification(_ sender: UIBarButtonItem){
+        self.performSegue(withIdentifier: "GoNotification", sender: nil)
     }
 }
 
@@ -47,6 +50,12 @@ extension PartyMainViewController {
         viewModel.getPartiesFlag.bind{ [weak self] status in
             guard let self = self else {return}
             if status == 1 {
+                self.nowPaging = false
+                guard !self.viewModel.parties.isEmpty else {
+                    DispatchQueue.main.async { Alert.showAlert(title: "No more parties", message: nil, viewController: self) }
+                    return
+                }
+                self.endPartyId = self.viewModel.parties[self.viewModel.parties.count - 1].partyId
                 DispatchQueue.main.async {
                     print(self.viewModel.parties.count)
                     self.partyTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
@@ -136,4 +145,15 @@ extension PartyMainViewController {
         self.tabBarController?.tabBar.isHidden = false
         self.tabBarController?.tabBar.backgroundColor = UIColor.white
     }
+}
+
+extension PartyMainViewController{
+    func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        guard scrollView.contentOffset.y >= 0 else { return }
+        if !nowPaging {
+            nowPaging = true
+            //spinner.startAnimating()
+            viewModel.requestPartyDates(endPartyId: endPartyId)
+        }
+   }
 }
