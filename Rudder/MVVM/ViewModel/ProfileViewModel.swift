@@ -13,6 +13,7 @@ class ProfileViewModel {
     let getProfileFlag: Observable<Int?>  = Observable(nil)
     let acceptResultFlag: Observable<Int?> = Observable(nil)
     let sendMessageFlag: Observable<Int?> = Observable(nil)
+    let currentImageNo: Observable<Int> = Observable(0)
 }
 
 extension ProfileViewModel {
@@ -39,5 +40,13 @@ extension ProfileViewModel {
         RequestCreateChatRoom.uploadInfo(partyId: partyId, userInfoIdList: [myUserInfoId,applicantUserInfoId], completion: {(chatRoomId: Int?) in
             self.sendMessageFlag.value = chatRoomId
         })
+    }
+    
+    func handleImageSwipe(direction: Int) {//1: left, 2:right
+        if direction == 1 && currentImageNo.value < profile.partyProfileImages.count - 1  {
+            currentImageNo.value += 1
+        } else if direction == 2 && currentImageNo.value > 0 {
+            currentImageNo.value -= 1
+        }
     }
 }

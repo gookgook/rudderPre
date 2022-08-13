@@ -26,6 +26,8 @@ class ProfileViewController: UIViewController {
     
     @IBOutlet weak var acceptButton: UIButton!
     
+    @IBOutlet weak var imageCountLabel: UILabel!
+    
     @IBAction func touchUpAcceptButton(_ sender: UIButton){
         print("partyId")
         viewModel.requestAcceptApplicant(partyId: partyId, partyMemberId: applicant.partyMemberId)
@@ -39,6 +41,7 @@ class ProfileViewController: UIViewController {
         super.viewDidLoad()
         setUIs()
         setUpBinding()
+        setImageSwipe()
         viewModel.requestProfile(userInfoId: applicant.userInfoId)
     }
 }
@@ -51,9 +54,10 @@ extension ProfileViewController {
                 let profile = self.viewModel.profile!
                 DispatchQueue.main.async {
                     RequestImage.downloadImage(from: URL(string: profile.schoolImageUrl)!, imageView: self.universityLogoView)
-                    RequestImage.downloadImage(from: URL(string: profile.partyProfileImages[0])!, imageView: self.profileImageView)
+                    RequestImage.downloadImage(from: URL(string: profile.partyProfileImages[self.viewModel.currentImageNo.value])!, imageView: self.profileImageView)
                     self.nicknameLabel.text = profile.userNickname
                     self.profileBodyView.text = profile.partyProfileBody
+                    self.imageCountLabel.text =  "1 / " + String(self.viewModel.profile.partyProfileImages.count)
                 }
             }
         }
@@ -85,6 +89,33 @@ extension ProfileViewController {
                 self.delegate.doGoChatRoomDelegate(chatRoomId: chatRoomId)
             }
         }
+        viewModel.currentImageNo.bind{[weak self] currentImageNo in
+            guard let self = self else {return}
+            self.imageCountLabel.text = String(currentImageNo + 1) + " / " + String(self.viewModel.profile.partyProfileImages.count)
+            RequestImage.downloadImage(from: URL(string: self.viewModel.profile.partyProfileImages[currentImageNo])!, imageView: self.profileImageView)
+        }
+    }
+}
+
+extension ProfileViewController {
+    func setImageSwipe(){
+        profileImageView.isUserInteractionEnabled = true
+        
+        let swipeRight = UISwipeGestureRecognizer(target: self, action: #selector(imageSwipeRight(_:)))
+        swipeRight.direction = UISwipeGestureRecognizer.Direction.right
+        profileImageView.addGestureRecognizer(swipeRight)
+        
+        let swipeLeft = UISwipeGestureRecognizer(target: self, action: #selector(imageSwipeLeft(_:)))
+        swipeLeft.direction = UISwipeGestureRecognizer.Direction.left
+        profileImageView.addGestureRecognizer(swipeLeft)
+    }
+    
+    @objc func imageSwipeLeft(_ gesture: UIGestureRecognizer){
+        viewModel.handleImageSwipe(direction: 1) //1 = left
+    }
+    
+    @objc func imageSwipeRight(_ gesture: UIGestureRecognizer){
+        viewModel.handleImageSwipe(direction: 2) // 2 = right
     }
 }
 
