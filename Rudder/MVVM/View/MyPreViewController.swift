@@ -52,7 +52,7 @@ extension MyPreViewController {
             if status == 1 {
                 
                 guard self.viewModel.myPartyDates.count > 0 else {
-                    Alert.showAlert(title: "You didn't host any party", message: nil, viewController: self)
+                    DispatchQueue.main.async { Alert.showAlert(title: "You didn't host any party", message: nil, viewController: self) }
                     return
                 }
                 
@@ -159,7 +159,7 @@ extension MyPreViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPick
 
 extension MyPreViewController {
     func setAGChatView() {
-        aGPartyTitle.text = "mockDate"
+        aGPartyTitle.text = viewModel.groupChatRoom.chatRoomTitle
         aGChatBody.text = viewModel.groupChatRoom.recentMessage
         RequestImage.downloadImage(from: URL(string: viewModel.groupChatRoom.chatRoomImageUrl)!, imageView: aGChatImageView)
         aGChatImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchAGChatRoom(_:))))
@@ -177,7 +177,7 @@ extension MyPreViewController {
         //print("party Id ", String(viewModel.))
         print("applications count", String(viewModel.myPartyApplicants.count))
         
-        for i in 0..<viewModel.myPartyApplicants.count  {
+        for i in 0..<viewModel.myPartyApplicants.count   {
             let imageView = UIImageView()
             applcantsView.addSubview(imageView)
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -190,7 +190,6 @@ extension MyPreViewController {
             imageView.tag = i
             
             imageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchApplicant(_:))))
-            imageView.isUserInteractionEnabled = true
             imageView.isUserInteractionEnabled = true
             
             RequestImage.downloadImage(from: URL(string: viewModel.myPartyApplicants[i].partyProfileImageUrl)!, imageView: imageView)
@@ -227,7 +226,7 @@ extension MyPreViewController {
             
             tmp = imageView.trailingAnchor
         }
-        applcantsView.trailingAnchor.constraint(equalTo: tmp).isActive = true
+        applcantsView.trailingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
     }
     @objc func touchApplicant(_ sender: UITapGestureRecognizer) {
         print("touch sodfju asdf")
@@ -299,6 +298,13 @@ extension MyPreViewController {
             }
             chatViewController.chatRoomId = sender as? Int
             
+        }else if segue.identifier == "GoPreSetting" {
+            guard let preSettingViewController: PreSettingViewController =
+                segue.destination as? PreSettingViewController else {
+                return
+            }
+            preSettingViewController.partyThumbnailImageURL = viewModel.groupChatRoom.chatRoomImageUrl
+            
         }else{
             guard let profileViewController: ProfileViewController = segue.destination as? ProfileViewController else {
                 return
@@ -310,6 +316,14 @@ extension MyPreViewController {
         }
     }
 }
+
+
+extension MyPreViewController {
+    @IBAction func touchUpSetting(_ sender: UIBarButtonItem){
+        self.performSegue(withIdentifier: "GoPreSetting", sender: nil)
+    }
+}
+
 
 extension MyPreViewController {
     func setBar(){

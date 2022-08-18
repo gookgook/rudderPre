@@ -16,8 +16,10 @@ class PartyDetailViewController: UIViewController {
     var numberOfApplicants: Int!
     
     @IBOutlet weak var scrollView: UIScrollView!
+    
 
     @IBOutlet weak var partyThumbnailImageView: UIImageView!
+    @IBOutlet weak var applyCountView: UIView!
     @IBOutlet weak var applyCountLabel: UILabel!
     
     /*@IBOutlet weak var alcoholView: UIView!
@@ -116,8 +118,12 @@ extension PartyDetailViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
+        
+        
     }
     func setStyle(){
-        //ColorDesign.setShadow(view: alcoholView)
+        
+        applyCountView.layer.borderWidth = 1
+        applyCountView.layer.borderColor = UIColor.white.cgColor
     }
 }

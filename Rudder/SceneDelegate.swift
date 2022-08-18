@@ -34,7 +34,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
             print("Something wrong in storyboard")
             return
         }
-        guard let LoginVC = storyboard.instantiateViewController(identifier: "LoViewController") as? LoginViewController else {
+        guard let LoginVC = storyboard.instantiateViewController(identifier: "StartViewController") as? StartViewController else {
             print("Something wrong in storyboard")
             return
         }
@@ -71,9 +71,9 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
        // notificationController = UINavigationController(rootViewController: NotificationVC)
         
         tabBarController.tabBar.tintColor = MyColor.rudderPurple
-        let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "board"), tag: 0)
-        let myPageTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "myPage"), tag: 1)
-        let messageTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "envelope"), tag: 2)
+        let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "homekit"), tag: 0)
+        let myPageTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "envelope"), tag: 1)
+        let messageTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "board"), tag: 2)
         //let notificationTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 3)
         //tag와 tab bar 순서 안맞는 사소한 문제
         mainNavigationController.tabBarItem = mainTabBarItem

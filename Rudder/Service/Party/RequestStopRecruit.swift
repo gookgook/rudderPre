@@ -1,13 +1,13 @@
 //
-//  RequestCancelParty.swift
+//  RequestStopRecruit.swift
 //  Rudder
 //
-//  Created by 박민호 on 2022/08/13.
+//  Created by 박민호 on 2022/08/14.
 //
 
 import Foundation
 
-struct RequestCancelParty{
+struct RequestStopRecruit{
     static func uploadInfo(partyId: Int, completion: @escaping (Int) -> Void) -> Void{
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
@@ -16,7 +16,7 @@ struct RequestCancelParty{
             return
         }
         
-        let url = URL(string: Utils.springUrlKey+"/parties/"+String(partyId)+"/cancel")!
+        let url = URL(string: Utils.springUrlKey+"/parties/"+String(partyId)+"/stop-recruit")!
         var request = URLRequest(url: url)
         request.httpMethod = "PATCH"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
