@@ -39,7 +39,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
             return
         }
         
-        guard let MyVC = storyboard.instantiateViewController(identifier: "MyPageViewController") as? MyPageViewController else {
+        guard let MyVC = storyboard.instantiateViewController(identifier: "MyApplicationsViewController") as? MyApplicationsViewController else {
             print("Something wrong in storyboard")
             return
         }

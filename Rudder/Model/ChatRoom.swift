@@ -14,5 +14,5 @@ struct ChatRoom: Codable {
     var recentMessage: String!
     let recentMessageTime: String!
     let chatRoomImageUrl: String
-    //let chatRoomName: String
+    
 }

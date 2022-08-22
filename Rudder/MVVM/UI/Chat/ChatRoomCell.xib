@@ -57,7 +57,7 @@
                 <outlet property="profileImageView" destination="h1G-tT-ZkK" id="EdL-9H-5hM"/>
                 <outlet property="recentMessageLabel" destination="AyD-LK-Qr2" id="LHc-yd-JeQ"/>
             </connections>
-            <point key="canvasLocation" x="8.6956521739130448" y="164.0625"/>
+            <point key="canvasLocation" x="152" y="171"/>
         </tableViewCell>
     </objects>
 </document>

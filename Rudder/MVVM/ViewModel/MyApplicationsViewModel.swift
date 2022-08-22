@@ -8,11 +8,12 @@
 import Foundation
 
 class MyApplicationsViewModel {
-    var approvedParty: [Party] = []
+    var approvedParties: [Party] = []
+    var appliedParties: [Party] = []
     
-    var appliedParty: [Party] = []
-    var groupChatRoom: [ChatRoom] = []
-    var otoChatRooms: [ChatRoom] = []
+    var groupChatRooms: [ChatRoom?] = [] //parties와 맞추기 위해서
+    var tmpOtoChatRooms: [ChatRoom] = [] // ''
+    var otoChatRooms: [ChatRoom?] = []
     
     let getApprovedPreFlag: Observable<Int?> = Observable(nil)
     let getAppliedPreFlag: Observable<Int?> = Observable(nil)
@@ -27,7 +28,8 @@ extension MyApplicationsViewModel {
                 self.getApprovedPreFlag.value = -1
                 return
             }
-            self.approvedParty = parties
+            self.approvedParties = parties
+            self.setGroupChatRoomsArray(count: parties.count)
             let uploadGroup = DispatchGroup()
             var everythingOkay: Bool = true //채팅방 하나라도 못받아오면 포문 끊어주기 위함
             for i in 0..<parties.count {
@@ -36,7 +38,7 @@ extension MyApplicationsViewModel {
                 uploadGroup.enter()
                 RequestPartyGroupChatRoom.uploadInfo(partyId: parties[i].partyId, completion: {(chatRoom: ChatRoom?) in
                     if chatRoom == nil { everythingOkay = false }
-                    else { self.groupChatRoom.append(chatRoom!) }
+                    else { self.groupChatRooms[i] = chatRoom! }
                     uploadGroup.leave()
                 })
             }
@@ -52,7 +54,7 @@ extension MyApplicationsViewModel {
                 self.getAppliedPreFlag.value = -1
                 return
             }
-            self.appliedParty = parties
+            self.appliedParties = parties
             self.getAppliedPreFlag.value = 1
         })
     }
@@ -64,7 +66,23 @@ extension MyApplicationsViewModel {
                 return
             }
             self.getOTOChatRoomFlag.value = 1
-            self.otoChatRooms = chatRooms
+            self.tmpOtoChatRooms = chatRooms
         })
+    }
+}
+
+extension MyApplicationsViewModel {
+    func setGroupChatRoomsArray(count: Int){ // Parties와 맞추기 위함
+        for _ in 0 ..< count {
+            self.groupChatRooms.append(nil)
+        }
+    }
+    func setOTOChatRoomsArray(){
+        for _ in 0 ..< self.appliedParties.count {
+            self.otoChatRooms.append(nil)
+        }
+        for i in 0 ..< self.tmpOtoChatRooms.count {
+            self.otoChatRooms.append(tmpOtoChatRooms[i])
+        }
     }
 }

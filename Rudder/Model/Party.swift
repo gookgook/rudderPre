@@ -18,4 +18,5 @@ struct Party: Codable {
     let totalNumberOfMember: Int
     let universityName: String
     let universityLogoUrl: String
+    let isChatExist: Bool!
 }
