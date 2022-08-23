@@ -9,10 +9,10 @@ import Foundation
 
 class MyApplicationsViewModel {
     var approvedParties: [Party] = []
-    var appliedParties: [Party] = []
+    var appliedParties: [Party?] = []
+    var tmpAppliedParties: [Party] = []
     
     var groupChatRooms: [ChatRoom?] = [] //parties와 맞추기 위해서
-    var tmpOtoChatRooms: [ChatRoom] = [] // ''
     var otoChatRooms: [ChatRoom?] = []
     
     let getApprovedPreFlag: Observable<Int?> = Observable(nil)
@@ -54,7 +54,9 @@ extension MyApplicationsViewModel {
                 self.getAppliedPreFlag.value = -1
                 return
             }
-            self.appliedParties = parties
+            self.tmpAppliedParties = parties
+            print("count " + String(self.tmpAppliedParties.count))
+            
             self.getAppliedPreFlag.value = 1
         })
     }
@@ -65,8 +67,10 @@ extension MyApplicationsViewModel {
                 self.getOTOChatRoomFlag.value = -1
                 return
             }
+            self.otoChatRooms = chatRooms
+            self.setOTOChatRoomsArray()
+            
             self.getOTOChatRoomFlag.value = 1
-            self.tmpOtoChatRooms = chatRooms
         })
     }
 }
@@ -78,11 +82,13 @@ extension MyApplicationsViewModel {
         }
     }
     func setOTOChatRoomsArray(){
-        for _ in 0 ..< self.appliedParties.count {
-            self.otoChatRooms.append(nil)
+        for _ in 0 ..< self.otoChatRooms.count {
+            self.appliedParties.append(nil)
         }
-        for i in 0 ..< self.tmpOtoChatRooms.count {
-            self.otoChatRooms.append(tmpOtoChatRooms[i])
+        for i in 0 ..< self.tmpAppliedParties.count {
+            if tmpAppliedParties[i].isChatExist == false {
+                self.appliedParties.append(tmpAppliedParties[i])
+            }
         }
     }
 }

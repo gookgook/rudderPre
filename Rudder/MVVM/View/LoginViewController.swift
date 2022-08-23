@@ -16,9 +16,6 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userIdField: UITextField!
     @IBOutlet weak var userPasswordField: UITextField!
     
-    @IBOutlet weak var signUpButton: UIButton!
-    @IBOutlet weak var signInButton: UIButton!
-
 }
 
 extension LoginViewController {
@@ -47,10 +44,6 @@ extension LoginViewController {
 extension LoginViewController {
     func setUpViews () {
         spinner.hidesWhenStopped = true
-        signUpButton.layer.borderWidth = 0.5
-        signUpButton.layer.borderColor = UIColor.lightGray.cgColor
-        signInButton.layer.borderWidth = 0.5
-        signInButton.layer.borderColor = UIColor.lightGray.cgColor
         hideKeyboardWhenTappedAround()
     }
     
@@ -100,19 +93,7 @@ extension LoginViewController {
         actionSheet.addAction(cancelAction)
         self.present(actionSheet, animated: true, completion: nil)
     }
-    
-    @IBAction func touchUpSignUpButton(_ sender: UIButton){
-        print("GoSignUp Touched")
-        
-        DispatchQueue.main.async {self.performSegue(withIdentifier: "GoSignUp", sender: sender)}
-    }
 }
-
-
-
-
-
-
 
 extension LoginViewController {
     func hideKeyboardWhenTappedAround() {

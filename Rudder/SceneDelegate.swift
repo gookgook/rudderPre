@@ -263,6 +263,9 @@ extension SceneDelegate {
             switch myStruct.socketMessage {
             case .chat(let chat):
                 print("is Chat "+String(chat.chatRoomId))
+                let k_chatReceived = Notification.Name("chatReceived")
+                let userInfo: [AnyHashable: Any] = ["receivedChat": chat]
+                NotificationCenter.default.post(name: k_chatReceived, object: nil, userInfo: userInfo)
             case .notification(let notification):
                 print("is Notification " + String(notification.notificationId))
             default:

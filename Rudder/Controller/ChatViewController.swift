@@ -40,6 +40,9 @@ class ChatViewController: UIViewController{
         let yourCellNib: UINib = UINib.init(nibName: "YourChatCell", bundle: nil)
         self.chatTableView.register(yourCellNib, forCellReuseIdentifier: "yourChatCell")
         
+        let yourFirstCellNib: UINib = UINib.init(nibName: "YourFirstChatCell", bundle: nil)
+        self.chatTableView.register(yourFirstCellNib, forCellReuseIdentifier: "yourFirstChatCell")
+        
         //refreshControll에 관한것들
         
         self.chatTableView.estimatedRowHeight = 200 //autolatyout 잘 작동하게 대략적인 높이?
@@ -52,6 +55,7 @@ class ChatViewController: UIViewController{
 
     
     @objc func receivedChat(notification: NSNotification){
+        print("reciessd chat")
         let currentChat = notification.userInfo!["receivedChat"] as? Chat
         handleMessageBody(chat: currentChat!)
     }
@@ -111,6 +115,8 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
         myCell = tableView.dequeueReusableCell(withIdentifier: "myChatCell", for: indexPath) as! MyChatCell
         let yourCell: YourChatCell
         yourCell = tableView.dequeueReusableCell(withIdentifier: "yourChatCell", for: indexPath) as! YourChatCell
+        let yourFirstCell: YourFirstChatCell
+        yourFirstCell = tableView.dequeueReusableCell(withIdentifier: "yourFirstChatCell", for: indexPath) as! YourFirstChatCell
         // cell.delegate = self
         
         guard indexPath.row < chats.count else {
@@ -123,8 +129,13 @@ extension ChatViewController: UITableViewDelegate, UITableViewDataSource {
             myCell.configure(chat: chat, tableView: chatTableView, indexPath: indexPath)
             return myCell
         } else {
-            yourCell.configure(chat: chat, tableView: chatTableView, indexPath: indexPath)
-            return yourCell
+            if indexPath.row == 0 || chats[indexPath.row - 1].sendUserInfoId != chat.sendUserInfoId {
+                yourFirstCell.configure(chat: chat, tableView: chatTableView, indexPath: indexPath)
+                return yourFirstCell
+            } else {
+                yourCell.configure(chat: chat, tableView: chatTableView, indexPath: indexPath)
+                return yourCell
+            }
         }
         //endPostId = post.postId
      

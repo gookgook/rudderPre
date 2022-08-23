@@ -15,6 +15,7 @@ struct Chat: Codable {
     let sendUserNickname: String
     let isMine: Bool
     let chatRoomId: Int
+    
 }
 
 

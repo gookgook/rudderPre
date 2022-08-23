@@ -321,6 +321,7 @@ extension MyPreViewController {
 extension MyPreViewController {
     @IBAction func touchUpSetting(_ sender: UIBarButtonItem){
         self.performSegue(withIdentifier: "GoPreSetting", sender: nil)
+    
     }
 }
 
