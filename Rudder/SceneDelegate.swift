@@ -13,84 +13,28 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
 
     var window: UIWindow?
     
-    var mainNavigationController = UINavigationController()
-    var myNavigationController = UINavigationController()
-    var myPreNavigationController = UINavigationController()
-    var notificationController = UINavigationController()
-    let tabBarController = UITabBarController()
     
     private var swiftStomp: SwiftStomp!
 
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
-        
-        tabBarController.delegate = self
         
         
         
         guard let winScene = (scene as? UIWindowScene) else { return }
         //let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        guard let PartyMainVC = storyboard.instantiateViewController(identifier: "PartyMainViewController") as? PartyMainViewController else {
-            print("Something wrong in storyboard")
-            return
-        }
-        guard let LoginVC = storyboard.instantiateViewController(identifier: "StartViewController") as? StartViewController else {
+        guard let LaunchVC = storyboard.instantiateViewController(identifier: "LaunchVC") as? LaunchViewController else {
             print("Something wrong in storyboard")
             return
         }
         
-        guard let MyVC = storyboard.instantiateViewController(identifier: "MyApplicationsViewController") as? MyApplicationsViewController else {
-            print("Something wrong in storyboard")
-            return
-        }
-        
-        guard let MyPreVC = storyboard.instantiateViewController(identifier: "MyPreViewController") as? MyPreViewController else {
-            print("Something wrong in storyboard")
-            return
-        }
-        
-        /*guard let NotificationVC = storyboard.instantiateViewController(identifier: "NotificationViewController") as? NotificationViewController else {
-            print("Something wrong in storyboard")
-            return
-        }*/
-        
-        if UserDefaults.standard.string(forKey: "token") != nil{
-            print("token already exists")
-            //navigationController = UINavigationController(rootViewController: LoginVC)
-            Utils.firstScreen = 1 //아마 지워야함
-            mainNavigationController.pushViewController(PartyMainVC, animated: true)
-            mainNavigationController.viewControllers.insert(LoginVC, at: 0)
-            
-        }else{
-            Utils.firstScreen = 0
-            mainNavigationController = UINavigationController(rootViewController: LoginVC)
-        }
-        
-        myNavigationController = UINavigationController(rootViewController: MyVC)
-        myPreNavigationController = UINavigationController(rootViewController: MyPreVC)
-       // notificationController = UINavigationController(rootViewController: NotificationVC)
-        
-        tabBarController.tabBar.tintColor = MyColor.rudderPurple
-        let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "homekit"), tag: 0)
-        let myPageTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "envelope"), tag: 1)
-        let messageTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "board"), tag: 2)
-        //let notificationTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 3)
-        //tag와 tab bar 순서 안맞는 사소한 문제
-        mainNavigationController.tabBarItem = mainTabBarItem
-        myNavigationController.tabBarItem = myPageTabBarItem
-        myPreNavigationController.tabBarItem = messageTabBarItem
-    //notificationController.tabBarItem = notificationTabBarItem
-        
-        
-        let controllers = [mainNavigationController, myPreNavigationController,  myNavigationController/*,notificationController*/]
-        tabBarController.setViewControllers(controllers, animated: true)
-        //tabBarController.tabBar.selectedImageTintColor = UIColor(red: 147/255, green: 41/255, blue: 209/255, alpha: 1)
         window = UIWindow(windowScene: winScene)
-        window?.rootViewController = tabBarController
+        //window?.rootViewController = tabBarController
+        window?.rootViewController = LaunchVC
         window?.makeKeyAndVisible()
         
         let k_moveToNotification = Notification.Name("moveToNotification") //이거이름재설정 필요
-        NotificationCenter.default.addObserver(self, selector: #selector(self.moveTab(notification:)), name: k_moveToNotification, object: nil)
+        //NotificationCenter.default.addObserver(self, selector: #selector(self.moveTab(notification:)), name: k_moveToNotification, object: nil)
         
         
         initStomp()
@@ -129,16 +73,7 @@ extension SceneDelegate {
     }
 }
 //tab bar double tap 방지
-extension SceneDelegate: UITabBarControllerDelegate {
-    
-    func tabBarController(_ tabBarController: UITabBarController, shouldSelect viewController: UIViewController) -> Bool {
-        return viewController != tabBarController.selectedViewController
-    }
-    
-    @objc func moveTab(notification: NSNotification){
-        self.tabBarController.selectedIndex = 3
-    }
-}
+
 
 
 //handling socket input
