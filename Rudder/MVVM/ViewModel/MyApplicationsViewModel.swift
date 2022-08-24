@@ -8,6 +8,12 @@
 import Foundation
 
 class MyApplicationsViewModel {
+    
+    init(){
+        let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedChat(notification:)), name: k_moveToNotification, object: nil)
+    }
+    
     var approvedParties: [Party] = []
     var appliedParties: [Party?] = []
     var tmpAppliedParties: [Party] = []
@@ -18,7 +24,9 @@ class MyApplicationsViewModel {
     let getApprovedPreFlag: Observable<Int?> = Observable(nil)
     let getAppliedPreFlag: Observable<Int?> = Observable(nil)
     let getOTOChatRoomFlag: Observable<Int?> = Observable(nil)
-
+    
+    var receivedGroupChatFlag: [Observable<Int?>] = []
+    var receivedOTOChatFlag: [Observable<Int?>] = []
 }
 
 extension MyApplicationsViewModel {
@@ -79,6 +87,7 @@ extension MyApplicationsViewModel {
     func setGroupChatRoomsArray(count: Int){ // Parties와 맞추기 위함
         for _ in 0 ..< count {
             self.groupChatRooms.append(nil)
+            self.receivedGroupChatFlag.append(Observable(nil))
         }
     }
     func setOTOChatRoomsArray(){
@@ -86,8 +95,32 @@ extension MyApplicationsViewModel {
             self.appliedParties.append(nil)
         }
         for i in 0 ..< self.tmpAppliedParties.count {
+            receivedOTOChatFlag.append(Observable(nil))
             if tmpAppliedParties[i].isChatExist == false {
                 self.appliedParties.append(tmpAppliedParties[i])
+            }
+        }
+    }
+}
+
+extension MyApplicationsViewModel {
+    @objc func receivedChat(notification: NSNotification){
+        let currentChat = notification.userInfo!["receivedChat"] as? Chat
+        
+        for i in 0..<groupChatRooms.count {
+            if groupChatRooms[i]!.chatRoomId == currentChat?.chatRoomId {
+                groupChatRooms[i]!.recentMessage = currentChat?.chatMessageBody
+                receivedGroupChatFlag[i].value = 1
+                break
+            }
+        }
+        
+        for i in 0..<otoChatRooms.count {
+            guard otoChatRooms[i] != nil else {continue}
+            if otoChatRooms[i]!.chatRoomId == currentChat?.chatRoomId {
+                otoChatRooms[i]!.recentMessage = currentChat?.chatMessageBody
+                receivedOTOChatFlag[i].value = 1
+                break
             }
         }
     }

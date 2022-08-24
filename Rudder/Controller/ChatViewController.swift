@@ -27,6 +27,8 @@ class ChatViewController: UIViewController{
         super.viewDidLoad()
         spinner.startAnimating()
         
+       // textField.bor
+        
         requestOldChats(endChatMessageId: -1)
         let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedChat(notification:)), name: k_moveToNotification, object: nil)

@@ -30,13 +30,14 @@ class MyApplicationsViewController: UIViewController {
 
 extension MyApplicationsViewController {
     func setUpBinding() {
-        viewModel.getAppliedPreFlag.bind{[weak self] status in
+        viewModel.getApprovedPreFlag.bind{[weak self] status in
             guard status != -1 else { print("something wrong"); return}
             guard let self = self else {return}
             DispatchQueue.main.async {
                 self.acceptedTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
                 self.acceptedTableViewHeight.constant = self.acceptedTableView.contentSize.height
             }
+            self.setGroupChatBinding()
         }
         viewModel.getAppliedPreFlag.bind{[weak self] status in
             guard status != -1 else { print("something wrong"); return}
@@ -49,6 +50,29 @@ extension MyApplicationsViewController {
             DispatchQueue.main.async {
                 self.appliedTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
                 self.appliedTableViewHeight.constant = self.appliedTableView.contentSize.height
+            }
+            self.setOTOChatBinding()
+        }
+    }
+}
+
+extension MyApplicationsViewController {
+    func setGroupChatBinding() {
+        for i in 0..<viewModel.groupChatRooms.count {
+            viewModel.receivedGroupChatFlag[i].bind{ [weak self] _ in
+                guard let self = self else {return}
+                let indexPath = IndexPath(row: i, section: 0)
+                self.acceptedTableView.reloadRows(at: [indexPath], with: .none)
+            }
+        }
+    }
+    func setOTOChatBinding() {
+        for i in 0..<viewModel.otoChatRooms.count {
+            viewModel.receivedOTOChatFlag[i].bind{ [weak self] _ in
+                guard let self = self else {return}
+                let indexPath = IndexPath(row: i, section: 0)
+                self.appliedTableView.reloadRows(at: [indexPath], with: .none)
+               
             }
         }
     }

@@ -199,10 +199,10 @@ extension MyPreViewController {
             applcantsView.addSubview(nicknameLabel)
             nicknameLabel.text = viewModel.myPartyApplicants[i].userNickname
             nicknameLabel.textColor = UIColor.white
-            nicknameLabel.font = UIFont(name: "SF Pro Text", size: 15)
+            nicknameLabel.font = UIFont(name: "SF Pro Text", size: 13)
             nicknameLabel.layer.zPosition = 1
             nicknameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-            nicknameLabel.widthAnchor.constraint(equalToConstant: 55).isActive = true
+            nicknameLabel.widthAnchor.constraint(equalToConstant: 56).isActive = true
             nicknameLabel.leadingAnchor.constraint(equalTo: tmp, constant: 20).isActive = true
             nicknameLabel.bottomAnchor.constraint(equalTo: applcantsView.bottomAnchor, constant: -5).isActive = true
             
@@ -211,10 +211,10 @@ extension MyPreViewController {
             applcantsView.addSubview(numberLabel)
             numberLabel.text = "+"+String(viewModel.myPartyApplicants[i].numberApplicants)
             numberLabel.textColor = UIColor.white
-            numberLabel.font = UIFont(name: "SF Pro Text", size: 15)
+            numberLabel.font = UIFont(name: "SF Pro Text", size: 11)
             numberLabel.layer.zPosition = 1
             numberLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
-            numberLabel.leadingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor, constant: 5).isActive = true
+            numberLabel.leadingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor, constant: 4).isActive = true
             numberLabel.bottomAnchor.constraint(equalTo: applcantsView.bottomAnchor, constant: -5).isActive = true
             numberLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
             numberLabel.backgroundColor = MyColor.opaGray
