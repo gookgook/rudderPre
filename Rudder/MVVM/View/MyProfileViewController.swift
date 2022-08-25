@@ -35,8 +35,17 @@ class MyProfileViewController : UIViewController {
 
 extension MyProfileViewController {
     @IBAction func touchUpEditButton(_ sender: UIButton){
-        Alert.showAlert(title: "Wait for Next Update!", message: nil, viewController: self)
+        self.performSegue(withIdentifier: "GoEditProfile", sender: nil)
     }
+    
+    @IBAction func touchUpTermsButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "ShowTerms", sender: nil)
+    }
+    
+    @IBAction func touchUpFeedbackButton(_ sender: UIButton) {
+        self.performSegue(withIdentifier: "GoFeedback", sender: nil)
+    }
+    
     
     @IBAction func touchUpLogout(_ sender: UIButton){
         Alert.showAlertWithCB(title: "Are you sure you want to logout?", message: nil, isConditional: true, viewController: self, completionBlock: {status in
@@ -64,6 +73,25 @@ extension MyProfileViewController {
                 }
             }
         }
+    }
+}
+
+extension MyProfileViewController: DoUpdateProfileDelegate {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let editProfileViewController: EditProfileViewController =
+            segue.destination as? EditProfileViewController else {
+            return
+        }
+        
+        print("여기실행안됨?")
+        
+        editProfileViewController.currentProfileBody = viewModel.profile.partyProfileBody
+        editProfileViewController.delegate = self
+    }
+    
+    func doUpdateProfile() {
+        let userInfoId = UserDefaults.standard.integer(forKey: "userInfoId")
+        viewModel.requestProfile(userInfoId: userInfoId)
     }
 }
 

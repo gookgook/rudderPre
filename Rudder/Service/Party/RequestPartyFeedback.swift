@@ -1,16 +1,16 @@
 //
-//  RequestFeedback.swift
+//  RequestPartyFeedback.swift
 //  Rudder
 //
-//  Created by Brian Bae on 12/09/2021.
+//  Created by 박민호 on 2022/08/25.
 //
 
 import Foundation
 
-struct RequestFeedback {
+struct RequestPartyFeedback {
     //login
-    static func uploadInfo(feedbackBody: String, completion: @escaping (Int) -> Void) -> Void{
-        let url = URL(string: Utils.springUrlKey+"/user-requests")!
+    static func uploadInfo(customerSoundBody: String, customerSoundType: String, partyId: Int, completion: @escaping (Int) -> Void) -> Void{
+        let url = URL(string: Utils.springUrlKey+"/customer-sound")!
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
               token.isEmpty == false else {
@@ -23,7 +23,7 @@ struct RequestFeedback {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
       
-        let feedback = Feedback(body: feedbackBody)
+        let feedback = Feedback(customerSoundBody: customerSoundBody, customerSoundType: customerSoundType, partyId: partyId)
         guard let EncodedUploadData = try? JSONEncoder().encode(feedback) else {
             return
         }
@@ -31,11 +31,13 @@ struct RequestFeedback {
         let task = URLSession.shared.uploadTask(with: request, from: EncodedUploadData, completionHandler: { (data, response, error) in
             if let error = error {
                 print ("error: \(error)")
+                completion(-1)
                 return
             }
             guard let response = response as? HTTPURLResponse,
                 (200...299).contains(response.statusCode) else {
                 print ("server error")
+                completion(-1)
                 return
             }
             completion(1)
@@ -44,8 +46,10 @@ struct RequestFeedback {
     }
 }
 
-extension RequestFeedback {
+extension RequestPartyFeedback {
     struct Feedback: Codable {
-        let body: String
+        let customerSoundBody: String
+        let customerSoundType: String
+        let partyId: Int
     }
 }

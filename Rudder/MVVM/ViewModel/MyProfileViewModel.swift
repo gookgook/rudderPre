@@ -9,10 +9,8 @@ import Foundation
 
 class MyProfileViewModel {
     var profile: PartyProfile!
-    var profileBody: String!
     
     let getProfileFlag: Observable<Int?> = Observable(nil)
-    let editResultFlag: Observable<Int?> = Observable(nil)
 }
 
 extension MyProfileViewModel {
@@ -24,14 +22,6 @@ extension MyProfileViewModel {
             }
             self.profile = partyProfile
             self.getProfileFlag.value = 1
-        })
-    }
-    
-    func requestEditProfile(){
-        guard profileBody.count >= ConstStrings.MINIMUM_PROFILEBODY_COUNT else { editResultFlag.value = 4 ; return }
-        RequestEditProfile.uploadInfo(profileBody: profileBody, completion: {
-            status in
-            self.editResultFlag.value = status
         })
     }
 }

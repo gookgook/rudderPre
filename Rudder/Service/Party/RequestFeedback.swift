@@ -1,30 +1,30 @@
 //
-//  RequestEditProfile.swift
+//  RequestFeedback.swift
 //  Rudder
 //
-//  Created by 박민호 on 2022/08/11.
+//  Created by Brian Bae on 12/09/2021.
 //
 
 import Foundation
 
-struct RequestEditProfile {
+struct RequestFeedback {
     //login
-    static func uploadInfo(profileBody: String, completion: @escaping (Int) -> Void) -> Void{
-        let url = URL(string: Utils.springUrlKey+"/party-profiles")!
+    static func uploadInfo(feedbackBody: String, completion: @escaping (Int) -> Void) -> Void{
+        let url = URL(string: Utils.springUrlKey+"/user-requests")!
         
-        guard let token = UserDefaults.standard.string(forKey: "token") else {
-            print("token failure")
+        guard let token: String = UserDefaults.standard.string(forKey: "token"),
+              token.isEmpty == false else {
+            print("no token")
             return
         }
-    
+        
         var request = URLRequest(url: url)
-        request.httpMethod = "PATCH"
+        request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
-        
-        let editProfileRequest = EditProfileRequest(profileBody: profileBody)
-        
-        guard let EncodedUploadData = try? JSONEncoder().encode(editProfileRequest) else {
+      
+        let feedback = Feedback(body: feedbackBody)
+        guard let EncodedUploadData = try? JSONEncoder().encode(feedback) else {
             return
         }
         
@@ -41,15 +41,13 @@ struct RequestEditProfile {
                 return
             }
             completion(1)
-            
         })
         task.resume()
     }
 }
 
-
-extension RequestEditProfile {
-    struct EditProfileRequest: Codable {
-        let profileBody: String
+extension RequestFeedback {
+    struct Feedback: Codable {
+        let body: String
     }
 }

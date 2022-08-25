@@ -12,7 +12,7 @@ class ChatViewController: UIViewController{
     var userInfoId: Int! //채팅 구별 위해
     var chatRoomId: Int!
     var endChatMessageId: Int  = -1
-    var nowPaging: Bool = false
+    var nowPaging: Bool = true
     var isInit: Bool = true
     
     @IBOutlet weak var textField: UITextField!
@@ -152,7 +152,7 @@ extension ChatViewController {
             DispatchQueue.main.async {
                 self.spinner.stopAnimating()
             }
-            guard var chats = chats else { return }
+            guard var chats = chats else { self.nowPaging = false; return }
             guard chats.count != 0 else {
                 DispatchQueue.main.async {Alert.showAlert(title: "No more chats", message: nil, viewController: self) }
                 return

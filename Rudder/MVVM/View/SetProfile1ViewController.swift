@@ -12,7 +12,7 @@ class SetProfile1ViewController: UIViewController {
     var viewModel: SignUpViewModel? //signUpViewController에서 넘겨줄거임
 
     @IBOutlet weak var nickNameField: UITextField!
-    @IBOutlet weak var profileBody: UITextView!
+    @IBOutlet weak var profileBodyView: UITextView!
     
     @IBOutlet weak var signUpButton: UIButton!
     
@@ -24,12 +24,12 @@ class SetProfile1ViewController: UIViewController {
 
 extension SetProfile1ViewController {
     @IBAction func touchUpSignUpButton(_ sender: UIButton){
-        guard (nickNameField.text?.isEmpty == false && profileBody.text?.isEmpty == false) else {
+        guard (nickNameField.text?.isEmpty == false && profileBodyView.text?.isEmpty == false) else {
             Alert.showAlert(title: "One or more fields are empty", message: nil, viewController: self)
             return
         }
         viewModel?.userNickname = nickNameField.text
-        viewModel?.userProfileBody = profileBody.text
+        viewModel?.userProfileBody = profileBodyView.text
         self.performSegue(withIdentifier: "GoSetProfile2", sender: sender)
     }
 }
@@ -47,7 +47,7 @@ extension SetProfile1ViewController {
 extension SetProfile1ViewController {
     func setUIs(){
         nickNameField.addLeftPadding(padding: 10)
-        profileBody.textContainer.lineFragmentPadding = 10
+        profileBodyView.textContainer.lineFragmentPadding = 10
         signUpButton.applyGradient(colors: MyColor.gPurple)
         hideKeyboardWhenTappedAround()
     }

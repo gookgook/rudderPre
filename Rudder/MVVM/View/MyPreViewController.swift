@@ -304,6 +304,7 @@ extension MyPreViewController {
                 return
             }
             preSettingViewController.partyThumbnailImageURL = viewModel.groupChatRoom.chatRoomImageUrl
+            preSettingViewController.partyId = viewModel.myPartyDates[currentPartyNo].partyId
             
         }else{
             guard let profileViewController: ProfileViewController = segue.destination as? ProfileViewController else {

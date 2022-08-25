@@ -42,3 +42,7 @@ protocol DoRefreshPartyDelegate: AnyObject {
 protocol DoGoChatRoomDelegate: AnyObject {
     func doGoChatRoomDelegate(chatRoomId: Int)
 }
+
+protocol DoUpdateProfileDelegate: AnyObject {
+    func doUpdateProfile()
+}

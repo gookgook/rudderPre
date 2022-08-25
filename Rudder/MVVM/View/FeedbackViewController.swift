@@ -9,54 +9,44 @@ import UIKit
 
 class FeedbackViewController: UIViewController {
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    let viewModel = FeedbackViewModel()
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var feedbackBodyView: UITextView!
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         self.hideKeyboardWhenTappedAround()
-        
-        feedbackBodyView.tintColor = MyColor.rudderPurple
+        setUpBinding()
         placeholderSetting()
     }
 }
 
 extension FeedbackViewController {
-    @IBAction func touchUpSubmitButton(_ sender: UIButton){
-        spinner.startAnimating()
-        print("Report Submit Touched")
-        guard let feedbackBody: String = self.feedbackBodyView.text,
-            feedbackBody.isEmpty == false else {
-            print("feedback empty")
-            return
-        }
-        
-        RequestFeedback.uploadInfo(feedbackBody: feedbackBody, completion: {
-            status in
-            DispatchQueue.main.async {self.spinner.stopAnimating()}
-            if status == 1 {
-                print("send feedback success")
-                DispatchQueue.main.async {
+    func setUpBinding() {
+        viewModel.sendFeedbackResultFlag.bind { [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                switch status {
+                case 1:
                     Alert.showAlertWithCB(title: "Thanks for the Feedback. We will take it from here", message: nil, isConditional: false, viewController: self, completionBlock: {_ in
                         self.navigationController?.popViewController(animated: true)
                         self.dismiss(animated: true, completion: nil)
                     })
+                case 2:
+                    Alert.showAlert(title: "One or more fields are empty", message: nil, viewController: self)
+                default:
+                    Alert.showAlert(title: "server error", message: nil, viewController: self)
                 }
             }
-            if status == 2 {
-                print("send feedback error")
-            }
-        })
+        }
     }
 }
 
 extension FeedbackViewController {
-    @IBAction func goBack(_ sender: UIButton){
-        print("go Back touched")
-        self.navigationController?.popViewController(animated: true)
-        dismiss(animated: true, completion: nil)
+    @IBAction func touchUpSubmitButton(_ sender: UIButton){
+        viewModel.feedbackBody = feedbackBodyView.text
+        viewModel.requestFeedback()
     }
 }
 
