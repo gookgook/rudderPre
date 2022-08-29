@@ -12,6 +12,8 @@ class LoginViewModel {
     var userPassword: String!
     
     var loginResultFlag: Observable<Int?> = Observable(nil)
+    
+    let isLoadingFlag: Observable<Bool> = Observable(false)
 }
 
 extension LoginViewModel{
@@ -21,6 +23,8 @@ extension LoginViewModel{
         guard userEmail != nil else { loginResultFlag.value = 5; return }
         guard userPassword != nil else { loginResultFlag.value = 5; return }
         
+        isLoadingFlag.value = true
+        
         let ApnToken: String = UserDefaults.standard.string(forKey: "ApnToken") ?? "ApnTokenFail"
         let loginInfo = LoginInfo(userId: userEmail, userPassword: userPassword, os: "ios", token: ApnToken)
         
@@ -29,6 +33,7 @@ extension LoginViewModel{
         RequestBasic.uploadInfo(EncodedUploadData: EncodedUploadData, completion: {
             status in
             self.loginResultFlag.value = status
+            self.isLoadingFlag.value = false
         })
     }
 }

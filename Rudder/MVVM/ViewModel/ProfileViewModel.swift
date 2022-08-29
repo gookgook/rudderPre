@@ -38,6 +38,7 @@ extension ProfileViewModel {
     func requestSendMessage(partyId: Int, applicantUserInfoId: Int) {
         let myUserInfoId = UserDefaults.standard.integer(forKey: "userInfoId")
         RequestCreateChatRoom.uploadInfo(partyId: partyId, userInfoIdList: [myUserInfoId,applicantUserInfoId], completion: {(chatRoomId: Int?) in
+            print("chatRoomId ", String(chatRoomId!))
             self.sendMessageFlag.value = chatRoomId
         })
     }

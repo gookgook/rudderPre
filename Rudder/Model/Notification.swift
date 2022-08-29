@@ -9,9 +9,10 @@ import Foundation
 
 struct UserNotification: Codable {
     let notificationId: Int
-    let notificationTitle: String
-    let notificationBody: String
-    let itemId: Int
-    let notificationTime: String
     let notificationType: String
+    let notificationTime: String
+    let itemId: Int
+    let notificationBody: String
+    let notificationTitle: String
+    
 }

@@ -26,7 +26,7 @@ struct RequestMyPartyApplicants {
             if let error = error { print ("error: \(error)"); completion(nil); return }
             guard let response = response as? HTTPURLResponse else { print ("server error"); completion(nil); return }
             
-            print("statuscode: ",String(response.statusCode))
+            print("statuscodde: ",String(response.statusCode))
             
             switch response.statusCode {
             case 200...299:

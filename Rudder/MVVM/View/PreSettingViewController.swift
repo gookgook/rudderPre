@@ -22,6 +22,8 @@ class PreSettingViewController: UIViewController {
     @IBOutlet weak var ProblemButton: ButtonView!
     @IBOutlet weak var EnquiryButton: ButtonView!
     
+    var problemOrEnquiry: String! //꼼수
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBinding()
@@ -87,9 +89,23 @@ extension PreSettingViewController {
         viewModel.requestFixMembers(partyId: partyId)
     }
     @objc func touchUpProblemButton(_ sender: ButtonView){
-        
+        problemOrEnquiry = "Problem"
+        self.performSegue(withIdentifier: "GoPartyFeedback", sender: nil)
     }
     @objc func touchUpEnquiryButton(_ sender: ButtonView){
-        
+        problemOrEnquiry = "Enquiry"
+        self.performSegue(withIdentifier: "GoPartyFeedback", sender: nil)
+    }
+}
+
+
+extension PreSettingViewController {
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        guard let partyFeedbackViewController: PartyFeedbackViewController =
+            segue.destination as? PartyFeedbackViewController else {
+            return
+        }
+        partyFeedbackViewController.partyId = partyId
+        partyFeedbackViewController.feedbackType = problemOrEnquiry
     }
 }

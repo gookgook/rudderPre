@@ -17,13 +17,13 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="logoRudder" translatesAutoresizingMaskIntoConstraints="NO" id="pD3-yB-apf">
-                                <rect key="frame" x="103" y="433" width="208" height="30"/>
+                                <rect key="frame" x="103" y="403" width="208" height="30"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="30" id="k8m-cU-KSK"/>
                                 </constraints>
                             </imageView>
                             <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="BGC-rX-75B">
-                                <rect key="frame" x="174.5" y="433" width="59" height="30"/>
+                                <rect key="frame" x="174.5" y="403" width="59" height="30"/>
                                 <subviews>
                                     <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="rudD" translatesAutoresizingMaskIntoConstraints="NO" id="Q1c-u3-SaJ">
                                         <rect key="frame" x="0.0" y="0.0" width="29.5" height="30"/>
@@ -47,7 +47,7 @@
                         <color key="backgroundColor" red="0.57647058823529407" green="0.16078431372549018" blue="0.81960784313725488" alpha="1" colorSpace="calibratedRGB"/>
                         <constraints>
                             <constraint firstItem="pD3-yB-apf" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="Chk-zb-OcI"/>
-                            <constraint firstItem="pD3-yB-apf" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" id="Z6p-AY-Kx0"/>
+                            <constraint firstItem="pD3-yB-apf" firstAttribute="centerY" secondItem="Ze5-6b-2t3" secondAttribute="centerY" constant="-30" id="Z6p-AY-Kx0"/>
                             <constraint firstItem="BGC-rX-75B" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" constant="-3" id="ZJ6-cI-ZMg"/>
                             <constraint firstItem="BGC-rX-75B" firstAttribute="centerY" secondItem="pD3-yB-apf" secondAttribute="centerY" id="rAw-dQ-Za3"/>
                         </constraints>

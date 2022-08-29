@@ -40,7 +40,7 @@ struct RequestPartyGroupChatRoom {
                     let decodedResponse: ChatRoom = try decoder.decode(ChatRoom.self, from: data)
                     completion(decodedResponse)
                 } catch {
-                    print("응답 디코딩 실패 MyPartyChatRoom")
+                    print("응답 디코딩 실패 MyPartyChatRoomm")
                     print(error.localizedDescription)
                     dump(error)
                     completion(nil)

@@ -54,6 +54,10 @@ extension ProfileViewController {
                 let profile = self.viewModel.profile!
                 DispatchQueue.main.async {
                     RequestImage.downloadImage(from: URL(string: profile.schoolImageUrl)!, imageView: self.universityLogoView)
+                    
+                    
+                    print(self.viewModel.currentImageNo.value)
+                    
                     RequestImage.downloadImage(from: URL(string: profile.partyProfileImages[self.viewModel.currentImageNo.value])!, imageView: self.profileImageView)
                     self.nicknameLabel.text = profile.userNickname
                     self.profileBodyView.text = profile.partyProfileBody

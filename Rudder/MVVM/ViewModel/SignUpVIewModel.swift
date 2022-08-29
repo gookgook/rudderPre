@@ -24,6 +24,8 @@ class SignUpViewModel {
     var nextButtonResultFlag: Observable<String?> = Observable(nil) //School name을 보내줄 수도 있어서 기형적으로 string으로 했음. flag인데 name까지 넘겨준다는게 좀 이상함
     var signUpResultFlag: Observable<Int?> = Observable(nil)
     
+    let isLoadingFlag: Observable<Bool> = Observable(false)
+    
 }
 
 extension SignUpViewModel {
@@ -41,6 +43,8 @@ extension SignUpViewModel {
     func requestSignUp() {
         guard (profileImages.count >= ConstStrings.MINIMUM_PHOTO_COUNT && profileImages.count <= ConstStrings.MAXIMUM_PHOTO_COUNT) else { signUpResultFlag.value = 5; return }
         guard userProfileBody.count >= ConstStrings.MINIMUM_PROFILEBODY_COUNT else { signUpResultFlag.value = 4 ; return }
+        
+        isLoadingFlag.value = true
         
         RequestSignUp.uploadInfo(promotionMailAgreement: promotionMailAgreement, userEmail: userEmail, userPassword: userPassword, userNickname: userNickname, userProfileBody: userProfileBody, completion: { [self]
             userInfoId in
@@ -63,6 +67,7 @@ extension SignUpViewModel {
                 }
                 uploadGroup.notify(queue: .main) {
                     self.signUpResultFlag.value = 1
+                    self.isLoadingFlag.value = false
                 }
             })
         })

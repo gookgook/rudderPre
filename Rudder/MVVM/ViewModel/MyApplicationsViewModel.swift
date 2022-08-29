@@ -27,10 +27,14 @@ class MyApplicationsViewModel {
     
     var receivedGroupChatFlag: [Observable<Int?>] = []
     var receivedOTOChatFlag: [Observable<Int?>] = []
+
+    var isLoadingFlag: Observable<Bool> = Observable(false)
 }
 
 extension MyApplicationsViewModel {
     func requestApprovedParties() {
+        
+        isLoadingFlag.value = true
         RequestApprovedPre.uploadInfo(completion: {(parties: [Party]?) in
             guard let parties = parties else {
                 self.getApprovedPreFlag.value = -1
@@ -42,33 +46,41 @@ extension MyApplicationsViewModel {
             var everythingOkay: Bool = true //채팅방 하나라도 못받아오면 포문 끊어주기 위함
             for i in 0..<parties.count {
                 guard everythingOkay else { self.getApprovedPreFlag.value = -1; return }
-                guard parties[i].partyStatus == "confirmed" else { continue }
+                guard parties[i].partyStatus == "FINAL_APPROVE" else { continue }
+                print("chel")
                 uploadGroup.enter()
                 RequestPartyGroupChatRoom.uploadInfo(partyId: parties[i].partyId, completion: {(chatRoom: ChatRoom?) in
                     if chatRoom == nil { everythingOkay = false }
-                    else { self.groupChatRooms[i] = chatRoom! }
+                    else {
+                        self.groupChatRooms[i] = chatRoom!
+                        
+                    }
                     uploadGroup.leave()
                 })
             }
             uploadGroup.notify(queue: .main) {
+                print("group chat room count " + String(self.groupChatRooms.count))
                 self.getApprovedPreFlag.value = 1
+                self.isLoadingFlag.value = false
             }
         })
     }
     
     func requestAppliedPre() {
+        isLoadingFlag.value = true
         RequestAppliedPre.uploadInfo( completion: { (parties: [Party]?) in
             guard let parties = parties else {
                 self.getAppliedPreFlag.value = -1
                 return
             }
             self.tmpAppliedParties = parties
-            print("count " + String(self.tmpAppliedParties.count))
-            
             self.getAppliedPreFlag.value = 1
+            self.isLoadingFlag.value = false
+            
         })
     }
     func requestOTOChatRoom() {
+        isLoadingFlag.value = true
         RequestPartyOTOChatRoom.uploadInfo(completion: {(chatRooms: [ChatRoom]?)
             in
             guard let chatRooms = chatRooms else {
@@ -79,6 +91,7 @@ extension MyApplicationsViewModel {
             self.setOTOChatRoomsArray()
             
             self.getOTOChatRoomFlag.value = 1
+            self.isLoadingFlag.value = false
         })
     }
 }

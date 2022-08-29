@@ -16,6 +16,8 @@ class LoginViewController: UIViewController {
     @IBOutlet weak var userIdField: UITextField!
     @IBOutlet weak var userPasswordField: UITextField!
     
+    @IBOutlet weak var nextButton: UIButton!
+    
 }
 
 extension LoginViewController {
@@ -43,14 +45,13 @@ extension LoginViewController {
 
 extension LoginViewController {
     func setUpViews () {
-        spinner.hidesWhenStopped = true
         hideKeyboardWhenTappedAround()
+        nextButton.applyGradient(colors: MyColor.gPurple)
     }
     
     func setUpBinding() {
         viewModel.loginResultFlag.bind { [weak self] status in
             guard let self = self else { return }
-            DispatchQueue.main.async { self.spinner.stopAnimating() }
             switch status {
             case nil : break
             case 1 : DispatchQueue.main.async {self.performSegue(withIdentifier: "GoPartyMain", sender: nil)}
@@ -61,10 +62,22 @@ extension LoginViewController {
             default : DispatchQueue.main.async { Alert.showAlert(title: "Unknown Error", message: nil, viewController: self) }
             }
         }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+            }
+        }
     }
     
     @IBAction func touchUpLoginButton(_ sender: UIButton){
-        self.spinner.startAnimating()
         viewModel.userEmail = userIdField.text
         viewModel.userPassword = userPasswordField.text
         viewModel.sendLoginRequest()

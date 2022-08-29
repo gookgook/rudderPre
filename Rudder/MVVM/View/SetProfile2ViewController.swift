@@ -45,8 +45,24 @@ class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelega
             case -1 : DispatchQueue.main.async { Alert.showAlert(title: "Server Error", message: nil, viewController: self) }
             case 5: DispatchQueue.main.async { Alert.showAlert(title: "photo count", message: nil, viewController: self)}
             case 4: DispatchQueue.main.async { Alert.showAlert(title: "profile body count", message: nil, viewController: self)}
-            case 1 : print("sign up process completed")
+            case 1 :
+                print("sign up process completed")
+                self.navigationController?.popToRootViewController(animated: true)
             default : print("server error")
+            }
+        }
+        
+        viewModel?.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
             }
         }
     }

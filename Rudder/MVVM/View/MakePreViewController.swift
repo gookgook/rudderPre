@@ -22,6 +22,8 @@ class MakePreViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet weak var contentView: UIView!
     
+    @IBOutlet weak var postButton: UIButton!
+    
     let imagePicker = UIImagePickerController()
     let pickerView = UIPickerView() //participant number pickerView
     
@@ -46,6 +48,7 @@ extension MakePreViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUIs()
         setUpBinding()
         setParticipantsPicker()
         setImagePicker()
@@ -58,9 +61,12 @@ extension MakePreViewController {
             DispatchQueue.main.async {
                 switch status {
                 case 1:
-                    Alert.showAlert(title: "Success!", message: nil, viewController: self)
                     self.delegate?.doRefreshParty()
-                    self.navigationController?.popViewController(animated: true)
+                    
+                    Alert.showAlertWithCB(title: "Success!", message: nil, isConditional: false, viewController: self) {_ in 
+                        self.navigationController?.popViewController(animated: true)
+                    }
+                    
                 case -2 : Alert.showAlert(title: "one or more fields are empty", message: nil, viewController: self)
                 default : Alert.showAlert(title: "server error", message: nil, viewController: self)
                 }
@@ -151,6 +157,8 @@ extension MakePreViewController : UIImagePickerControllerDelegate {
     func setImageToView(image: UIImage){
         let imageView = UIImageView(image: image)
         imageView.frame = thumbnailImageView.frame
+        imageView.layer.cornerRadius = 15
+        imageView.layer.masksToBounds = true
         contentView.addSubview(imageView)
     }
     
@@ -159,5 +167,15 @@ extension MakePreViewController : UIImagePickerControllerDelegate {
         self.imagePicker.allowsEditing = true // 수정 가능 여부
         self.imagePicker.delegate = self
         thumbnailImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(pickImage(_:))))
+    }
+}
+
+extension MakePreViewController {
+    func setUIs(){
+        postButton.applyGradient(colors: MyColor.gPurple)
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        participantsPicker.tintColor = .clear
+        
+        //datePicker.lang
     }
 }

@@ -13,11 +13,16 @@ class LaunchViewController: UIViewController{
     var myPreNavigationController = UINavigationController()
     var notificationController = UINavigationController()
     let myTabBarController = UITabBarController()
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 }
 
 extension LaunchViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        spinner.startAnimating()
+        
         myTabBarController.delegate = self
         
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
@@ -77,6 +82,7 @@ extension LaunchViewController {
         myTabBarController.setViewControllers(controllers, animated: true)
         myTabBarController.modalPresentationStyle = .fullScreen
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
+            self.spinner.stopAnimating()
             self.present(self.myTabBarController, animated: false)
         }
  

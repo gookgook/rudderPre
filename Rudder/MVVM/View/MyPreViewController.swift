@@ -6,17 +6,23 @@
 //
 
 import UIKit
+import GameKit
 
 class MyPreViewController: UIViewController {
     
     let viewModel = MyPreViewModel()
     
     var currentPartyNo: Int = 0
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     //@IBOutlet weak var aGChatView: UIView!
     @IBOutlet weak var aGPartyTitle: UILabel! //accepted group chat view
     @IBOutlet weak var aGChatBody: UILabel!
     @IBOutlet weak var aGChatImageView: UIImageView!
+    
+    @IBOutlet weak var applicantLabel: UILabel!
+    @IBOutlet weak var MessagesLabel: UILabel!
     
     @IBOutlet weak var applcantsView: UIView!
     @IBOutlet weak var messagesTableView: UITableView!
@@ -36,12 +42,14 @@ class MyPreViewController: UIViewController {
         
         let k_doLogout = Notification.Name("doLogout") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.doLogout), name: k_doLogout, object: nil)
+        
     }
     
     @objc func doLogout(){
         UserDefaults.standard.removeObject(forKey: "token")
         self.navigationController?.popToRootViewController(animated: true)
     }
+    
 }
 
 extension MyPreViewController {
@@ -52,7 +60,12 @@ extension MyPreViewController {
             if status == 1 {
                 
                 guard self.viewModel.myPartyDates.count > 0 else {
-                    DispatchQueue.main.async { Alert.showAlert(title: "You didn't host any party", message: nil, viewController: self) }
+                    DispatchQueue.main.async {
+                        Alert.showAlert(title: "You didn't host any party", message: nil, viewController: self)
+                        self.aGChatBody.text = " "
+                        self.MessagesLabel.text = " "
+                        self.applicantLabel.text = " "
+                    }
                     return
                 }
                 
@@ -95,6 +108,20 @@ extension MyPreViewController {
         viewModel.receivedGroupChatFlag.bind{ [weak self] _ in
             guard let self = self else {return}
             DispatchQueue.main.async { self.setAGChatView() }
+        }
+        
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+            }
         }
     }
     
@@ -151,6 +178,13 @@ extension MyPreViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPick
     @objc func done(){
         partyDatePicker.text = Utils.stringDate(date: viewModel.myPartyDates[pickerView.selectedRow(inComponent: 0)].partyDate) + " ▼"
         self.currentPartyNo = pickerView.selectedRow(inComponent: 0)
+        
+        
+        for view in self.applcantsView.subviews {
+            view.removeFromSuperview()
+        }
+        
+        
         self.viewModel.requestGroupChatroom(partyId: self.viewModel.myPartyDates[self.currentPartyNo].partyId)
         partyDatePicker.endEditing(true)
     }

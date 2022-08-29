@@ -11,6 +11,8 @@ class StartViewController: UIViewController {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     
+    @IBOutlet weak var signUpButton: UIButton!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUIs()
@@ -28,5 +30,6 @@ class StartViewController: UIViewController {
 extension StartViewController {
     func setUIs(){
         self.tabBarController?.tabBar.isHidden = true
+        signUpButton.applyGradient(colors: MyColor.gPurple)
     }
 }

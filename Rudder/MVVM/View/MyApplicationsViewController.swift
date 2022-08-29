@@ -17,6 +17,8 @@ class MyApplicationsViewController: UIViewController {
     @IBOutlet weak var acceptedTableViewHeight: NSLayoutConstraint!
     @IBOutlet weak var appliedTableViewHeight: NSLayoutConstraint!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     var groupOrOTO: Int = 0 // perform segue할 때 이거 group인지 OTO인지 구분하기 위한 꼼수 (1 - group, 2 - OTO )
 
     override func viewDidLoad() {
@@ -33,8 +35,11 @@ extension MyApplicationsViewController {
         viewModel.getApprovedPreFlag.bind{[weak self] status in
             guard status != -1 else { print("something wrong"); return}
             guard let self = self else {return}
+            
+            print("admiandsifn adm " + String(self.viewModel.approvedParties.count))
             DispatchQueue.main.async {
                 self.acceptedTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
+                self.acceptedTableView.layoutSubviews()
                 self.acceptedTableViewHeight.constant = self.acceptedTableView.contentSize.height
             }
             self.setGroupChatBinding()
@@ -53,6 +58,19 @@ extension MyApplicationsViewController {
             }
             self.setOTOChatBinding()
         }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+            }
+        }
     }
 }
 
@@ -67,6 +85,9 @@ extension MyApplicationsViewController {
         }
     }
     func setOTOChatBinding() {
+        
+        print("otoChatRoom Count ", String(viewModel.otoChatRooms.count))
+        
         for i in 0..<viewModel.otoChatRooms.count {
             viewModel.receivedOTOChatFlag[i].bind{ [weak self] _ in
                 guard let self = self else {return}
@@ -99,31 +120,31 @@ extension MyApplicationsViewController {
 extension MyApplicationsViewController: UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if tableView == acceptedTableView {
+            
+            if viewModel.approvedParties.count == 0 {return 1}
             return viewModel.approvedParties.count
         } else {
+            if viewModel.appliedParties.count == 0 {return 1}
             return viewModel.appliedParties.count
         }
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         if tableView == acceptedTableView {
-            //let party = viewModel.approvedParties[indexPath.row]
-            //if party.partyStatus == "FINAL_APPROVE" {
-                let cell: AGChatRoomCell
-                cell = acceptedTableView.dequeueReusableCell(withIdentifier: "agChatRoomCell", for: indexPath) as! AGChatRoomCell
-                cell.configure(partyTime: viewModel.approvedParties[indexPath.row].partyTime, chatRoom: viewModel.groupChatRooms[indexPath.row]!, tableView: tableView, indexPath: indexPath)
-                cell.tag = 1 //chat room exist
-                return cell
-            /*} else {
-                let cell: PendingCell
-                cell = acceptedTableView.dequeueReusableCell(withIdentifier: "pendingCell", for: indexPath) as! PendingCell
-                cell.configure(party: viewModel.approvedParties[indexPath.row], tableView: tableView, indexPath: indexPath)
-                cell.tag = 0
-                return cell
-            }*/
             
+            let cell: AGChatRoomCell
+            cell = acceptedTableView.dequeueReusableCell(withIdentifier: "aGChatRoomCell", for: indexPath) as! AGChatRoomCell
+            if viewModel.approvedParties.count == 0 {
+                cell.configure(isEmptyCell: true, partyTime: nil, chatRoom: nil, tableView: tableView, indexPath: indexPath)
+                return cell
+            }
+            
+      
+            cell.configure(isEmptyCell: false, partyTime: viewModel.approvedParties[indexPath.row].partyTime, chatRoom: viewModel.groupChatRooms[indexPath.row]!, tableView: tableView, indexPath: indexPath)
+            cell.tag = 1 //chat room exist
+            return cell
         } else {
-            if viewModel.appliedParties[indexPath.row] == nil{
+            if viewModel.appliedParties.count != 0 && viewModel.appliedParties[indexPath.row] == nil{
                 let cell: ChatRoomCell
                 cell = appliedTableView.dequeueReusableCell(withIdentifier: "chatRoomCell", for: indexPath) as! ChatRoomCell
                 cell.configure(chatRoom: viewModel.otoChatRooms[indexPath.row]!, tableView: tableView, indexPath: indexPath)
@@ -132,7 +153,13 @@ extension MyApplicationsViewController: UITableViewDelegate, UITableViewDataSour
             } else {
                 let cell: PendingAppCell
                 cell = appliedTableView.dequeueReusableCell(withIdentifier: "pendingAppCell", for: indexPath) as! PendingAppCell
-                cell.configure(party: viewModel.appliedParties[indexPath.row]!, tableView: tableView, indexPath: indexPath)
+                
+                if viewModel.appliedParties.count == 0 {
+                    cell.configure(isEmptyCell: true, party: nil, tableView: tableView, indexPath: indexPath)
+                    return cell
+                }
+                
+                cell.configure(isEmptyCell: false,party: viewModel.appliedParties[indexPath.row]!, tableView: tableView, indexPath: indexPath)
                 cell.tag = 0
                 return cell
             }

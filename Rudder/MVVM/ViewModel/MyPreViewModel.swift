@@ -26,45 +26,54 @@ class MyPreViewModel {
     
     let receivedGroupChatFlag: Observable<Int?> = Observable(nil)
     var receivedOTOChatFlag: [Observable<Int?>] = []
+    
+    let isLoadingFlag: Observable<Bool> = Observable(false)
     //let currentPartyInfo:
 }
 
 extension MyPreViewModel {
     func requestPartyDates() {
         RequestMyPartyDates.uploadInfo( completion: { (myPartyDates: [MyPartyDate]?) in
+            self.isLoadingFlag.value = true
             guard let myPartyDates = myPartyDates else {
                 self.getPartyDatesFlag.value = -1
                 return
             }
             self.myPartyDates = myPartyDates
+            self.isLoadingFlag.value = false
             self.getPartyDatesFlag.value = 1
         })
     }
     
     
     func requestPartyApplicants(partyId: Int) {
+        self.isLoadingFlag.value = true
         RequestMyPartyApplicants.uploadInfo(partyId: partyId, completion: {(myPartyApplicants: [PartyApplicant]?) in
             guard let myPartyApplicants = myPartyApplicants else {
                 self.getPartyApplicantsFlag.value = -1
                 return
             }
             self.myPartyApplicants = myPartyApplicants
+            self.isLoadingFlag.value = false
             self.getPartyApplicantsFlag.value = 1
         })
     }
     
     func requestGroupChatroom(partyId: Int) {
+        self.isLoadingFlag.value = true
         RequestPartyGroupChatRoom.uploadInfo(partyId: partyId, completion: {(chatRoom: ChatRoom?) in
             guard let chatRoom = chatRoom else {
                 self.getGroupChatRoomFlag.value = -1
                 return
             }
             self.groupChatRoom = chatRoom
+            self.isLoadingFlag.value = false
             self.getGroupChatRoomFlag.value = 1
         })
     }
     
     func requestOTOChatRoom(partyId: Int) {
+        self.isLoadingFlag.value = true
         RequestMyPartyOTOChatRoom.uploadInfo(partyId: partyId, completion: {(chatRooms: [ChatRoom]?)
             in
             guard let chatRooms = chatRooms else {
@@ -76,11 +85,15 @@ extension MyPreViewModel {
             for _ in 0..<self.otoChatRooms.count {
                 self.receivedOTOChatFlag.append(Observable(nil))
             }
+            
+            self.isLoadingFlag.value = false
         })
     }
     
     @objc func receivedChat(notification: NSNotification){
         let currentChat = notification.userInfo!["receivedChat"] as? Chat
+        
+        guard groupChatRoom != nil else { return }  //지워야함
         
         if currentChat?.chatRoomId == groupChatRoom.chatRoomId {
             groupChatRoom.recentMessage = currentChat?.chatMessageBody

@@ -60,7 +60,7 @@ extension MakePreViewModel {
     
     func requestMakeParty() {
         if thumbnailImage == nil || partyTitle == nil || partyDate == nil || participantNumber == 0 || locationString == nil || partyDescription == nil {
-          
+            print("here?")
             makePartyResultFlag.value = -2
             return
         }

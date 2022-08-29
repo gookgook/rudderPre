@@ -20,7 +20,16 @@ class PendingAppCell: UITableViewCell {
 }
 
 extension PendingAppCell {
-    func configure(party: Party, tableView: UITableView, indexPath: IndexPath) {
+    func configure(isEmptyCell: Bool ,party: Party!, tableView: UITableView, indexPath: IndexPath) {
+        
+        guard !isEmptyCell else {
+            RequestImage.downloadImage(from: URL(string:"https://d17a6yjghl1rix.cloudfront.net/dark_profile_image.png")!, imageView: chatRoomImageView)
+            self.partyTitleLabel.text = "Let's find the Pre for you!"
+            statusLabel.text = nil
+            self.isUserInteractionEnabled = false
+            return
+        }
+        
         RequestImage.downloadImage(from: URL(string:party.partyThumbnailUrl)!, imageView: chatRoomImageView)
         //dateLabel.text = Utils.stringDate(date: party.partyTime)
         partyTitleLabel.text = party.partyTitle

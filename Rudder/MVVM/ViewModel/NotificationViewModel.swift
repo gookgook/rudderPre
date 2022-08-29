@@ -20,6 +20,8 @@ extension NotificationViewModel {
                 self.getNotificationFlag.value = -1
                 return
             }
+            
+            print("noti count  ",String(notifications.count))
             self.notifications = notifications
             self.getNotificationFlag.value = 1
         })

@@ -17,6 +17,7 @@ class PartyDetailViewController: UIViewController {
     
     @IBOutlet weak var scrollView: UIScrollView!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     @IBOutlet weak var partyThumbnailImageView: UIImageView!
     @IBOutlet weak var applyCountView: UIView!
@@ -81,11 +82,26 @@ extension PartyDetailViewController {
                 DispatchQueue.main.async {
                     self.applyButton.isEnabled = false
                     self.applyButton.backgroundColor = MyColor.superLightGray
+                    self.applyButton.removeGradient()
                     self.applyButton.setTitle("Applied", for: .normal)
                     self.applyCountLabel.text = String(Int(self.applyCountLabel.text!)! + self.numberOfApplicants )
                 }
             }
         }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+            }
+        }
+        
     }
 }
 
@@ -122,7 +138,7 @@ extension PartyDetailViewController {
         
     }
     func setStyle(){
-        
+       // applyButton.applyGradient(colors: MyColor.gPurple)
         applyCountView.layer.borderWidth = 1
         applyCountView.layer.borderColor = UIColor.white.cgColor
     }

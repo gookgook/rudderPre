@@ -57,7 +57,7 @@ class ChatViewController: UIViewController{
 
     
     @objc func receivedChat(notification: NSNotification){
-        print("reciessd chat")
+        print("recieved chat")
         let currentChat = notification.userInfo!["receivedChat"] as? Chat
         handleMessageBody(chat: currentChat!)
     }
@@ -68,6 +68,7 @@ extension ChatViewController {
     func handleMessageBody(chat: Chat){
         print("touch here")
         print("비교" + String(chat.sendUserInfoId) + " " + String(self.userInfoId))
+        print("비교2 " + String(chat.chatRoomId) + " " + String(self.chatRoomId))
                 
         if chat.sendUserInfoId == self.userInfoId && chat.chatRoomId == self.chatRoomId{
             self.spinner.stopAnimating()
@@ -93,8 +94,9 @@ extension ChatViewController {
         
         spinner.startAnimating()
         self.view.isUserInteractionEnabled = false
-        
-        RequestSendChat.uploadInfo(channelId: chatRoomId, chatBody: textField.text!, completion: {
+        let chatText = textField.text!
+        textField.text = nil
+        RequestSendChat.uploadInfo(channelId: chatRoomId, chatBody: chatText, completion: {
            status in
             if status == 1 {
                 print("send chat success")
@@ -173,6 +175,9 @@ extension ChatViewController {
             self.nowPaging = false
         })
     }
+}
+
+extension ChatViewController {
     
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         guard scrollView.contentOffset.y <= 0 else { return }
