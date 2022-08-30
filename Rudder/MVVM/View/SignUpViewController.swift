@@ -123,6 +123,8 @@ extension SignUpViewController {
         
         uniEmailField.addLeftPadding(padding: 10)
         userPasswordField.addLeftPadding(padding: 10)
+        
+        self.navigationController?.navigationBar.tintColor = UIColor.black
     }
 }
 

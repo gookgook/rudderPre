@@ -24,10 +24,10 @@ class PartyMainViewModel {
 
 extension PartyMainViewModel {
     func handleNotis(){
-        let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
-        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedNoti(notification:)), name: k_moveToNotification, object: nil)
         let k_accepted = Notification.Name("accepted") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedNoti(notification:)), name: k_accepted, object: nil)
+        let k_newApplication = Notification.Name("newApplication")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedNoti(notification:)), name: k_newApplication, object: nil)
     }
     
     @objc func receivedNoti(notification: NSNotification){

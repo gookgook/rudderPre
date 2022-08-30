@@ -6,10 +6,13 @@
 //
 
 import UIKit
+import GameKit
 
 class MyProfileViewController : UIViewController {
     
     let viewModel = MyProfileViewModel()
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var scrollView: UIScrollView!
     
@@ -70,6 +73,19 @@ extension MyProfileViewController {
                     RequestImage.downloadImage(from: URL(string: profile.partyProfileImages[0])!, imageView: self.profileImageView)
                     self.nicknameLabel.text = profile.userNickname
                     self.profileBodyView.text = profile.partyProfileBody
+                }
+            }
+        }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
                 }
             }
         }

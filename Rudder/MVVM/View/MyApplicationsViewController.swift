@@ -25,6 +25,7 @@ class MyApplicationsViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         setUpBinding()
+        setBarStyle()
         viewModel.requestApprovedParties()
         viewModel.requestAppliedPre()
     }
@@ -201,5 +202,11 @@ extension MyApplicationsViewController {
             }
             partyDetailViewController.partyId = viewModel.appliedParties[sender as! Int]!.partyId
         }
+    }
+}
+
+extension MyApplicationsViewController {
+    func setBarStyle(){
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
     }
 }

@@ -11,10 +11,13 @@ class MyProfileViewModel {
     var profile: PartyProfile!
     
     let getProfileFlag: Observable<Int?> = Observable(nil)
+    
+    let isLoadingFlag: Observable<Bool> = Observable(false)
 }
 
 extension MyProfileViewModel {
     func requestProfile(userInfoId: Int){
+        isLoadingFlag.value = true
         RequestProfile.uploadInfo(userInfoId: userInfoId, completion: {(partyProfile: PartyProfile?) in
             guard let partyProfile = partyProfile else {
                 self.getProfileFlag.value = -1
@@ -22,6 +25,7 @@ extension MyProfileViewModel {
             }
             self.profile = partyProfile
             self.getProfileFlag.value = 1
+            self.isLoadingFlag.value = false
         })
     }
 }

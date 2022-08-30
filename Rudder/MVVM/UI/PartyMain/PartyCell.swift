@@ -14,7 +14,7 @@ class PartyCell : UITableViewCell {
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var partyTitleView: UITextView!
     @IBOutlet weak var memberNumberLabel: UILabel!
-    @IBOutlet weak var beerTypeLabel: UILabel!
+    //@IBOutlet weak var beerTypeLabel: UILabel!
     
     
     override func awakeFromNib() {
@@ -31,6 +31,6 @@ extension PartyCell {
         dateLabel.text = Utils.stringDate(date: party.partyTime) 
         partyTitleView.text = party.partyTitle
         memberNumberLabel.text = String(party.currentNumberOfMember) + " / "+String(party.totalNumberOfMember)
-        beerTypeLabel.text = "Rudder Beer"
+        //beerTypeLabel.text = "Rudder Beer"
     }
 }

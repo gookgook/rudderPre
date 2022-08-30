@@ -24,7 +24,7 @@ class MyPreViewController: UIViewController {
     @IBOutlet weak var applicantLabel: UILabel!
     @IBOutlet weak var MessagesLabel: UILabel!
     
-    @IBOutlet weak var applcantsView: UIView!
+    @IBOutlet weak var applicantsView: UIView!
     @IBOutlet weak var messagesTableView: UITableView!
     
     @IBOutlet weak var messageTableViewHeight: NSLayoutConstraint!
@@ -35,7 +35,6 @@ class MyPreViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setBar()
         setUpTableView()
         setUpBinding()
         viewModel.requestPartyDates()
@@ -43,6 +42,9 @@ class MyPreViewController: UIViewController {
         let k_doLogout = Notification.Name("doLogout") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.doLogout), name: k_doLogout, object: nil)
         
+    }
+    override func viewWillAppear(_ animated: Bool) {
+        setUIs()
     }
     
     @objc func doLogout(){
@@ -180,7 +182,7 @@ extension MyPreViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPick
         self.currentPartyNo = pickerView.selectedRow(inComponent: 0)
         
         
-        for view in self.applcantsView.subviews {
+        for view in self.applicantsView.subviews {
             view.removeFromSuperview()
         }
         
@@ -206,18 +208,33 @@ extension MyPreViewController {
     
     func setApplicantsView() {
         var tmp: NSLayoutXAxisAnchor
-        tmp = applcantsView.leadingAnchor
+        tmp = applicantsView.leadingAnchor
         
         //print("party Id ", String(viewModel.))
         print("applications count", String(viewModel.myPartyApplicants.count))
         
-        for i in 0..<viewModel.myPartyApplicants.count   {
+        if viewModel.myPartyApplicants.count == 0 {
             let imageView = UIImageView()
-            applcantsView.addSubview(imageView)
+            applicantsView.addSubview(imageView)
             imageView.translatesAutoresizingMaskIntoConstraints = false
             imageView.widthAnchor.constraint(equalToConstant: 110).isActive = true
-            imageView.topAnchor.constraint(equalTo: applcantsView.topAnchor).isActive = true
-            imageView.bottomAnchor.constraint(equalTo: applcantsView.bottomAnchor).isActive = true
+            imageView.topAnchor.constraint(equalTo: applicantsView.topAnchor).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: applicantsView.bottomAnchor).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
+            imageView.layer.cornerRadius = 15
+            imageView.clipsToBounds = true
+            imageView.isUserInteractionEnabled = false
+            
+            RequestImage.downloadImage(from: URL(string: "https://d17a6yjghl1rix.cloudfront.net/team_apply_mock.png")!, imageView: imageView)
+        }
+        
+        for i in 0..<viewModel.myPartyApplicants.count   {
+            let imageView = UIImageView()
+            applicantsView.addSubview(imageView)
+            imageView.translatesAutoresizingMaskIntoConstraints = false
+            imageView.widthAnchor.constraint(equalToConstant: 110).isActive = true
+            imageView.topAnchor.constraint(equalTo: applicantsView.topAnchor).isActive = true
+            imageView.bottomAnchor.constraint(equalTo: applicantsView.bottomAnchor).isActive = true
             imageView.leadingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
             imageView.layer.cornerRadius = 15
             imageView.clipsToBounds = true
@@ -230,7 +247,7 @@ extension MyPreViewController {
             
             let nicknameLabel = UILabel()
             nicknameLabel.translatesAutoresizingMaskIntoConstraints = false
-            applcantsView.addSubview(nicknameLabel)
+            applicantsView.addSubview(nicknameLabel)
             nicknameLabel.text = viewModel.myPartyApplicants[i].userNickname
             nicknameLabel.textColor = UIColor.white
             nicknameLabel.font = UIFont(name: "SF Pro Text", size: 13)
@@ -238,18 +255,18 @@ extension MyPreViewController {
             nicknameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
             nicknameLabel.widthAnchor.constraint(equalToConstant: 56).isActive = true
             nicknameLabel.leadingAnchor.constraint(equalTo: tmp, constant: 20).isActive = true
-            nicknameLabel.bottomAnchor.constraint(equalTo: applcantsView.bottomAnchor, constant: -5).isActive = true
+            nicknameLabel.bottomAnchor.constraint(equalTo: applicantsView.bottomAnchor, constant: -5).isActive = true
             
             let numberLabel = UILabel()
             numberLabel.translatesAutoresizingMaskIntoConstraints = false
-            applcantsView.addSubview(numberLabel)
+            applicantsView.addSubview(numberLabel)
             numberLabel.text = "+"+String(viewModel.myPartyApplicants[i].numberApplicants)
             numberLabel.textColor = UIColor.white
             numberLabel.font = UIFont(name: "SF Pro Text", size: 11)
             numberLabel.layer.zPosition = 1
             numberLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
             numberLabel.leadingAnchor.constraint(equalTo: nicknameLabel.trailingAnchor, constant: 4).isActive = true
-            numberLabel.bottomAnchor.constraint(equalTo: applcantsView.bottomAnchor, constant: -5).isActive = true
+            numberLabel.bottomAnchor.constraint(equalTo: applicantsView.bottomAnchor, constant: -5).isActive = true
             numberLabel.widthAnchor.constraint(equalToConstant: 30).isActive = true
             numberLabel.backgroundColor = MyColor.opaGray
             numberLabel.layer.cornerRadius = 5
@@ -260,7 +277,7 @@ extension MyPreViewController {
             
             tmp = imageView.trailingAnchor
         }
-        applcantsView.trailingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
+        applicantsView.trailingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
     }
     @objc func touchApplicant(_ sender: UITapGestureRecognizer) {
         print("touch sodfju asdf")
@@ -362,7 +379,8 @@ extension MyPreViewController {
 
 
 extension MyPreViewController {
-    func setBar(){
+    func setUIs(){
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
+        self.tabBarController?.tabBar.isHidden = false
     }
 }

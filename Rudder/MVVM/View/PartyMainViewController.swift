@@ -19,7 +19,6 @@ class PartyMainViewController: UIViewController {
     
     @IBOutlet weak var notificationButton: UIBarButtonItem!
     
-    
     var stompManager = StompManager()
     var swiftStomp = StompManager.shared
     
@@ -59,6 +58,7 @@ extension PartyMainViewController: DoRefreshPartyDelegate{
     }
     
     @IBAction func touchUpNotification(_ sender: UIBarButtonItem){
+        viewModel.newNotiFlag.value = false
         self.performSegue(withIdentifier: "GoNotification", sender: nil)
     }
 }
@@ -180,7 +180,8 @@ extension PartyMainViewController {
 extension PartyMainViewController {
     func setBarStyle(){
         self.navigationController?.navigationItem.hidesBackButton = true
-        
+        self.navigationController?.view.backgroundColor = UIColor.white
+        self.navigationController?.navigationBar.isTranslucent = false
         let logoContainer = UIView(frame: CGRect(x: 0, y: 0, width: 100, height: 19))
 
          let imageView = UIImageView(frame: CGRect(x: 0, y: 0, width: 100, height: 19))

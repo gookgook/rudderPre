@@ -47,6 +47,10 @@ extension LoginViewController {
     func setUpViews () {
         hideKeyboardWhenTappedAround()
         nextButton.applyGradient(colors: MyColor.gPurple)
+        userIdField.addLeftPadding(padding: 10)
+        userPasswordField.addLeftPadding(padding: 10)
+        self.navigationController?.navigationItem.hidesBackButton = false
+        self.navigationController?.navigationBar.tintColor = UIColor.black
     }
     
     func setUpBinding() {

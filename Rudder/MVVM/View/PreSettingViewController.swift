@@ -26,6 +26,7 @@ class PreSettingViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        setUIs()
         setUpBinding()
         addGesturesToButton()
         RequestImage.downloadImage(from: URL(string: partyThumbnailImageURL)!, imageView: partyThumbnailView)
@@ -107,5 +108,11 @@ extension PreSettingViewController {
         }
         partyFeedbackViewController.partyId = partyId
         partyFeedbackViewController.feedbackType = problemOrEnquiry
+    }
+}
+
+extension PreSettingViewController {
+    func setUIs(){
+        self.navigationController?.navigationBar.tintColor = UIColor.black
     }
 }

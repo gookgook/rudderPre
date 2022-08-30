@@ -44,7 +44,6 @@ class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelega
             switch status {  // school name이 올 수도 있어서 오류상황들 앞에 놓고 그게 아니라면 school name 이 온걸로 간주해서 default에서 처리
             case -1 : DispatchQueue.main.async { Alert.showAlert(title: "Server Error", message: nil, viewController: self) }
             case 5: DispatchQueue.main.async { Alert.showAlert(title: "photo count", message: nil, viewController: self)}
-            case 4: DispatchQueue.main.async { Alert.showAlert(title: "profile body count", message: nil, viewController: self)}
             case 1 :
                 print("sign up process completed")
                 self.navigationController?.popToRootViewController(animated: true)

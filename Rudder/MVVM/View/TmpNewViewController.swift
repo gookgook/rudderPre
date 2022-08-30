@@ -18,6 +18,6 @@ class TmpNewViewController: UIViewController {
     @IBAction func touchUpCloseButton(_sender: UIButton){
         delegate?.goSomePage()
         dismiss(animated: false, completion: nil)
-        
     }
+    
 }

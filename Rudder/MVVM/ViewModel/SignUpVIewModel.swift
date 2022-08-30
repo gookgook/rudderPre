@@ -24,6 +24,8 @@ class SignUpViewModel {
     var nextButtonResultFlag: Observable<String?> = Observable(nil) //School name을 보내줄 수도 있어서 기형적으로 string으로 했음. flag인데 name까지 넘겨준다는게 좀 이상함
     var signUpResultFlag: Observable<Int?> = Observable(nil)
     
+    var goNextPageResultFlag: Observable<Int?> = Observable(nil)
+    
     let isLoadingFlag: Observable<Bool> = Observable(false)
     
 }
@@ -40,9 +42,18 @@ extension SignUpViewModel {
         })
     }
     
+    func touchUpNextButton() {
+        guard (userNickname.count != 0 && userProfileBody.count != 0) else {
+            goNextPageResultFlag.value = 2
+            return
+        }
+        guard userProfileBody.count >= ConstStrings.MINIMUM_PROFILEBODY_COUNT else { goNextPageResultFlag.value = 3 ; return }
+        goNextPageResultFlag.value = 1
+    }
+    
     func requestSignUp() {
         guard (profileImages.count >= ConstStrings.MINIMUM_PHOTO_COUNT && profileImages.count <= ConstStrings.MAXIMUM_PHOTO_COUNT) else { signUpResultFlag.value = 5; return }
-        guard userProfileBody.count >= ConstStrings.MINIMUM_PROFILEBODY_COUNT else { signUpResultFlag.value = 4 ; return }
+  
         
         isLoadingFlag.value = true
         

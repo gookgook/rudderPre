@@ -1523,7 +1523,7 @@
                                 <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
-                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Bxe-MZ-4xM">
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="Bxe-MZ-4xM">
                                 <rect key="frame" x="197" y="411" width="20" height="20"/>
                                 <color key="color" systemColor="systemPurpleColor"/>
                             </activityIndicatorView>
@@ -1782,7 +1782,7 @@
             </objects>
             <point key="canvasLocation" x="1108.6956521739132" y="983.70535714285711"/>
         </scene>
-        <!--Notification View Controller-->
+        <!--Notification-->
         <scene sceneID="C9L-Re-TQr">
             <objects>
                 <viewController id="DiE-Ei-Q7N" customClass="NotificationViewController" customModule="Rudder" customModuleProvider="target" sceneMemberID="viewController">
@@ -1790,17 +1790,23 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Z00-YJ-zCR">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="Z00-YJ-zCR">
                                 <rect key="frame" x="0.0" y="56" width="414" height="786"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <color key="sectionIndexBackgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <connections>
                                     <outlet property="dataSource" destination="DiE-Ei-Q7N" id="L0W-3M-lRs"/>
                                     <outlet property="delegate" destination="DiE-Ei-Q7N" id="P43-Wf-8ZT"/>
                                 </connections>
                             </tableView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" id="RR8-BC-R6B">
+                                <rect key="frame" x="0.0" y="399" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="color" systemColor="systemPurpleColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="fI0-BX-NWr"/>
-                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <color key="backgroundColor" red="0.97254901960784312" green="0.97254901960784312" blue="0.99215686274509807" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="fI0-BX-NWr" firstAttribute="bottom" secondItem="Z00-YJ-zCR" secondAttribute="bottom" id="IvJ-uS-tXu"/>
                             <constraint firstItem="fI0-BX-NWr" firstAttribute="trailing" secondItem="Z00-YJ-zCR" secondAttribute="trailing" id="fOX-q2-ZS8"/>
@@ -1808,9 +1814,10 @@
                             <constraint firstItem="Z00-YJ-zCR" firstAttribute="leading" secondItem="fI0-BX-NWr" secondAttribute="leading" id="nXl-eG-a3a"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="Xyq-OX-11b"/>
+                    <navigationItem key="navigationItem" title="Notification" id="Xyq-OX-11b"/>
                     <connections>
                         <outlet property="notificationTableView" destination="Z00-YJ-zCR" id="6je-rU-BZU"/>
+                        <outlet property="spinner" destination="RR8-BC-R6B" id="qVu-a3-Sxp"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Qho-uW-cSl" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -2298,12 +2305,18 @@
                                 <viewLayoutGuide key="contentLayoutGuide" id="qJh-hx-dG3"/>
                                 <viewLayoutGuide key="frameLayoutGuide" id="tLp-SB-2pa"/>
                             </scrollView>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" style="medium" translatesAutoresizingMaskIntoConstraints="NO" id="m4a-rv-rla">
+                                <rect key="frame" x="197" y="411" width="20" height="20"/>
+                                <color key="color" systemColor="systemPurpleColor"/>
+                            </activityIndicatorView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="isc-Q7-Pub"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="YWt-Q3-00d" firstAttribute="top" secondItem="Pfl-Fz-e9O" secondAttribute="top" id="Clh-Zc-nLE"/>
+                            <constraint firstItem="m4a-rv-rla" firstAttribute="centerY" secondItem="Pfl-Fz-e9O" secondAttribute="centerY" id="DCM-rX-VJk"/>
                             <constraint firstItem="YWt-Q3-00d" firstAttribute="trailing" secondItem="isc-Q7-Pub" secondAttribute="trailing" id="cBN-Qz-IF5"/>
+                            <constraint firstItem="m4a-rv-rla" firstAttribute="centerX" secondItem="Pfl-Fz-e9O" secondAttribute="centerX" id="fD1-aU-058"/>
                             <constraint firstAttribute="bottom" secondItem="YWt-Q3-00d" secondAttribute="bottom" id="n1D-0A-yr3"/>
                             <constraint firstItem="YWt-Q3-00d" firstAttribute="leading" secondItem="isc-Q7-Pub" secondAttribute="leading" id="vrm-Sn-938"/>
                         </constraints>
@@ -2316,6 +2329,7 @@
                         <outlet property="profileImageView" destination="r0c-BJ-Ldc" id="RbO-Vg-8bU"/>
                         <outlet property="profileView" destination="m0M-Ho-lHv" id="DRR-2G-CPy"/>
                         <outlet property="scrollView" destination="YWt-Q3-00d" id="Drs-0m-e8c"/>
+                        <outlet property="spinner" destination="m4a-rv-rla" id="suq-Se-KF3"/>
                         <outlet property="universityLogoView" destination="SkW-4I-hea" id="kdj-Pk-AMy"/>
                         <segue destination="dyJ-cn-izq" kind="show" identifier="GoEditProfile" id="qHb-as-FxK"/>
                         <segue destination="Va0-nm-W21" kind="show" identifier="ShowTerms" id="GGT-rb-1w1"/>
@@ -2669,8 +2683,8 @@
                         <outlet property="aGChatBody" destination="Wuy-Qg-0bZ" id="kkj-ID-2e4"/>
                         <outlet property="aGChatImageView" destination="jJR-at-x6T" id="56r-0j-4hb"/>
                         <outlet property="aGPartyTitle" destination="soI-iq-SR1" id="LYP-He-Apz"/>
-                        <outlet property="applcantsView" destination="kdO-l5-ixv" id="nIz-Wi-o2P"/>
                         <outlet property="applicantLabel" destination="oaX-QX-cGs" id="rmD-uN-3At"/>
+                        <outlet property="applicantsView" destination="kdO-l5-ixv" id="nIz-Wi-o2P"/>
                         <outlet property="messageTableViewHeight" destination="hKd-da-11L" id="D79-Pg-vrI"/>
                         <outlet property="messagesTableView" destination="Bmh-Hd-M6q" id="ca6-bN-doz"/>
                         <outlet property="partyDatePicker" destination="Mmo-TT-dKf" id="75l-7R-l6E"/>
@@ -3409,7 +3423,7 @@
             </objects>
             <point key="canvasLocation" x="2726.0869565217395" y="1809.0401785714284"/>
         </scene>
-        <!--My Applications View Controller-->
+        <!--Application-->
         <scene sceneID="oRU-XM-Gvh">
             <objects>
                 <viewController storyboardIdentifier="MyApplicationsViewController" id="WUf-j6-d24" customClass="MyApplicationsViewController" customModule="Rudder" customModuleProvider="target" sceneMemberID="viewController">
@@ -3502,6 +3516,7 @@
                             <constraint firstItem="PVl-XR-lfk" firstAttribute="leading" secondItem="huL-Zg-tSZ" secondAttribute="leading" id="ycb-8m-Btu"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" title="Application" id="olv-2I-1AF"/>
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
                     <connections>
                         <outlet property="acceptedTableView" destination="dZY-xy-CHN" id="wFL-H1-7ud"/>

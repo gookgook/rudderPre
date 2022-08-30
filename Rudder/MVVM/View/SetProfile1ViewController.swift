@@ -19,18 +19,29 @@ class SetProfile1ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUIs()
+        setBinding()
+    }
+}
+
+extension SetProfile1ViewController {
+    func setBinding() {
+        viewModel?.goNextPageResultFlag.bind{[weak self] status in
+            guard let self = self else {return}
+            switch status {
+            case 1: self.performSegue(withIdentifier: "GoSetProfile2", sender: nil)
+            case 2: Alert.showAlert(title: "One or more Fields are empty!", message: nil, viewController: self)
+            case 3 : Alert.showAlert(title: "Description must be at least 20 characters long", message: nil, viewController: self)
+            default: return
+            }
+        }
     }
 }
 
 extension SetProfile1ViewController {
     @IBAction func touchUpSignUpButton(_ sender: UIButton){
-        guard (nickNameField.text?.isEmpty == false && profileBodyView.text?.isEmpty == false) else {
-            Alert.showAlert(title: "One or more fields are empty", message: nil, viewController: self)
-            return
-        }
         viewModel?.userNickname = nickNameField.text
         viewModel?.userProfileBody = profileBodyView.text
-        self.performSegue(withIdentifier: "GoSetProfile2", sender: sender)
+        viewModel?.touchUpNextButton()
     }
 }
 

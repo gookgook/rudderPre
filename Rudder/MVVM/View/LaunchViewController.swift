@@ -67,9 +67,9 @@ extension LaunchViewController {
        // notificationController = UINavigationController(rootViewController: NotificationVC)
         
         myTabBarController.tabBar.tintColor = MyColor.rudderPurple
-        let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "homekit"), tag: 0)
-        let myPageTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "envelope"), tag: 1)
-        let messageTabBarItem = UITabBarItem(title: nil, image: UIImage(named: "board"), tag: 2)
+        let mainTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "house.fill"), tag: 0)
+        let myPageTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "checkmark.circle.fill"), tag: 1) //근데 이거 그냥 name 외부 이미지 해도 틴트가 된다??
+        let messageTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "crown.fill"), tag: 2)
         //let notificationTabBarItem = UITabBarItem(title: nil, image: UIImage(systemName: "bell"), tag: 3)
         //tag와 tab bar 순서 안맞는 사소한 문제
         mainNavigationController.tabBarItem = mainTabBarItem

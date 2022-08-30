@@ -13,10 +13,13 @@ class NotificationViewController: UIViewController {
     
     @IBOutlet weak var notificationTableView: UITableView!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpTableView()
         setUpBinding()
+        setBarStyle()
         viewModel.requestNotifications(endNotificationId: -1)
     }
 }
@@ -37,6 +40,25 @@ extension NotificationViewController {
                     self.notificationTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
                 }
             }
+        }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+            }
+        }
+        viewModel.tabBarDestinationFlag.bind{[weak self] destination in
+            guard let self = self else {return}
+            self.tabBarController?.selectedIndex = destination!
+            self.navigationController?.popViewController(animated: false)
+            
         }
     }
 }
@@ -79,9 +101,14 @@ extension NotificationViewController: UITableViewDelegate, UITableViewDataSource
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _: UITableViewCell = tableView.cellForRow(at: indexPath) {
-            
-            self.performSegue(withIdentifier: "GoPartyDetail", sender: indexPath.row)
-            // cell.selectionStyle = .none
+            viewModel.touchUpNotifications(index: indexPath.row)
         }
+    }
+}
+
+extension NotificationViewController {
+    func setBarStyle(){
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
     }
 }

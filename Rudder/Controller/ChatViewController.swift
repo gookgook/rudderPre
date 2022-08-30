@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ChatViewController: UIViewController{
+class ChatViewController: UIViewController, UIGestureRecognizerDelegate{
     
     var userInfoId: Int! //채팅 구별 위해
     var chatRoomId: Int!
@@ -16,6 +16,7 @@ class ChatViewController: UIViewController{
     var isInit: Bool = true
     
     @IBOutlet weak var textField: UITextField!
+
     @IBOutlet weak var chatTableView: UITableView!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
@@ -23,10 +24,13 @@ class ChatViewController: UIViewController{
     private var chats: [Chat] = []
     private var messageIndex = 0
     
+    private var originalY: CGFloat!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.startAnimating()
         
+        hideKeyboardWhenTappedAround()
        // textField.bor
         
         requestOldChats(endChatMessageId: -1)
@@ -53,6 +57,13 @@ class ChatViewController: UIViewController{
         
         
         
+    }
+    
+    override func viewDidLayoutSubviews() {
+        originalY = self.view.frame.origin.y
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     
@@ -187,4 +198,35 @@ extension ChatViewController {
             requestOldChats(endChatMessageId: endChatMessageId)
         }
    }
+    
+    func hideKeyboardWhenTappedAround() {
+            let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+            tap.delegate = self
+            tap.cancelsTouchesInView = false
+            view.addGestureRecognizer(tap)
+    }
+                                                                   
+    @objc func dismissKeyboard(){
+        view.endEditing(true)
+                
+    }
+                                                                     
+    @objc func keyboardWillShow(_ sender: Notification) {
+        guard let keyboardSize = (sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue else {
+               // if keyboard size is not available for some reason, dont do anything
+               return
+    
+        }
+
+            //let keyboardHeight = keyboardRect.height
+        self.view.frame.origin.y = 0 - keyboardSize.height + 105
+            //self.textField.frame.origin.y = keyboardRect.origin.y - self.textField.frame.height
+            //commentTableView.contentSize.height += keyboardRect.height
+        }
+        @objc func keyboardWillHide(_ sender: Notification) {
+            let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
+            let keyboardRect = keyboardFrame.cgRectValue
+            self.view.frame.origin.y = originalY // Move view to original position
+            //commentTableView.contentSize.height -= keyboardRect.height
+        }
 }
