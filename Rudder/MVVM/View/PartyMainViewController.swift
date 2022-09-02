@@ -31,6 +31,7 @@ class PartyMainViewController: UIViewController {
         setUpBinding()
         setUpTableView()
         viewModel.requestPartyDates(endPartyId: endPartyId, isInfiniteScroll: false)
+        viewModel.requestInitialData()
         
         self.navigationItem.hidesBackButton = true
 
@@ -100,6 +101,18 @@ extension PartyMainViewController {
             }
         }
         viewModel.newNotiFlag.bind { [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.notificationButton.image = UIImage(systemName: "bell.badge")
+                    self.notificationButton.tintColor = UIColor.purple
+                } else {
+                    self.notificationButton.image = UIImage(systemName: "bell")
+                    self.notificationButton.tintColor = UIColor.black
+                }
+            }
+        }
+        viewModel.notiInitFlag.bind { [weak self] status in
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {

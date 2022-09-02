@@ -58,6 +58,7 @@ extension FindPwViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -68,5 +69,17 @@ extension FindPwViewController {
 
     func setBar(){
         self.navigationController?.navigationBar.tintColor = UIColor.white
+    }
+}
+
+extension FindPwViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

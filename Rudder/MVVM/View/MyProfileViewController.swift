@@ -59,6 +59,10 @@ extension MyProfileViewController {
             }
         })
     }
+    
+    @IBAction func tmpNextUpdate(_ sender: UIButton){
+        Alert.showAlert(title: "Wait for the next Update!", message: nil, viewController: self)
+    }
 }
 
 extension MyProfileViewController {

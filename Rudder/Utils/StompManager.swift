@@ -78,7 +78,7 @@ extension StompManager {
     
     func initStomp(){
     
-        let url = URL(string: "ws://test.rudderuni.com/ws")!
+        let url = URL(string: "ws://api.rudderuni.com/ws")!
         
         self.swiftStomp = SwiftStomp(host: url)
         self.swiftStomp.enableLogging = true

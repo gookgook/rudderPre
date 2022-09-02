@@ -19,7 +19,7 @@ struct TmpGetNotice: Codable {
 struct RequestServerNotice {
     //login
     static func uploadInfo( completion: @escaping (String?) -> Void) -> Void{ // completion optional!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        var url : URLComponents = URLComponents(string: "http://test.rudderuni.com/notice")!
+        var url : URLComponents = URLComponents(string: "http://api.rudderuni.com/notice")!
         var request = URLRequest(url: url.url!)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

@@ -28,6 +28,8 @@ class MakePreViewModel {
     var getPickUpPlacesFlag: Observable<Int?> = Observable(nil)*/
     var makePartyResultFlag: Observable<Int?> = Observable(nil)
     
+    var isLoadingFlag: Observable<Bool> = Observable(false)
+    
     init() {
         for i in ConstStrings.MINIMINI_PARTY_PARTICIPANTS...ConstStrings.MAXIMINI_PARTY_PARTICIPANTS {
             minimumParticipants.append(i)
@@ -65,14 +67,20 @@ extension MakePreViewModel {
             return
         }
         
+        isLoadingFlag.value = true
+        
         RequestMakePre.uploadInfo (location: locationString, partyDescription: partyDescription, partyTime: partyDate, partyTitle: partyTitle, totalNumberOfMember: participantNumber, completion: { [self]
             partyId in
             guard let partyId = partyId else { makePartyResultFlag.value = -1; return }
             RequestPtImageUrl.uploadInfo(partyId: partyId, imageMetadata: imageMetaData, completion: {
                 urls in
-                guard let urls = urls else { self.makePartyResultFlag.value = -1; return }
+                guard let urls = urls else {
+                    self.makePartyResultFlag.value = -1; return
+                    self.isLoadingFlag.value = false
+                }
                 RequestPhotoUpload.uploadInfo(photoURL: urls[0], photoData: self.thumbnailImage.jpegData(compressionQuality: 0)!, contentType: self.imageMetaData.contentType, completion: {
                     status in
+                    self.isLoadingFlag.value = false
                     if status != 1 {self.makePartyResultFlag.value = -1}
                     else { self.makePartyResultFlag.value = 1 }
                 })

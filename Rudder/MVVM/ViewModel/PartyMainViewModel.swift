@@ -12,6 +12,8 @@ class PartyMainViewModel {
     
     let getPartiesFlag: Observable<Int?> = Observable(nil)
     
+    let notiInitFlag: Observable<Bool> = Observable(false) // 1 if no noti, 2 if noti exists
+    
     let newNotiFlag: Observable<Bool> = Observable(false)
     let isLoadingFlag: Observable<Bool> = Observable(false)
     
@@ -37,6 +39,15 @@ extension PartyMainViewModel {
 }
 
 extension PartyMainViewModel {
+    
+    func requestInitialData(){
+        RequestInitialData.uploadInfo() {
+            status in
+            if status == 1 {self.notiInitFlag.value = false}
+            else {self.notiInitFlag.value = true}
+        }
+    }
+    
     func requestPartyDates(endPartyId: Int, isInfiniteScroll: Bool) {
         isLoadingFlag.value = true
         

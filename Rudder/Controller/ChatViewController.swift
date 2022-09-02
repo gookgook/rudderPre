@@ -55,17 +55,14 @@ class ChatViewController: UIViewController, UIGestureRecognizerDelegate{
         self.chatTableView.rowHeight = UITableView.automaticDimension
         // Do any additional setup after loading the view.
         
-        
-        
-    }
-    
-    override func viewDidLayoutSubviews() {
         originalY = self.view.frame.origin.y
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        
+        
     }
-
     
     @objc func receivedChat(notification: NSNotification){
         print("recieved chat")
@@ -219,14 +216,13 @@ extension ChatViewController {
         }
 
             //let keyboardHeight = keyboardRect.height
-        self.view.frame.origin.y = 0 - keyboardSize.height + 105
+    self.view.frame.origin.y = 0 - keyboardSize.height + 105
             //self.textField.frame.origin.y = keyboardRect.origin.y - self.textField.frame.height
             //commentTableView.contentSize.height += keyboardRect.height
-        }
-        @objc func keyboardWillHide(_ sender: Notification) {
-            let keyboardFrame: NSValue = sender.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as! NSValue
-            let keyboardRect = keyboardFrame.cgRectValue
-            self.view.frame.origin.y = originalY // Move view to original position
+    }
+    @objc func keyboardWillHide(_ sender: Notification) {
+       
+        self.view.frame.origin.y = originalY // Move view to original position
             //commentTableView.contentSize.height -= keyboardRect.height
-        }
+    }
 }

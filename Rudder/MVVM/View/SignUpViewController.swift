@@ -61,6 +61,10 @@ extension SignUpViewController {
         isFinished.terms = !isFinished.terms
         somethingChanged()
     }
+    
+    @IBAction func tmpNextUpdate(_ sender: UIButton){
+        Alert.showAlert(title: "Wait for the next Update!", message: nil, viewController: self)
+    }
 }
 
 extension SignUpViewController {
@@ -79,11 +83,25 @@ extension SignUpViewController {
                 }
             }
         }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+            }
+        }
     }
 }
 
 extension SignUpViewController {
     func setBar(){
+        
         self.navigationItem.hidesBackButton = true
         let label = UILabel()
         label.text = " Sign Up"

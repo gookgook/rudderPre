@@ -72,7 +72,9 @@ extension MyPreViewController {
                 }
                 
                 self.viewModel.requestGroupChatroom(partyId: self.viewModel.myPartyDates[self.currentPartyNo].partyId)
-                DispatchQueue.main.async {self.setPartyDatePicker()}
+                DispatchQueue.main.async {
+                    self.setPartyDatePicker()
+                }
             }
             else { print("party date wrong") }
         }
@@ -110,6 +112,11 @@ extension MyPreViewController {
         viewModel.receivedGroupChatFlag.bind{ [weak self] _ in
             guard let self = self else {return}
             DispatchQueue.main.async { self.setAGChatView() }
+        }
+        
+        viewModel.refreshFlag.bind{ [weak self] _ in
+            guard let self = self else {return}
+            self.viewModel.requestPartyDates()
         }
         
         viewModel.isLoadingFlag.bind{ [weak self] status in
@@ -372,6 +379,10 @@ extension MyPreViewController {
 
 extension MyPreViewController {
     @IBAction func touchUpSetting(_ sender: UIBarButtonItem){
+        guard viewModel.groupChatRoom != nil else {
+            Alert.showAlert(title: "You didn't host any party", message: nil, viewController: self)
+            return
+        }
         self.performSegue(withIdentifier: "GoPreSetting", sender: nil)
     
     }

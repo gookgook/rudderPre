@@ -13,6 +13,7 @@ class FeedbackViewController: UIViewController {
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var feedbackBodyView: UITextView!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -37,6 +38,19 @@ extension FeedbackViewController {
                     Alert.showAlert(title: "One or more fields are empty", message: nil, viewController: self)
                 default:
                     Alert.showAlert(title: "server error", message: nil, viewController: self)
+                }
+            }
+        }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
                 }
             }
         }

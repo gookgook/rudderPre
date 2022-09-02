@@ -20,6 +20,7 @@ class EditProfileViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setUpBinding()
+        hideKeyboardWhenTappedAround()
         profileBodyView.text = currentProfileBody
     }
 }
@@ -45,5 +46,17 @@ extension EditProfileViewController {
     @IBAction func touchUpDoneButton(_ sender: UIButton) {
         viewModel.profileBody = profileBodyView.text
         viewModel.requestEditProfile()
+    }
+}
+
+extension EditProfileViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

@@ -81,12 +81,19 @@ extension LaunchViewController {
         let controllers = [mainNavigationController, myPreNavigationController,  myNavigationController/*,notificationController*/]
         myTabBarController.setViewControllers(controllers, animated: true)
         myTabBarController.modalPresentationStyle = .fullScreen
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + 1) {
-            self.spinner.stopAnimating()
-            self.present(self.myTabBarController, animated: false)
-        }
- 
         
+        RequestInitialDataGuest.uploadInfo() {status in
+            DispatchQueue.main.async {
+                switch status{
+                case 1 :
+                    self.present(self.myTabBarController, animated: false)
+                case 2:
+                    Alert.showAlert(title: "Please Update the app!", message: nil, viewController: self)
+                default:
+                    Alert.showAlert(title: "Server Error", message: nil, viewController: self)
+                }
+            }
+        }
     }
 }
 

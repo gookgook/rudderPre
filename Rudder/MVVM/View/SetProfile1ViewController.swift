@@ -16,10 +16,13 @@ class SetProfile1ViewController: UIViewController {
     
     @IBOutlet weak var signUpButton: UIButton!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUIs()
         setBinding()
+        hideKeyboardWhenTappedAround()
     }
 }
 
@@ -32,6 +35,19 @@ extension SetProfile1ViewController {
             case 2: Alert.showAlert(title: "One or more Fields are empty!", message: nil, viewController: self)
             case 3 : Alert.showAlert(title: "Description must be at least 20 characters long", message: nil, viewController: self)
             default: return
+            }
+        }
+        viewModel?.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
             }
         }
     }

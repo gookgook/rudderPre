@@ -23,6 +23,7 @@ class PartyFeedbackViewController: UIViewController {
         super.viewDidLoad()
         setFeedbackType()
         setUpBinding()
+        hideKeyboardWhenTappedAround()
     }
     
     @IBAction func touchUpDoneButton(_ sender : UIButton) {
@@ -83,5 +84,14 @@ extension PartyFeedbackViewController: UITextViewDelegate {
             feedbackBodyView.text = placeHolderString
             feedbackBodyView.textColor = UIColor.lightGray
         }
+    }
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

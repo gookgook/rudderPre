@@ -15,6 +15,8 @@ struct RequestOldChat {
             print("token failure")
             return
         }
+        
+        print("chatRoomId ", String(chatRoomId))
 
         
         if endChatMessageId != -1 { url.queryItems = [ URLQueryItem(name: "endChatMessageId", value: String(endChatMessageId)) ] }

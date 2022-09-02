@@ -12,7 +12,7 @@ struct RequestBasic {
     static func uploadInfo(EncodedUploadData: Data, completion: @escaping (Int) -> Void) -> Void{ //1: success 2:인
 
    
-        let url = URL(string: ("http://test.rudderuni.com" + "/auth"))!
+        let url = URL(string: ("http://api.rudderuni.com" + "/auth"))!
         var request = URLRequest(url: url)
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")

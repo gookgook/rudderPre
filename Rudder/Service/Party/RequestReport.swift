@@ -1,16 +1,15 @@
 //
-//  RequestSendChat.swift
+//  RequestReport.swift
 //  Rudder
 //
-//  Created by 박민호 on 2022/08/03.
+//  Created by 박민호 on 2022/09/01.
 //
 
 import Foundation
 
-struct RequestSendChat {
-    //login
-    static func uploadInfo(channelId: Int, chatBody:String, completion: @escaping (Int) -> Void) -> Void{
-        let url = URL(string: "http://api.rudderuni.com"+"/send-chat")!
+struct RequestReport {
+    static func uploadInfo(itemId: Int , reportBody: String, reportType: String, completion: @escaping (Int) -> Void) -> Void{
+        let url = URL(string: Utils.springUrlKey+"/reports")!
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
               token.isEmpty == false else {
@@ -22,13 +21,12 @@ struct RequestSendChat {
         request.httpMethod = "POST"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
-        
-        let chatToSend = ChatToSend(sender: "mock", body: chatBody, channelId: channelId, sendTime: nil)
-
-        guard let EncodedUploadData = try? JSONEncoder().encode(chatToSend) else {
+      
+        let feedback = Report(itemId: itemId, reportBody: reportBody, reportType: reportType)
+        guard let EncodedUploadData = try? JSONEncoder().encode(feedback) else {
             return
         }
-      
+        
         let task = URLSession.shared.uploadTask(with: request, from: EncodedUploadData, completionHandler: { (data, response, error) in
             if let error = error {
                 print ("error: \(error)")
@@ -41,24 +39,16 @@ struct RequestSendChat {
                 completion(-1)
                 return
             }
-            
             completion(1)
-            
-            
         })
         task.resume()
     }
 }
 
-extension RequestSendChat {
-    struct AddPostResponse: Codable {
-        let postId: Int
-    }
-    
-    struct ChatToSend: Codable {
-        let sender: String
-        let body: String
-        let channelId: Int
-        let sendTime: Int!
+extension RequestReport {
+    struct Report: Codable {
+        let itemId: Int
+        let reportBody: String
+        let reportType: String
     }
 }

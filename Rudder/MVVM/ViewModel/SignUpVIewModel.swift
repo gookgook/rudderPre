@@ -36,9 +36,12 @@ extension SignUpViewModel {
         guard userEmail != nil else { nextButtonResultFlag.value = "5"; return }
         guard userPassword != nil else { nextButtonResultFlag.value = "5"; return }
         
+        isLoadingFlag.value = true
+        
         RequestEmailVerify.uploadInfo(schoolEmail: userEmail, completion: {
             status in
             self.nextButtonResultFlag.value = status
+            self.isLoadingFlag.value = false
         })
     }
     

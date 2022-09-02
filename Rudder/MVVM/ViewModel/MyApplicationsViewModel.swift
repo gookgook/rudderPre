@@ -12,6 +12,9 @@ class MyApplicationsViewModel {
     init(){
         let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedChat(notification:)), name: k_moveToNotification, object: nil)
+        
+        let k_accepted = Notification.Name("accepted") //이거이름재설정 필요
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedNoti(notification:)), name: k_accepted, object: nil)
     }
     
     var approvedParties: [Party] = []
@@ -27,6 +30,8 @@ class MyApplicationsViewModel {
     
     var receivedGroupChatFlag: [Observable<Int?>] = []
     var receivedOTOChatFlag: [Observable<Int?>] = []
+    
+    var refreshFlag: Observable<Bool> = Observable(false)
 
     var isLoadingFlag: Observable<Bool> = Observable(false)
 }
@@ -136,5 +141,9 @@ extension MyApplicationsViewModel {
                 break
             }
         }
+    }
+    
+    @objc func receivedNoti(notification: NSNotification) {
+        refreshFlag.value = true
     }
 }

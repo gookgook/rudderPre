@@ -12,6 +12,9 @@ class MyPreViewModel {
     init(){
         let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedChat(notification:)), name: k_moveToNotification, object: nil)
+        
+        let k_newApplication = Notification.Name("newApplication")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedNoti(notification:)), name: k_newApplication, object: nil)
     }
     
     var myPartyDates: [MyPartyDate] = []
@@ -26,6 +29,8 @@ class MyPreViewModel {
     
     let receivedGroupChatFlag: Observable<Int?> = Observable(nil)
     var receivedOTOChatFlag: [Observable<Int?>] = []
+    
+    let refreshFlag: Observable<Bool> = Observable(false)
     
     let isLoadingFlag: Observable<Bool> = Observable(false)
     //let currentPartyInfo:
@@ -90,6 +95,9 @@ extension MyPreViewModel {
         })
     }
     
+}
+extension MyPreViewModel {
+    
     @objc func receivedChat(notification: NSNotification){
         let currentChat = notification.userInfo!["receivedChat"] as? Chat
         
@@ -107,6 +115,10 @@ extension MyPreViewModel {
                 }
             }
         }
+    }
+    
+    @objc func receivedNoti(notification: NSNotification) {
+        refreshFlag.value = true
     }
 }
 

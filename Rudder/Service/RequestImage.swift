@@ -17,10 +17,9 @@ struct RequestImage {
         if let cachedImage = ImageCache.imageCache.object(forKey: cacheKey as NSString) {
             print("already in cache")
             DispatchQueue.main.async {imageView.image = cachedImage}
+            return
            
         }
-        print("Download Started")
-       
         getData(from: url) { data, response, error in
             guard let data = data, error == nil else { return }
             print(response?.suggestedFilename ?? url.lastPathComponent)
@@ -29,7 +28,11 @@ struct RequestImage {
     
             let image = UIImage(data: data)
     
-            guard image != nil else {return }
+            guard image != nil else {
+                print("image download error")
+                return
+                
+            }
             ImageCache.imageCache.setObject(image!, forKey: cacheKey as NSString)
             DispatchQueue.main.async {imageView.image = image! }
         }

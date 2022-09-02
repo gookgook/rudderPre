@@ -35,6 +35,7 @@ extension FindIdViewController {
     override func viewDidLoad() {
         
         super.viewDidLoad()
+        hideKeyboardWhenTappedAround()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -45,5 +46,17 @@ extension FindIdViewController {
 
     func setBar(){
         self.navigationController?.navigationBar.tintColor = UIColor.white
+    }
+}
+
+extension FindIdViewController {
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

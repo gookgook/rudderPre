@@ -40,6 +40,7 @@ class PartyDetailViewController: UIViewController {
         setUpBinding()
         viewModel.requestPartyDetail(partyId: partyId)
         
+        
         //self.navigationController?.navigationBar.layer.zPosition = 1
     }
     
@@ -71,7 +72,23 @@ extension PartyDetailViewController {
                     if partyDetail.partyStatus != "NONE" {
                         self.applyButton.isEnabled = false
                         self.applyButton.backgroundColor = MyColor.superLightGray
-                        self.applyButton.setTitle("Applied", for: .normal)
+                        self.applyButton.removeGradient()
+                        switch partyDetail.partyStatus {
+                        case "FINAL_APPROVE" :
+                            self.applyButton.setTitle("Approved", for: .normal)
+                        case "HOST" :
+                            self.applyButton.setTitle("You are the HOST", for: .normal)
+                        case "REJECT" :
+                            self.applyButton.setTitle("DONE", for: .normal)
+                        default:
+                            self.applyButton.setTitle("Applied", for: .normal)
+                        }
+                    }
+                    if partyDetail.partyPhase != "RECRUITING" {
+                        self.applyButton.isEnabled = false
+                        self.applyButton.backgroundColor = MyColor.superLightGray
+                        self.applyButton.removeGradient()
+                        self.applyButton.setTitle("DONE", for: .normal)
                     }
                 }
             }
@@ -82,6 +99,7 @@ extension PartyDetailViewController {
                 DispatchQueue.main.async {
                     self.applyButton.isEnabled = false
                     self.applyButton.backgroundColor = MyColor.superLightGray
+                    self.applyButton.removeGradient()
                     self.applyButton.removeGradient()
                     self.applyButton.setTitle("Applied", for: .normal)
                     self.applyCountLabel.text = String(Int(self.applyCountLabel.text!)! + self.numberOfApplicants )
@@ -139,7 +157,7 @@ extension PartyDetailViewController {
         
     }
     func setStyle(){
-       // applyButton.applyGradient(colors: MyColor.gPurple)
+        //applyButton.applyGradient(colors: MyColor.gPurple)
         applyCountView.layer.borderWidth = 1
         applyCountView.layer.borderColor = UIColor.white.cgColor
     }

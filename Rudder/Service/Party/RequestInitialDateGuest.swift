@@ -1,26 +1,29 @@
 //
-//  RequestInitialData.swift
+//  RequestInitialDateGuest.swift
 //  Rudder
 //
-//  Created by 박민호 on 2022/08/29.
+//  Created by 박민호 on 2022/09/01.
 //
 
 import Foundation
 
-struct RequestInitialData {
+struct RequestInitialDataGuest {
     static func uploadInfo( completion: @escaping (Int) -> Void) -> Void{
         
-        guard let token = UserDefaults.standard.string(forKey: "token") else {
-            print("token failure")
+        guard let dictionary = Bundle.main.infoDictionary,
+              let version = dictionary["CFBundleShortVersionString"] as? String else {
+            print("app version error")
             return
         }
         
-        let url = URLComponents(string: Utils.springUrlKey+"/initial-data")!
+        var url = URLComponents(string: Utils.springUrlKey+"/initial-data/guest")!
+        
+        url.queryItems = [ URLQueryItem(name: "appVersion", value: version),
+        URLQueryItem(name: "os", value: "ios")]
     
         var request = URLRequest(url: url.url!)
         request.httpMethod = "GET"
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-        request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
         
        
       
@@ -46,15 +49,16 @@ struct RequestInitialData {
                     return
                 }
                 let decodedResponse: ResponseData = try decoder.decode(ResponseData.self, from: data)
-                if decodedResponse.results.notReadNotificationCount == 0 {
+                if decodedResponse.results.isNewest {
                     completion(1)
                     return
-                } else {
+                }
+                else {
                     completion(2)
                     return
                 }
             } catch {
-                print("응답 디코딩 실패 initialdata")
+                print("응답 디코딩 실패 initialdata guest")
                 completion(-1)
                 return
             }
@@ -65,11 +69,10 @@ struct RequestInitialData {
 }
 
 
-extension RequestInitialData {
+extension RequestInitialDataGuest {
  
     struct DataResponse : Codable {
-        let isNewest: Bool!
-        let notReadNotificationCount: Int
+        let isNewest: Bool
     }
     struct ResponseData: Codable {
         let results : DataResponse

@@ -15,4 +15,5 @@ class ConstStrings {
     static let MINIMUM_PROFILEBODY_COUNT = 20
     static let MINIMINI_PARTY_PARTICIPANTS = 5
     static let MAXIMINI_PARTY_PARTICIPANTS = 10
+    static let SELECT_PREVIOUS_FIRST = "You must fill in the previous box first"
 }

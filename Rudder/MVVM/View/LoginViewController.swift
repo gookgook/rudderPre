@@ -33,9 +33,10 @@ extension LoginViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         
-        self.navigationController?.setNavigationBarHidden(true, animated: animated)
+        self.navigationController?.setNavigationBarHidden(false, animated: animated)
         self.tabBarController?.tabBar.isTranslucent = true
         self.tabBarController?.tabBar.isHidden = true
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         
         userIdField.text = nil
         userPasswordField.text = nil

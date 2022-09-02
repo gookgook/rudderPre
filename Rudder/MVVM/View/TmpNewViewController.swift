@@ -15,6 +15,10 @@ class TmpNewViewController: UIViewController {
         super.viewDidLoad()
     }
     
+    @IBAction func touchUpXButton(_ sender: UIButton){
+        dismiss(animated: false, completion: nil)
+    }
+    
     @IBAction func touchUpCloseButton(_sender: UIButton){
         delegate?.goSomePage()
         dismiss(animated: false, completion: nil)

@@ -59,6 +59,12 @@ extension MyApplicationsViewController {
             }
             self.setOTOChatBinding()
         }
+        viewModel.refreshFlag.bind{ [weak self] _ in
+            guard let self = self else {return}
+            self.viewModel.requestApprovedParties()
+            self.viewModel.requestAppliedPre()
+        }
+        
         viewModel.isLoadingFlag.bind{ [weak self] status in
             guard let self = self else {return}
             DispatchQueue.main.async {

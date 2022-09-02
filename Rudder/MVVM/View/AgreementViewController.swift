@@ -19,7 +19,7 @@ class AgreementViewController: UIViewController {
         setBar()
         webView.navigationDelegate = self
         
-        guard let url = URL(string: "https://sites.google.com/view/mateprivacyterms") else {
+        guard let url = URL(string: "https://sites.google.com/view/rudderuseragreement") else {
             return
         }
         

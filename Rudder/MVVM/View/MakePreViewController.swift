@@ -24,6 +24,8 @@ class MakePreViewController: UIViewController, UINavigationControllerDelegate {
     
     @IBOutlet weak var postButton: UIButton!
     
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
+    
     let imagePicker = UIImagePickerController()
     let pickerView = UIPickerView() //participant number pickerView
     
@@ -52,6 +54,7 @@ extension MakePreViewController {
         setUpBinding()
         setParticipantsPicker()
         setImagePicker()
+        hideKeyboardWhenTappedAround()
     }
 
     
@@ -69,6 +72,19 @@ extension MakePreViewController {
                     
                 case -2 : Alert.showAlert(title: "one or more fields are empty", message: nil, viewController: self)
                 default : Alert.showAlert(title: "server error", message: nil, viewController: self)
+                }
+            }
+        }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
                 }
             }
         }
@@ -178,4 +194,14 @@ extension MakePreViewController {
         
         //datePicker.lang
     }
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
+    }
 }
+

@@ -71,32 +71,32 @@ extension SetProfile2ViewController {
     
     @objc func pickImage1(_ sender: ButtonView){
         currentImagePicker = 0
-        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: ConstStrings.SELECT_PREVIOUS_FIRST, message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
     @objc func pickImage2(_ sender: ButtonView){
         currentImagePicker = 1
-        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: ConstStrings.SELECT_PREVIOUS_FIRST, message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
     @objc func pickImage3(_ sender: ButtonView){
         currentImagePicker = 2
-        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: ConstStrings.SELECT_PREVIOUS_FIRST, message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
     @objc func pickImage4(_ sender: ButtonView){
         currentImagePicker = 3
-        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: ConstStrings.SELECT_PREVIOUS_FIRST, message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
     @objc func pickImage5(_ sender: ButtonView){
         currentImagePicker = 4
-        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: ConstStrings.SELECT_PREVIOUS_FIRST, message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
     @objc func pickImage6(_ sender: ButtonView){
         currentImagePicker = 5
-        guard availablePicker == currentImagePicker else { Alert.showAlert(title: "Ap Kan BooTeo SeonTaekHae", message: nil, viewController: self); return;}
+        guard availablePicker == currentImagePicker else { Alert.showAlert(title: ConstStrings.SELECT_PREVIOUS_FIRST, message: nil, viewController: self); return;}
         self.present(self.imagePicker, animated: true)
     }
     

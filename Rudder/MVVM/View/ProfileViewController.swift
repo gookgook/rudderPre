@@ -37,6 +37,15 @@ class ProfileViewController: UIViewController {
         viewModel.requestSendMessage(partyId: partyId, applicantUserInfoId: applicant.userInfoId)
     }
     
+    @IBAction func touchUpReportButton(_ ssender: UIBarButtonItem) {
+        print("touch report")
+        let storyboard = UIStoryboard(name: "CustomAlerts", bundle: nil)
+        let vc = storyboard.instantiateViewController(withIdentifier: "ReportVC") as! ReportViewController
+        vc.modalPresentationStyle = .overCurrentContext
+        vc.userInfoId = applicant.userInfoId
+        self.tabBarController?.present(vc, animated: true, completion: nil)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         setUIs()
@@ -123,6 +132,7 @@ extension ProfileViewController {
     }
 }
 
+
 extension ProfileViewController {
     func setUIs(){
         
@@ -138,7 +148,7 @@ extension ProfileViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
-        self.navigationController?.navigationBar.tintColor = UIColor.white
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         
     }
 }

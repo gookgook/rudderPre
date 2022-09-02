@@ -11,7 +11,7 @@ import Foundation
 
 struct RequestPhotoUrl {
     static func uploadInfo(postId: Int, contentType: String, fileName: String, completion: @escaping (String?) -> Void) -> Void{ // completion optional!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        let url : URL = URL(string: "http://test.rudderuni.com/posts/image-upload-url/generate")!
+        let url : URL = URL(string: "http://api.rudderuni.com/posts/image-upload-url/generate")!
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
               token.isEmpty == false else {
