@@ -37,9 +37,9 @@ class PartyDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        //applyButton.applyGradient(colors: MyColor.gPurple)
         setUpBinding()
         viewModel.requestPartyDetail(partyId: partyId)
-        
         
         //self.navigationController?.navigationBar.layer.zPosition = 1
     }

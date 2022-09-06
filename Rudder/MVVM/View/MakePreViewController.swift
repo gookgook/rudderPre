@@ -54,6 +54,7 @@ extension MakePreViewController {
         setUpBinding()
         setParticipantsPicker()
         setImagePicker()
+        placeholderSetting()
         hideKeyboardWhenTappedAround()
     }
 
@@ -205,3 +206,26 @@ extension MakePreViewController {
     }
 }
 
+
+
+extension MakePreViewController: UITextViewDelegate {
+    func placeholderSetting() {
+        descriptionView.delegate = self // txtvReview가 유저가 선언한 outlet
+        descriptionView.text = "Tell the pre's concept, plan after the pre, etc"
+        descriptionView.textColor = UIColor.lightGray
+    }
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        if descriptionView.textColor == UIColor.lightGray {
+            descriptionView.text = nil
+            descriptionView.textColor = UIColor.black
+        }
+        
+    }
+    // TextView Place Holder
+    func textViewDidEndEditing(_ textView: UITextView) {
+        if descriptionView.text.isEmpty {
+            descriptionView.text = "Tell the pre's concept, plan after the pre, etc"
+            descriptionView.textColor = UIColor.lightGray
+        }
+    }
+}

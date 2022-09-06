@@ -52,16 +52,16 @@ extension PartyMainViewModel {
         isLoadingFlag.value = true
         
         RequestParties.uploadInfo(endPartyId: endPartyId, completion: { (parties: [Party]?) in
+            self.isLoadingFlag.value = false
             guard let parties = parties else {
                 self.getPartiesFlag.value = -1
                 return
             }
-            if parties.count == 0 {self.getPartiesFlag.value = 2 }
+            if parties.count == 0 {self.getPartiesFlag.value = 2; return }
             
             if isInfiniteScroll {self.parties += parties}
             else {self.parties = parties }
             self.getPartiesFlag.value = 1
-            self.isLoadingFlag.value = false
         })
     }
     

@@ -37,6 +37,7 @@ class MyPreViewController: UIViewController {
         super.viewDidLoad()
         setUpTableView()
         setUpBinding()
+        hideKeyboardWhenTappedAround()
         viewModel.requestPartyDates()
         
         let k_doLogout = Notification.Name("doLogout") //이거이름재설정 필요
@@ -159,6 +160,7 @@ extension MyPreViewController: UITextFieldDelegate, UIPickerViewDelegate, UIPick
     
     func setPartyDatePicker() {
         partyDatePicker.text = Utils.stringDate(date: viewModel.myPartyDates[0].partyDate) + " ▼"
+        partyDatePicker.isUserInteractionEnabled = true
         
         pickerView.delegate = self
         partyDatePicker.inputView = pickerView
@@ -233,6 +235,8 @@ extension MyPreViewController {
             imageView.isUserInteractionEnabled = false
             
             RequestImage.downloadImage(from: URL(string: "https://d17a6yjghl1rix.cloudfront.net/team_apply_mock.png")!, imageView: imageView)
+            
+            tmp = imageView.trailingAnchor
         }
         
         for i in 0..<viewModel.myPartyApplicants.count   {
@@ -381,6 +385,7 @@ extension MyPreViewController {
     @IBAction func touchUpSetting(_ sender: UIBarButtonItem){
         guard viewModel.groupChatRoom != nil else {
             Alert.showAlert(title: "You didn't host any party", message: nil, viewController: self)
+            self.partyDatePicker.isUserInteractionEnabled  = false
             return
         }
         self.performSegue(withIdentifier: "GoPreSetting", sender: nil)
@@ -393,5 +398,15 @@ extension MyPreViewController {
     func setUIs(){
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
         self.tabBarController?.tabBar.isHidden = false
+    }
+    
+    func hideKeyboardWhenTappedAround() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tap.cancelsTouchesInView = false
+        view.addGestureRecognizer(tap)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
 }

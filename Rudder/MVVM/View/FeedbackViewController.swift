@@ -66,6 +66,8 @@ extension FeedbackViewController {
 
 extension FeedbackViewController: UITextViewDelegate {
     func placeholderSetting() {
+        feedbackBodyView.textContainerInset = UIEdgeInsets(top: 5, left: 7, bottom: 5, right: 7) //얘는 사실 따로 빼자 관련없으니까
+        
         feedbackBodyView.delegate = self // txtvReview가 유저가 선언한 outlet
         feedbackBodyView.text = "Send us any comments, questions, or suggestions."
         feedbackBodyView.textColor = UIColor.lightGray

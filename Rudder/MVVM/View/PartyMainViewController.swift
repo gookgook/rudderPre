@@ -68,8 +68,11 @@ extension PartyMainViewController {
     func setUpBinding() {
         viewModel.getPartiesFlag.bind{ [weak self] status in
             guard let self = self else {return}
+            print("status ", String(status!))
             switch status {
             case 1:
+                
+                print("count count ", String(self.viewModel.parties.count))
                 
                 self.endPartyId = self.viewModel.parties[self.viewModel.parties.count - 1].partyId
                 DispatchQueue.main.async {
@@ -82,6 +85,9 @@ extension PartyMainViewController {
                 }
             case 2:
                 DispatchQueue.main.async {
+                    if self.partyTableView.refreshControl?.isRefreshing == true {
+                        self.partyTableView.refreshControl?.endRefreshing()
+                    }
                     Alert.showAlert(title: "No more parties", message: nil, viewController: self)
                 }
             default: print("server error")
