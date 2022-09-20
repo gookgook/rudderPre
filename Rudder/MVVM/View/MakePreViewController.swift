@@ -192,6 +192,10 @@ extension MakePreViewController {
         postButton.applyGradient(colors: MyColor.gPurple)
         self.navigationController?.navigationBar.tintColor = UIColor.black
         participantsPicker.tintColor = .clear
+        descriptionView.textContainerInset = UIEdgeInsets(top: 9, left: 7, bottom: 9, right: 7)
+        titleField.addLeftPadding(padding: 7)
+        locationField.addLeftPadding(padding: 7)
+        datePicker.contentHorizontalAlignment = .left
         
         //datePicker.lang
     }

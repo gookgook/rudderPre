@@ -12,6 +12,7 @@ class StompManager: SwiftStompDelegate{
     private var swiftStomp: SwiftStomp!
     
     static let shared = StompManager()
+    
 }
 
 extension StompManager {
@@ -129,7 +130,7 @@ extension StompManager {
             case .notification(let notification):
                 handleNotification(notification: notification)
             default:
-                print("unsupported format")
+                print("unsupported notification format")
             }
         }catch{
             print("dynamic decoding error")

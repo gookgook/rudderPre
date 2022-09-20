@@ -30,7 +30,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
         window?.rootViewController = LaunchVC
         window?.makeKeyAndVisible()
         
-        let k_moveToNotification = Notification.Name("moveToNotification") //이거이름재설정 필요
+        //let k_moveToNotification = Notification.Name("moveToNotification") //이거이름재설정 필요
         //NotificationCenter.default.addObserver(self, selector: #selector(self.moveTab(notification:)), name: k_moveToNotification, object: nil)
         
         //let k_moveToNotification = Notification.N name("moveToNotification")
@@ -42,7 +42,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate{
 //handling dynamic link
 extension SceneDelegate {
     func scene(_ scene: UIScene, continue userActivity: NSUserActivity) {
-        print("touch dynamic link")
+        print("clicked dymaic link")
         if let incomingURL = userActivity.webpageURL {
             let linkHandled = DynamicLinks.dynamicLinks().handleUniversalLink(incomingURL)
                 { (dynamicLink, error) in
@@ -58,7 +58,7 @@ extension SceneDelegate {
     }
     
     func handleIncomingDynamicLink(_ dynamicLink: DynamicLink){
-        print("touch handle dynamic link")
+        print("starting to handle dynamic link")
         guard let url = dynamicLink.url else {
             print("dynamic link object has no url")
             return

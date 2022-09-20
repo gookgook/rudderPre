@@ -2551,14 +2551,14 @@
                                                         <rect key="frame" x="28" y="338" width="358" height="64"/>
                                                         <subviews>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Host Pre and Make New Friends" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="soI-iq-SR1">
-                                                                <rect key="frame" x="86" y="13" width="227" height="18"/>
-                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="15"/>
+                                                                <rect key="frame" x="83" y="13" width="260" height="18"/>
+                                                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="14.5"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
                                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="ChatMessage" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wuy-Qg-0bZ">
-                                                                <rect key="frame" x="86" y="34" width="88.5" height="17"/>
-                                                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                                                <rect key="frame" x="83" y="34" width="260" height="17"/>
+                                                                <fontDescription key="fontDescription" type="system" pointSize="13.5"/>
                                                                 <nil key="textColor"/>
                                                                 <nil key="highlightedColor"/>
                                                             </label>
@@ -2572,14 +2572,16 @@
                                                         </subviews>
                                                         <color key="backgroundColor" white="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                         <constraints>
+                                                            <constraint firstItem="Wuy-Qg-0bZ" firstAttribute="trailing" secondItem="soI-iq-SR1" secondAttribute="trailing" id="2gc-7Q-TfR"/>
                                                             <constraint firstItem="EpZ-WK-JmS" firstAttribute="leading" secondItem="IMU-cd-my7" secondAttribute="leading" constant="20" symbolic="YES" id="H7h-u1-how"/>
                                                             <constraint firstItem="EpZ-WK-JmS" firstAttribute="top" secondItem="IMU-cd-my7" secondAttribute="top" constant="8" id="KCz-Mr-I1R"/>
                                                             <constraint firstAttribute="bottom" secondItem="EpZ-WK-JmS" secondAttribute="bottom" constant="8" id="L7J-7a-snP"/>
                                                             <constraint firstItem="soI-iq-SR1" firstAttribute="top" secondItem="IMU-cd-my7" secondAttribute="top" constant="13" id="T97-AH-NCf"/>
                                                             <constraint firstAttribute="height" constant="64" id="bhm-BO-no9"/>
                                                             <constraint firstItem="Wuy-Qg-0bZ" firstAttribute="top" secondItem="soI-iq-SR1" secondAttribute="bottom" constant="3" id="cZy-vq-Hq0"/>
+                                                            <constraint firstAttribute="trailing" secondItem="soI-iq-SR1" secondAttribute="trailing" constant="15" id="jNh-GK-8yC"/>
                                                             <constraint firstItem="Wuy-Qg-0bZ" firstAttribute="leading" secondItem="soI-iq-SR1" secondAttribute="leading" id="nh1-Nh-2o8"/>
-                                                            <constraint firstItem="soI-iq-SR1" firstAttribute="leading" secondItem="EpZ-WK-JmS" secondAttribute="trailing" constant="18" id="yiJ-ul-YyL"/>
+                                                            <constraint firstItem="soI-iq-SR1" firstAttribute="leading" secondItem="EpZ-WK-JmS" secondAttribute="trailing" constant="15" id="yiJ-ul-YyL"/>
                                                         </constraints>
                                                         <userDefinedRuntimeAttributes>
                                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
@@ -3195,12 +3197,15 @@
                                     <outlet property="delegate" destination="2bb-01-lA9" id="ujP-zq-ipZ"/>
                                 </connections>
                             </tableView>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfW-Nk-NA6">
-                                <rect key="frame" x="321" y="792" width="73" height="30"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="xfW-Nk-NA6">
+                                <rect key="frame" x="326" y="796" width="68" height="26"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="68" id="OLk-GN-ATD"/>
+                                    <constraint firstAttribute="height" constant="26" id="bFL-rX-MEo"/>
+                                </constraints>
                                 <color key="tintColor" systemColor="systemPurpleColor"/>
                                 <inset key="imageEdgeInsets" minX="0.0" minY="0.0" maxX="2.2250738585072014e-308" maxY="0.0"/>
-                                <state key="normal" title="Add Party">
+                                <state key="normal" image="AddParty">
                                     <color key="titleColor" systemColor="systemPurpleColor"/>
                                 </state>
                                 <connections>
@@ -3634,6 +3639,7 @@
         <segue reference="GGT-rb-1w1"/>
     </inferredMetricsTieBreakers>
     <resources>
+        <image name="AddParty" width="272" height="104"/>
         <image name="MainBackground" width="375" height="811"/>
         <image name="PartyMockImage" width="1184" height="1184"/>
         <image name="WhiteLogo" width="149" height="27"/>
