@@ -46,3 +46,11 @@ protocol DoGoChatRoomDelegate: AnyObject {
 protocol DoUpdateProfileDelegate: AnyObject {
     func doUpdateProfile()
 }
+
+protocol DoUpdateAcceptButtonDelegate: AnyObject {
+    func doUpdateAcceptButton()
+}
+
+protocol DoRefreshMyPreDelegate: AnyObject {
+    func doRefreshMyPre()
+}

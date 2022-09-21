@@ -11,10 +11,13 @@ class ProfileViewController: UIViewController {
     
     let viewModel = ProfileViewModel()
     
-    var delegate: DoGoChatRoomDelegate!
+    weak var delegate: DoGoChatRoomDelegate?
+    weak var refreshMyPreDelegate: DoRefreshMyPreDelegate?
     
     var applicant: PartyApplicant! //모종의 이유로 앞화면에서 받아옴
     var partyId: Int!
+    
+    @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     @IBOutlet weak var profileView: UIView!
     
@@ -25,11 +28,13 @@ class ProfileViewController: UIViewController {
     @IBOutlet weak var profileBodyView: UITextView!
     
     @IBOutlet weak var acceptButton: UIButton!
+    @IBOutlet weak var messageButton: UIButton!
     
     @IBOutlet weak var imageCountLabel: UILabel!
     
     @IBAction func touchUpAcceptButton(_ sender: UIButton){
         print("partyId")
+        
         viewModel.requestAcceptApplicant(partyId: partyId, partyMemberId: applicant.partyMemberId)
     }
     
@@ -71,6 +76,10 @@ extension ProfileViewController {
                     self.nicknameLabel.text = profile.userNickname
                     self.profileBodyView.text = profile.partyProfileBody
                     self.imageCountLabel.text =  "1 / " + String(self.viewModel.profile.partyProfileImages.count)
+                    if self.applicant.isChatExist {
+                        self.messageButton.isEnabled = false
+                        self.messageButton.backgroundColor = MyColor.superLightGray
+                    }
                 }
             }
         }
@@ -85,6 +94,7 @@ extension ProfileViewController {
 
                 let vc = storyboard.instantiateViewController(withIdentifier: "tmpNew") as! TmpNewViewController
                 //vc.delegate = self
+                vc.delegate = self
                 vc.modalPresentationStyle = .overCurrentContext
                 self.tabBarController?.present(vc, animated: true, completion: nil)
             }
@@ -99,7 +109,7 @@ extension ProfileViewController {
             DispatchQueue.main.async {
                 
                 self.navigationController?.popViewController(animated: true)
-                self.delegate.doGoChatRoomDelegate(chatRoomId: chatRoomId)
+                self.delegate?.doGoChatRoomDelegate(chatRoomId: chatRoomId)
             }
         }
         viewModel.currentImageNo.bind{[weak self] currentImageNo in
@@ -107,6 +117,28 @@ extension ProfileViewController {
             self.imageCountLabel.text = String(currentImageNo + 1) + " / " + String(self.viewModel.profile.partyProfileImages.count)
             RequestImage.downloadImage(from: URL(string: self.viewModel.profile.partyProfileImages[currentImageNo])!, imageView: self.profileImageView)
         }
+        viewModel.isLoadingFlag.bind{ [weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status {
+                    self.spinner.startAnimating()
+                    self.view.isUserInteractionEnabled = false
+                }
+                else {
+                    self.spinner.stopAnimating()
+                    self.view.isUserInteractionEnabled = true
+                }
+            }
+        }
+    }
+}
+
+extension ProfileViewController: DoUpdateAcceptButtonDelegate {
+    func doUpdateAcceptButton() {
+        acceptButton.setTitle("Accepted", for: .normal)
+        acceptButton.backgroundColor = MyColor.superLightGray
+        acceptButton.isEnabled = false
+        self.refreshMyPreDelegate?.doRefreshMyPre()
     }
 }
 

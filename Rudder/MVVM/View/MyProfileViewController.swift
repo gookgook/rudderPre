@@ -127,6 +127,9 @@ extension MyProfileViewController {
         self.navigationController?.navigationBar.shadowImage = UIImage()
         self.navigationController?.navigationBar.isTranslucent = true
         self.navigationController?.view.backgroundColor = .clear
+        self.navigationController?.navigationBar.tintColor = UIColor.black
+        
+        editButton.applyGradient(colors: MyColor.gPurple)
         
     }
     

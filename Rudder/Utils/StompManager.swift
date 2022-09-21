@@ -79,7 +79,10 @@ extension StompManager {
     
     func initStomp(){
     
-        let url = URL(string: "ws://api.rudderuni.com/ws")!
+        let startIndex = Utils.springUrlKey.index(Utils.springUrlKey.startIndex, offsetBy: 7)
+        let tmpUrlKey = Utils.springUrlKey[startIndex...]
+        
+        let url = URL(string: "ws://" + tmpUrlKey  + "/ws")!
         
         self.swiftStomp = SwiftStomp(host: url)
         self.swiftStomp.enableLogging = true

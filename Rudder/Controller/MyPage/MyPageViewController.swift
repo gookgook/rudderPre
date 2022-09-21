@@ -205,7 +205,6 @@ extension MyPageViewController: GoSomePageDelegate {
         let storyboard = UIStoryboard(name: "CustomAlerts", bundle: nil)
 
         let vc = storyboard.instantiateViewController(withIdentifier: "tmpNew") as! TmpNewViewController
-        vc.delegate = self
         
         vc.modalPresentationStyle = .overCurrentContext
         tabBarController?.present(vc, animated: true, completion: nil)

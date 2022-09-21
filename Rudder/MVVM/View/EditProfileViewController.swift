@@ -15,6 +15,8 @@ class EditProfileViewController: UIViewController {
     
     @IBOutlet weak var profileBodyView: UITextView!
     
+    @IBOutlet weak var doneButton: UIButton!
+    
     var currentProfileBody: String!
     
     override func viewDidLoad() {
@@ -22,6 +24,7 @@ class EditProfileViewController: UIViewController {
         setUpBinding()
         hideKeyboardWhenTappedAround()
         profileBodyView.text = currentProfileBody
+        setUIs()
     }
 }
 
@@ -58,5 +61,9 @@ extension EditProfileViewController {
 
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setUIs(){
+        doneButton.applyGradient(colors: MyColor.gPurple)
     }
 }

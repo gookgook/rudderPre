@@ -13,6 +13,9 @@ class MakePreViewController: UIViewController, UINavigationControllerDelegate {
     
     weak var delegate: DoRefreshPartyDelegate?
     
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var contentView: UIView!
+    
     @IBOutlet weak var thumbnailImageView: ButtonView!
     @IBOutlet weak var titleField: UITextField!
     @IBOutlet weak var participantsPicker: UITextField!
@@ -20,14 +23,19 @@ class MakePreViewController: UIViewController, UINavigationControllerDelegate {
     @IBOutlet weak var datePicker: UIDatePicker!
     @IBOutlet weak var locationField: UITextField!
     
-    @IBOutlet weak var contentView: UIView!
-    
     @IBOutlet weak var postButton: UIButton!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    private var currentEditFieldBottom: CGFloat = 0.0
+    private var originalOffset: CGFloat = 0.0
+    
+    
     let imagePicker = UIImagePickerController()
     let pickerView = UIPickerView() //participant number pickerView
+}
+
+extension MakePreViewController {
     
     
     @IBAction func touchUpPostButton(_ sender: UIButton){
@@ -56,6 +64,8 @@ extension MakePreViewController {
         setImagePicker()
         placeholderSetting()
         hideKeyboardWhenTappedAround()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     
@@ -197,6 +207,8 @@ extension MakePreViewController {
         locationField.addLeftPadding(padding: 7)
         datePicker.contentHorizontalAlignment = .left
         
+        locationField.delegate = self
+        titleField.delegate = self
         //datePicker.lang
     }
     func hideKeyboardWhenTappedAround() {
@@ -219,6 +231,11 @@ extension MakePreViewController: UITextViewDelegate {
         descriptionView.textColor = UIColor.lightGray
     }
     func textViewDidBeginEditing(_ textView: UITextView) {
+        
+        originalOffset = scrollView.contentOffset.y
+        currentEditFieldBottom = textView.frame.origin.y + textView.frame.height
+        print("textViewBegin Editing")
+        
         if descriptionView.textColor == UIColor.lightGray {
             descriptionView.text = nil
             descriptionView.textColor = UIColor.black
@@ -230,6 +247,42 @@ extension MakePreViewController: UITextViewDelegate {
         if descriptionView.text.isEmpty {
             descriptionView.text = "Tell the pre's concept, plan after the pre, etc"
             descriptionView.textColor = UIColor.lightGray
+        }
+    }
+}
+
+extension MakePreViewController {
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        
+        
+        originalOffset = scrollView.contentOffset.y
+        currentEditFieldBottom = textField.frame.origin.y + textField.frame.height
+        print("textFieldBegin Editing")
+    }
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + .microseconds(50)) { [self] in //textViewDidBeginEditing이 keyboardwillshow보다 늦어서
+            // code
+            print("keyboardwillshow")
+            if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+                print(String(describing: currentEditFieldBottom) + " " + String(describing: self.scrollView.frame.height) + " " + String(describing: keyboardSize.height) + " " + String(describing: originalOffset))
+                
+                if currentEditFieldBottom <= self.scrollView.frame.height - keyboardSize.height + originalOffset{
+                    return
+                }
+                let cp = CGPoint(x: 0, y: currentEditFieldBottom - self.scrollView.frame.height + keyboardSize.height)
+                if self.scrollView.contentOffset.y == originalOffset {
+                    scrollView.setContentOffset(cp, animated: true)
+                }
+            }
+        }
+        
+            
+    }
+    @objc func keyboardWillHide(notification: NSNotification) {
+        print("willresign")
+        if scrollView.contentOffset.y != originalOffset{
+            scrollView.contentOffset.y = originalOffset
         }
     }
 }

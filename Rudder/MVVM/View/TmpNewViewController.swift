@@ -9,10 +9,13 @@ import UIKit
 
 class TmpNewViewController: UIViewController {
     
-    weak var delegate: GoSomePageDelegate?
+    weak var delegate: DoUpdateAcceptButtonDelegate?
+    
+    @IBOutlet weak var closeButton: UIButton!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        closeButton.applyGradient(colors: MyColor.gPurple)
     }
     
     @IBAction func touchUpXButton(_ sender: UIButton){
@@ -20,8 +23,8 @@ class TmpNewViewController: UIViewController {
     }
     
     @IBAction func touchUpCloseButton(_sender: UIButton){
-        delegate?.goSomePage()
         dismiss(animated: false, completion: nil)
+        delegate?.doUpdateAcceptButton()
     }
     
 }

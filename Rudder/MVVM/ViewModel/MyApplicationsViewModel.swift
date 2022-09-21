@@ -78,7 +78,10 @@ extension MyApplicationsViewModel {
                 self.getAppliedPreFlag.value = -1
                 return
             }
+            
+            
             self.tmpAppliedParties = parties
+            print("tmpAppliedPartiesCount " + String(self.tmpAppliedParties.count))
             self.getAppliedPreFlag.value = 1
             self.isLoadingFlag.value = false
             

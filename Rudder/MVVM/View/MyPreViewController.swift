@@ -329,12 +329,16 @@ extension MyPreViewController:UITableViewDelegate, UITableViewDataSource {
     }
 }
 
-extension MyPreViewController: DoGoChatRoomDelegate {
+extension MyPreViewController: DoGoChatRoomDelegate, DoRefreshMyPreDelegate {
     
     func doGoChatRoomDelegate(chatRoomId: Int) {
         self.viewModel.requestOTOChatRoom(partyId:  self.viewModel.myPartyDates[self.currentPartyNo].partyId)
         self.performSegue(withIdentifier: "GoChatRoomDirect", sender: chatRoomId) //profile에서 새로 만들어져서
         
+    }
+    
+    func doRefreshMyPre() {
+        viewModel.requestPartyDates()
     }
 }
 
@@ -375,6 +379,7 @@ extension MyPreViewController {
             profileViewController.applicant = viewModel.myPartyApplicants[(sender as? Int)!]
             profileViewController.partyId = viewModel.myPartyDates[currentPartyNo].partyId
             profileViewController.delegate = self
+            profileViewController.refreshMyPreDelegate = self
             
         }
     }

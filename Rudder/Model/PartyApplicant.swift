@@ -13,4 +13,6 @@ struct PartyApplicant: Codable {
     let partyMemberId: Int
     let numberApplicants: Int
     let userNickname: String
+    let isChatExist: Bool
+    let partyStatus: String
 }

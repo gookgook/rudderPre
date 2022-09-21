@@ -45,10 +45,13 @@ class PartyDetailViewController: UIViewController {
     }
     
     override func viewWillAppear(_ animated: Bool) {
+        setStyle()
         super.viewWillAppear(animated)
         setBar()
-        setStyle()
     }
+    
+    
+    
 }
 
 extension PartyDetailViewController {
@@ -58,6 +61,7 @@ extension PartyDetailViewController {
             if status == 1 {
                 let partyDetail = self.viewModel.partyDetail!
                 
+                
                 DispatchQueue.main.async {
                     RequestImage.downloadImage(from: URL(string: partyDetail.partyThumbnailUrl)!, imageView: self.partyThumbnailImageView )
                     /*RequestImage.downloadImage(from: URL(string: partyDetail.alcoholImageUrl)!, imageView: self.alcoholImageView)*/
@@ -66,9 +70,12 @@ extension PartyDetailViewController {
                     self.DateLabel.text = String(Utils.stringDate(date: partyDetail.partyTime))
                     self.LocationLabel.text = partyDetail.partyLocation
                     self.PartyDescriptionView.text = partyDetail.partyDescription
+                    self.applyButton.isEnabled = true
+                    self.applyButton.applyGradient(colors: MyColor.gPurple)
                     //self.alcoholName.text = partyDetail.alcoholName
                     /*self.alcoholPriceLabel.text = "+ " + partyDetail.alcoholCurrency + String(partyDetail.alcoholPrice)
                     self.alcoholPriceLabel.text! +=  " / " + String(partyDetail.alcoholCount) + " " + partyDetail.alcoholUnit*/
+                    print("비동기")
                     if partyDetail.partyStatus != "NONE" {
                         self.applyButton.isEnabled = false
                         self.applyButton.backgroundColor = MyColor.superLightGray
@@ -91,6 +98,8 @@ extension PartyDetailViewController {
                         self.applyButton.setTitle("DONE", for: .normal)
                     }
                 }
+                
+              
             }
         }
         viewModel.applyResultFlag.bind{ [weak self] status in
@@ -99,7 +108,6 @@ extension PartyDetailViewController {
                 DispatchQueue.main.async {
                     self.applyButton.isEnabled = false
                     self.applyButton.backgroundColor = MyColor.superLightGray
-                    self.applyButton.removeGradient()
                     self.applyButton.removeGradient()
                     self.applyButton.setTitle("Applied", for: .normal)
                     self.applyCountLabel.text = String(Int(self.applyCountLabel.text!)! + self.numberOfApplicants )
@@ -157,7 +165,7 @@ extension PartyDetailViewController {
         
     }
     func setStyle(){
-        //applyButton.applyGradient(colors: MyColor.gPurple)
+        
         applyCountView.layer.borderWidth = 1
         applyCountView.layer.borderColor = UIColor.white.cgColor
     }

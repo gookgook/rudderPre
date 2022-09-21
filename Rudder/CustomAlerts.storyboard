@@ -49,7 +49,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="7"/>
+                                                <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -96,6 +96,9 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="7P5-Xk-43B" secondAttribute="trailing" constant="60" id="aqR-dY-RUv"/>
                         </constraints>
                     </view>
+                    <connections>
+                        <outlet property="closeButton" destination="aHT-Ol-OSt" id="RpL-rn-FFa"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -141,7 +144,7 @@
                                         <userDefinedRuntimeAttributes>
                                             <userDefinedRuntimeAttribute type="boolean" keyPath="layers.masksToBounds" value="YES"/>
                                             <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                                <integer key="value" value="7"/>
+                                                <integer key="value" value="20"/>
                                             </userDefinedRuntimeAttribute>
                                         </userDefinedRuntimeAttributes>
                                         <connections>
@@ -197,6 +200,7 @@
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="applyButton" destination="z08-dk-AID" id="Qfz-5d-bhi"/>
                         <outlet property="numberField" destination="XC8-u2-nn0" id="71B-3g-UKf"/>
                     </connections>
                 </viewController>

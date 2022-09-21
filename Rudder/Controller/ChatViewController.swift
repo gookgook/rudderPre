@@ -29,6 +29,7 @@ class ChatViewController: UIViewController, UIGestureRecognizerDelegate{
     override func viewDidLoad() {
         super.viewDidLoad()
         spinner.startAnimating()
+        self.navigationController?.navigationBar.tintColor = UIColor.black
         
         hideKeyboardWhenTappedAround()
        // textField.bor

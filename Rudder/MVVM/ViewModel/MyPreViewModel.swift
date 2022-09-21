@@ -52,6 +52,7 @@ extension MyPreViewModel {
     
     
     func requestPartyApplicants(partyId: Int) {
+        print("REQUESTPartyApplicants called")
         self.isLoadingFlag.value = true
         RequestMyPartyApplicants.uploadInfo(partyId: partyId, completion: {(myPartyApplicants: [PartyApplicant]?) in
             guard let myPartyApplicants = myPartyApplicants else {

@@ -10,7 +10,7 @@ import Foundation
 struct RequestSendChat {
     //login
     static func uploadInfo(channelId: Int, chatBody:String, completion: @escaping (Int) -> Void) -> Void{
-        let url = URL(string: "http://api.rudderuni.com"+"/send-chat")!
+        let url = URL(string:  Utils.springUrlKey + "/send-chat")!
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
               token.isEmpty == false else {

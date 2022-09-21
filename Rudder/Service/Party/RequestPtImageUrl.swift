@@ -10,7 +10,7 @@ import Foundation
 struct RequestPtImageUrl { //Request Party-profile image upload url
     //login
     static func uploadInfo(partyId: Int,imageMetadata: ImageMetaData, completion: @escaping ([String]?) -> Void) -> Void{ // completion optional!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
-        let url : URL = URL(string: "http://api.rudderuni.com/parties/image-upload-url/generate")!
+        let url : URL = URL(string: Utils.springUrlKey + "/parties/image-upload-url/generate")!
      
         
         guard let token = UserDefaults.standard.string(forKey: "token") else {

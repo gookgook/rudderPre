@@ -13,6 +13,8 @@ class WithFriendsAlertViewController: UIViewController {
     
     @IBOutlet weak var numberField: UITextField!
     
+    @IBOutlet weak var applyButton: UIButton!
+    
     let pickerView = UIPickerView()
     
     let possibleNumber = [0,1,2,3,4]
@@ -21,6 +23,7 @@ class WithFriendsAlertViewController: UIViewController {
         super.viewDidLoad()
         numberField.tintColor = .clear
         setParticipantsPicker()
+        applyButton.applyGradient(colors: MyColor.gPurple)
     }
     
     @IBAction func touchUpApplyButton(_ sender: UIButton){

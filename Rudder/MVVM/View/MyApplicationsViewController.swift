@@ -29,6 +29,9 @@ class MyApplicationsViewController: UIViewController {
         viewModel.requestApprovedParties()
         viewModel.requestAppliedPre()
     }
+    override func viewWillAppear(_ animated: Bool) {
+        setUIs()
+    }
 }
 
 extension MyApplicationsViewController {
@@ -96,6 +99,7 @@ extension MyApplicationsViewController {
         print("otoChatRoom Count ", String(viewModel.otoChatRooms.count))
         
         for i in 0..<viewModel.otoChatRooms.count {
+            print("otoChatRoomCount " + String(viewModel.otoChatRooms.count))
             viewModel.receivedOTOChatFlag[i].bind{ [weak self] _ in
                 guard let self = self else {return}
                 let indexPath = IndexPath(row: i, section: 0)
@@ -154,7 +158,7 @@ extension MyApplicationsViewController: UITableViewDelegate, UITableViewDataSour
             if viewModel.appliedParties.count != 0 && viewModel.appliedParties[indexPath.row] == nil{
                 let cell: ChatRoomCell
                 cell = appliedTableView.dequeueReusableCell(withIdentifier: "chatRoomCell", for: indexPath) as! ChatRoomCell
-                cell.configure(chatRoom: viewModel.otoChatRooms[indexPath.row]!, tableView: tableView, indexPath: indexPath)
+                cell.configure(chatRoom: viewModel.otoChatRooms[indexPath.row]!, tableView: tableView, indexPath: indexPath) //index out of range
                 cell.tag = 1
                 return cell
             } else {
@@ -214,5 +218,8 @@ extension MyApplicationsViewController {
 extension MyApplicationsViewController {
     func setBarStyle(){
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
+    }
+    func setUIs(){
+        self.tabBarController?.tabBar.isHidden = false
     }
 }

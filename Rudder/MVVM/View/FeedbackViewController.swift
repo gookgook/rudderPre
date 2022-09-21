@@ -14,12 +14,15 @@ class FeedbackViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var feedbackBodyView: UITextView!
     
+    @IBOutlet weak var submitButton: UIButton!
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
         self.hideKeyboardWhenTappedAround()
         setUpBinding()
         placeholderSetting()
+        setUIs()
     }
 }
 
@@ -98,5 +101,9 @@ extension FeedbackViewController {
 
     @objc func dismissKeyboard() {
         view.endEditing(true)
+    }
+    
+    func setUIs(){
+        submitButton.applyGradient(colors: MyColor.gPurple)
     }
 }
