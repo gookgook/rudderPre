@@ -8,7 +8,7 @@
 import UIKit
 import GameKit
 
-class MyProfileViewController : UIViewController {
+final class MyProfileViewController : UIViewController {
     
     let viewModel = MyProfileViewModel()
     
@@ -63,6 +63,14 @@ extension MyProfileViewController {
     @IBAction func tmpNextUpdate(_ sender: UIButton){
         Alert.showAlert(title: "Wait for the next Update!", message: nil, viewController: self)
     }
+    
+    @IBAction func touchUpDeleteAccount(_ sender: UIButton) {
+        Alert.showAlertWithCB(title: "Are you sure you want to Delete your account?", message: nil, isConditional: true, viewController: self, completionBlock: {status in
+            if status {
+                self.viewModel.requestDeleteAccount()
+            }
+        })
+    }
 }
 
 extension MyProfileViewController {
@@ -80,15 +88,30 @@ extension MyProfileViewController {
                 }
             }
         }
+        
+        viewModel.deleteAccountFlag.bind{[weak self] status in
+            guard let self = self else {return}
+            DispatchQueue.main.async {
+                if status == 1 {
+                    UserDefaults.standard.removeObject(forKey: "token")
+                    UserDefaults.standard.removeObject(forKey: "userInfoId")
+                    self.navigationController?.popToRootViewController(animated: false)
+                }else {
+                    Alert.showAlert(title: "Server Error", message: nil, viewController: self)
+                }
+            }
+            
+        }
+        
         viewModel.isLoadingFlag.bind{ [weak self] status in
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {
-                    self.spinner.startAnimating()
+                    LoadingScreen.shared.showLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = false
                 }
                 else {
-                    self.spinner.stopAnimating()
+                    LoadingScreen.shared.hideLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = true
                 }
             }

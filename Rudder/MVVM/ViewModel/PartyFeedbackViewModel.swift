@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PartyFeedbackViewModel {
+final class PartyFeedbackViewModel {
     let sendFeedbackResultFlag : Observable<Int?> = Observable(nil)
     var feedbackBody: String!
     var feedbackType: String!

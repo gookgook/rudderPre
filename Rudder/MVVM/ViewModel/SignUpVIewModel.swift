@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class SignUpViewModel {
+final class SignUpViewModel {
     var userEmail: String!
     var userPassword: String!
     var userNickname: String!

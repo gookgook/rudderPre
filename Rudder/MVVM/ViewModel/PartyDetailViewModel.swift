@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PartyDetailViewModel {
+final class PartyDetailViewModel {
     var partyDetail: PartyDetail!
     
     let getPartyDetailFlag: Observable<Int?> = Observable(nil)
@@ -29,10 +29,13 @@ extension PartyDetailViewModel {
             self.isLoadingFlag.value = false
         })
     }
-    func requestApplyParty(numberApplicants: Int) {
+    func requestApplyParty(numberApplicants: Int, recommendationCode: String) {
         isLoadingFlag.value = true
-        RequestApplyParty.uploadInfo(partyId: partyDetail.partyId, numberApplicants: numberApplicants, completion: {
+        RequestApplyParty.uploadInfo(partyId: partyDetail.partyId, numberApplicants: numberApplicants, recommendationCode: recommendationCode, completion: {
             status in
+            
+            let k_newCHatRoom = Notification.Name("newChatRoom")
+            NotificationCenter.default.post(name: k_newCHatRoom, object: nil, userInfo: nil)//MyPreViewModel 새로고침하기위해서 임시로
             self.applyResultFlag.value = status
             self.isLoadingFlag.value = false
         })

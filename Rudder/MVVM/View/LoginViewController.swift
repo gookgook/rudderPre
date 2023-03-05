@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LoginViewController: UIViewController {
+final class LoginViewController: UIViewController {
     
     let viewModel = LoginViewModel()
     
@@ -55,18 +55,21 @@ extension LoginViewController {
     }
     
     func setUpBinding() {
-        viewModel.loginResultFlag.bind { [weak self] status in
-            guard let self = self else { return }
-            switch status {
-            case nil : break
-            case 1 : DispatchQueue.main.async {self.performSegue(withIdentifier: "GoPartyMain", sender: nil)}
-            case 2 : DispatchQueue.main.async { Alert.showAlert(title: "Verify your account through your university email", message: nil, viewController: self) }
-            case 3, 4 : DispatchQueue.main.async { Alert.showAlert(title: "Wrong", message: nil, viewController: self) }
-            case 5 : DispatchQueue.main.async { Alert.showAlert(title: "One or more field is empty", message: nil, viewController: self) }
-            case -1 : DispatchQueue.main.async { Alert.showAlert(title: "Server Error", message: nil, viewController: self) }
-            default : DispatchQueue.main.async { Alert.showAlert(title: "Unknown Error", message: nil, viewController: self) }
-            }
-        }
+   
+       
+         viewModel.loginResultFlag.bind { [weak self] status in
+             guard let self = self else { return }
+             switch status {
+             case nil : break
+             case 1 : DispatchQueue.main.async {self.performSegue(withIdentifier: "GoPartyMain", sender: nil)}
+             case 2 : DispatchQueue.main.async { Alert.showAlert(title: "Verify your account through your university email", message: nil, viewController: self) }
+             case 3, 4 : DispatchQueue.main.async { Alert.showAlert(title: "Wrong", message: nil, viewController: self) }
+             case 5 : DispatchQueue.main.async { Alert.showAlert(title: "One or more field is empty", message: nil, viewController: self) }
+             case -1 : DispatchQueue.main.async { Alert.showAlert(title: "Server Error", message: nil, viewController: self) }
+             default : DispatchQueue.main.async { Alert.showAlert(title: "Unknown Error", message: nil, viewController: self) }
+             }
+         }
+         
         viewModel.isLoadingFlag.bind{ [weak self] status in
             guard let self = self else {return}
             DispatchQueue.main.async {

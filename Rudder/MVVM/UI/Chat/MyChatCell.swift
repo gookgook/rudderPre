@@ -22,6 +22,6 @@ extension MyChatCell {
         //이부분 enum으로 바꾸자
         self.chatBodyView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.chatBodyView.text = chat.chatMessageBody
-        self.timeAgoLabel.text = "3:15 pm"//Utils.timeAgo(postDate: job.timeAgo) 수정 요함 **********************************************
+        self.timeAgoLabel.text = Utils.chatDate(date: chat.chatMessageTime)
     }
 }

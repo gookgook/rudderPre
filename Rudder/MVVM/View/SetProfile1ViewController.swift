@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SetProfile1ViewController: UIViewController {
+final class SetProfile1ViewController: UIViewController {
     
     var viewModel: SignUpViewModel? //signUpViewController에서 넘겨줄거임
 

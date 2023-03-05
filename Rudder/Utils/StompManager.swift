@@ -32,6 +32,8 @@ extension StompManager {
         }
         
         func onDisconnect(swiftStomp: SwiftStomp, disconnectType: StompDisconnectType) {
+            print("Disconnect Occured")
+            self.swiftStomp.connect()
             if disconnectType == .fromSocket{
                 print("Socket disconnected. Disconnect completed")
             } else if disconnectType == .fromStomp{
@@ -75,6 +77,10 @@ extension StompManager {
         
         func onSocketEvent(eventName: String, description: String) {
             print("Socket event occured: \(eventName) => \(description)")
+            if eventName == "cancelled" {
+                print("disconnect occred")
+                self.swiftStomp.connect()
+            }
         }
     
     func initStomp(){
@@ -150,6 +156,9 @@ extension StompManager {
         case "PARTY_ACCEPTED":
             let k_accepted = Notification.Name("accepted")
             NotificationCenter.default.post(name: k_accepted, object: nil, userInfo: nil)
+        case "NEW_CHAT_ROOM":
+            let k_newCHatRoom = Notification.Name("newChatRoom")
+            NotificationCenter.default.post(name: k_newCHatRoom, object: nil, userInfo: nil)
         default :
             print("unknown notification")
         }

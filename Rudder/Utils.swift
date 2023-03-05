@@ -15,14 +15,16 @@ class Utils {
         let dateFormatter = DateFormatter()
         dateFormatter.isLenient = true
         dateFormatter.dateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        dateFormatter.locale = Locale(identifier: "en")
         let date = dateFormatter.date(from: postDate)
         let rFormatter = RelativeDateTimeFormatter()
-        if date == nil {
+        rFormatter.locale = Locale(identifier: "en")
+        guard date != nil else {
             return "Unknown"
-        }else {
-            let datestring = rFormatter.localizedString(for: date!, relativeTo: Date())
-            return datestring
         }
+        let datestring = rFormatter.localizedString(for: date!, relativeTo: Date())
+        return datestring
+       
     }
     
     static func stringDate(date: String) -> String {
@@ -33,10 +35,33 @@ class Utils {
         sDateFormatter.dateFormat="MMM d"
         sDateFormatter.locale = Locale(identifier: "en")
         let tdate = dateFormatter.date(from: date)
+        
+        guard tdate != nil else {
+            return "Unknown"
+        }
+        
         let datestring = sDateFormatter.string(from: tdate!)
         return datestring
         
         
+    }
+    
+    static func chatDate(date: String) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.isLenient = true
+        dateFormatter.dateFormat="yyyy-MM-dd'T'HH:mm:ss.SSSZ"
+        let sDateFormatter = DateFormatter()
+        sDateFormatter.dateFormat="HH:mm"
+        sDateFormatter.locale = Locale(identifier: "en")
+        let tdate = dateFormatter.date(from: date)
+        
+        guard tdate != nil else {
+            return "Unknown"
+        }
+        
+        let datestring = sDateFormatter.string(from: tdate!)
+        return datestring
+    
     }
     
     static var noticeShowed:Bool = false

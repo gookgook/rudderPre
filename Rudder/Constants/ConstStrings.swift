@@ -8,7 +8,7 @@
 import Foundation
 
 class ConstStrings {
-    static let WRONG_EMAIL_FORM = "your school no jiwon"
+    static let WRONG_EMAIL_FORM = "Wrong email form"
     static let EMAIL_ALREADY_EXISTS = "your email already exists"
     static let MINIMUM_PHOTO_COUNT = 2
     static let MAXIMUM_PHOTO_COUNT = 6

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class ReportViewController: UIViewController {
+final class ReportViewController: UIViewController {
     
     @IBOutlet weak var reportBodyField: UITextField!
     

@@ -7,11 +7,13 @@
 
 import UIKit
 
-class WithFriendsAlertViewController: UIViewController {
+final class WithFriendsAlertViewController: UIViewController {
     
     weak var delegate: DoApplyDelegate?
     
     @IBOutlet weak var numberField: UITextField!
+    
+    @IBOutlet weak var recCodeField: UITextField!
     
     @IBOutlet weak var applyButton: UIButton!
     
@@ -33,7 +35,7 @@ class WithFriendsAlertViewController: UIViewController {
             return
         }
         
-        delegate?.doApply(numberOfApplicants: participantNumber)
+        delegate?.doApply(numberOfApplicants: participantNumber, recommendationCode: recCodeField.text ?? "no code")
         dismiss(animated: false, completion: nil)
     }
     

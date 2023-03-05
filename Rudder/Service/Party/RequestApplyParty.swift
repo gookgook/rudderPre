@@ -8,7 +8,7 @@
 import Foundation
 
 struct RequestApplyParty {
-    static func uploadInfo(partyId:Int, numberApplicants: Int, completion: @escaping (Int?) -> Void) -> Void{
+    static func uploadInfo(partyId:Int, numberApplicants: Int, recommendationCode: String,completion: @escaping (Int?) -> Void) -> Void{
         let url = URL(string: Utils.springUrlKey+"/parties/"+String(partyId)+"/apply")!
         
         guard let token: String = UserDefaults.standard.string(forKey: "token"),
@@ -22,7 +22,7 @@ struct RequestApplyParty {
         request.setValue("application/json", forHTTPHeaderField: "Content-Type")
         request.allHTTPHeaderFields = [ "Authorization" : "Bearer "+token ]
         
-        let applyRequest = ApplyRequst(numberApplicants: numberApplicants)
+        let applyRequest = ApplyRequst(numberApplicants: numberApplicants, recommendationCode: recommendationCode)
         
         guard let EncodedUploadData = try? JSONEncoder().encode(applyRequest) else {
             return
@@ -51,5 +51,6 @@ struct RequestApplyParty {
 extension RequestApplyParty {
     struct ApplyRequst: Codable {
         let numberApplicants: Int
+        let recommendationCode: String
     }
 }

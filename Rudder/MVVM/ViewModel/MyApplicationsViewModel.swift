@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MyApplicationsViewModel {
+final class MyApplicationsViewModel {
     
     init(){
         let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
@@ -15,6 +15,10 @@ class MyApplicationsViewModel {
         
         let k_accepted = Notification.Name("accepted") //이거이름재설정 필요
         NotificationCenter.default.addObserver(self, selector: #selector(self.receivedNoti(notification:)), name: k_accepted, object: nil)
+        
+        
+        let k_newChatRoom = Notification.Name("newChatRoom")
+        NotificationCenter.default.addObserver(self, selector: #selector(self.receivedNoti(notification:)), name: k_newChatRoom, object: nil)
     }
     
     var approvedParties: [Party] = []
@@ -37,6 +41,18 @@ class MyApplicationsViewModel {
 }
 
 extension MyApplicationsViewModel {
+    func prepareForRefresh(){
+        
+        approvedParties = []
+        appliedParties = []
+        tmpAppliedParties = []
+        groupChatRooms = []
+        otoChatRooms = []
+        receivedOTOChatFlag = []
+        receivedOTOChatFlag = []
+    }
+    
+    
     func requestApprovedParties() {
         
         isLoadingFlag.value = true

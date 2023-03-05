@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PartyFeedbackViewController: UIViewController {
+final class PartyFeedbackViewController: UIViewController {
     
     let viewModel = PartyFeedbackViewModel()
     

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class FeedbackViewController: UIViewController {
+final class FeedbackViewController: UIViewController {
     
     let viewModel = FeedbackViewModel()
     
@@ -48,11 +48,11 @@ extension FeedbackViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {
-                    self.spinner.startAnimating()
+                    LoadingScreen.shared.showLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = false
                 }
                 else {
-                    self.spinner.stopAnimating()
+                    LoadingScreen.shared.hideLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = true
                 }
             }

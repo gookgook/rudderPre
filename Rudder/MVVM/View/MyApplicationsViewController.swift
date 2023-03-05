@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MyApplicationsViewController: UIViewController {
+final class MyApplicationsViewController: UIViewController {
     
     let viewModel = MyApplicationsViewModel()
     
@@ -20,6 +20,8 @@ class MyApplicationsViewController: UIViewController {
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
     var groupOrOTO: Int = 0 // perform segue할 때 이거 group인지 OTO인지 구분하기 위한 꼼수 (1 - group, 2 - OTO )
+    
+    var blockChatUpdate: Bool = false
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -31,6 +33,21 @@ class MyApplicationsViewController: UIViewController {
     }
     override func viewWillAppear(_ animated: Bool) {
         setUIs()
+        blockChatUpdate = false
+        print("vwA")
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        acceptedTableView.reloadData()
+        self.acceptedTableView.layoutSubviews()
+        self.acceptedTableViewHeight.constant = self.acceptedTableView.contentSize.height
+        appliedTableView.reloadData()
+        self.appliedTableViewHeight.constant = self.appliedTableView.contentSize.height
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        blockChatUpdate = true
+        print("vwD")
     }
 }
 
@@ -42,11 +59,14 @@ extension MyApplicationsViewController {
             
             print("admiandsifn adm " + String(self.viewModel.approvedParties.count))
             DispatchQueue.main.async {
-                self.acceptedTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
-                self.acceptedTableView.layoutSubviews()
-                self.acceptedTableViewHeight.constant = self.acceptedTableView.contentSize.height
+                if !self.blockChatUpdate {
+                    self.acceptedTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
+                    self.acceptedTableView.layoutSubviews()
+                    self.acceptedTableViewHeight.constant = self.acceptedTableView.contentSize.height
+                }
+                self.setGroupChatBinding()
             }
-            self.setGroupChatBinding()
+            
         }
         viewModel.getAppliedPreFlag.bind{[weak self] status in
             guard status != -1 else { print("something wrong"); return}
@@ -57,13 +77,16 @@ extension MyApplicationsViewController {
             guard status != -1 else { print("something wrong"); return}
             guard let self = self else {return}
             DispatchQueue.main.async {
-                self.appliedTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
-                self.appliedTableViewHeight.constant = self.appliedTableView.contentSize.height
+                if !self.blockChatUpdate {
+                    self.appliedTableView.reloadSections(IndexSet(0...0), with: UITableView.RowAnimation.automatic)
+                    self.appliedTableViewHeight.constant = self.appliedTableView.contentSize.height
+                }
             }
             self.setOTOChatBinding()
         }
         viewModel.refreshFlag.bind{ [weak self] _ in
             guard let self = self else {return}
+            self.viewModel.prepareForRefresh()
             self.viewModel.requestApprovedParties()
             self.viewModel.requestAppliedPre()
         }
@@ -72,11 +95,11 @@ extension MyApplicationsViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {
-                    self.spinner.startAnimating()
+                    LoadingScreen.shared.showLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = false
                 }
                 else {
-                    self.spinner.stopAnimating()
+                    LoadingScreen.shared.hideLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = true
                 }
             }
@@ -87,10 +110,14 @@ extension MyApplicationsViewController {
 extension MyApplicationsViewController {
     func setGroupChatBinding() {
         for i in 0..<viewModel.groupChatRooms.count {
+            
             viewModel.receivedGroupChatFlag[i].bind{ [weak self] _ in
+    
                 guard let self = self else {return}
+                guard self.blockChatUpdate == false else {return}
                 let indexPath = IndexPath(row: i, section: 0)
-                self.acceptedTableView.reloadRows(at: [indexPath], with: .none)
+                self.acceptedTableView.reloadData()
+                
             }
         }
     }
@@ -102,6 +129,7 @@ extension MyApplicationsViewController {
             print("otoChatRoomCount " + String(viewModel.otoChatRooms.count))
             viewModel.receivedOTOChatFlag[i].bind{ [weak self] _ in
                 guard let self = self else {return}
+                guard self.blockChatUpdate == false else {return}
                 let indexPath = IndexPath(row: i, section: 0)
                 self.appliedTableView.reloadRows(at: [indexPath], with: .none)
                
@@ -181,15 +209,18 @@ extension MyApplicationsViewController: UITableViewDelegate, UITableViewDataSour
 extension MyApplicationsViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if tableView == acceptedTableView {
+            print("accepted touch")
             if let _: UITableViewCell = tableView.cellForRow(at: indexPath) {
                 groupOrOTO = 1
                 self.performSegue(withIdentifier: "GoChatRoom", sender: indexPath.row)
+                tableView.deselectRow(at: indexPath, animated: false)
             }
         } else {
             if let cell: UITableViewCell = tableView.cellForRow(at: indexPath) {
                 groupOrOTO = 2
                 if cell.tag == 1 { self.performSegue(withIdentifier: "GoChatRoom", sender: indexPath.row) }
                 else { self.performSegue(withIdentifier: "GoPartyDetail", sender: indexPath.row) }
+                tableView.deselectRow(at: indexPath, animated: false)
             }
             
         }
@@ -217,6 +248,9 @@ extension MyApplicationsViewController {
 
 extension MyApplicationsViewController {
     func setBarStyle(){
+        guard UIFont(name: "SF Pro Text Bold", size: 20) != nil else {
+            return
+        }
         self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
     }
     func setUIs(){

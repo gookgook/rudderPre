@@ -7,7 +7,7 @@
 
 import UIKit
 
-class LaunchViewController: UIViewController{
+final class LaunchViewController: UIViewController{
     var mainNavigationController = UINavigationController()
     var myNavigationController = UINavigationController()
     var myPreNavigationController = UINavigationController()

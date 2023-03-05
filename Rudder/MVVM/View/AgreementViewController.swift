@@ -8,7 +8,7 @@
 import UIKit
 import WebKit
 
-class AgreementViewController: UIViewController {
+final class AgreementViewController: UIViewController {
     
     @IBOutlet weak var webView: WKWebView!
     @IBOutlet weak var spinner: UIActivityIndicatorView!

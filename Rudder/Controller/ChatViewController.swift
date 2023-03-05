@@ -16,13 +16,18 @@ class ChatViewController: UIViewController, UIGestureRecognizerDelegate{
     var isInit: Bool = true
     
     @IBOutlet weak var textField: UITextField!
+    
+    @IBOutlet weak var chatView: UIView!
 
     @IBOutlet weak var chatTableView: UITableView!
     
     @IBOutlet weak var spinner: UIActivityIndicatorView!
     
+    @IBOutlet weak var sendChatButton: UIButton!
+    
     private var chats: [Chat] = []
     private var messageIndex = 0
+    
     
     private var originalY: CGFloat!
     
@@ -30,6 +35,8 @@ class ChatViewController: UIViewController, UIGestureRecognizerDelegate{
         super.viewDidLoad()
         spinner.startAnimating()
         self.navigationController?.navigationBar.tintColor = UIColor.black
+    
+        sendChatButton.tag = 777 // keyboard hide 와 구분위해
         
         hideKeyboardWhenTappedAround()
        // textField.bor
@@ -56,7 +63,8 @@ class ChatViewController: UIViewController, UIGestureRecognizerDelegate{
         self.chatTableView.rowHeight = UITableView.automaticDimension
         // Do any additional setup after loading the view.
         
-        originalY = self.view.frame.origin.y
+        originalY = self.chatView.frame.origin.y // 혹시 모르는 오류 방지
+        print("originalY ",originalY)
         
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
@@ -83,16 +91,19 @@ extension ChatViewController {
             self.spinner.stopAnimating()
             self.view.isUserInteractionEnabled = true
         }
-                
-        self.chats.append(chat)
         
-        self.chatTableView.beginUpdates()
-        self.chatTableView.insertRows(at: [IndexPath.init(row: self.chats.count-1, section: 0)], with: .none)
-        self.chatTableView.endUpdates()
-        let indexPath = NSIndexPath(item: self.chats.count-1, section: 0);
-        self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: UITableView.ScrollPosition.middle, animated: true)
-                //self.textField.text = decodedResponse.chatMessageBody
-               // completion(decodedResponse.likeCount)
+        if chat.chatRoomId == self.chatRoomId {
+                
+            self.chats.append(chat)
+        
+            self.chatTableView.beginUpdates()
+            self.chatTableView.insertRows(at: [IndexPath.init(row: self.chats.count-1, section: 0)], with: .none)
+            self.chatTableView.endUpdates()
+            let indexPath = NSIndexPath(item: self.chats.count-1, section: 0);
+            self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: UITableView.ScrollPosition.middle, animated: true)
+                    //self.textField.text = decodedResponse.chatMessageBody
+                   // completion(decodedResponse.likeCount)
+        }
         
     }
     
@@ -107,6 +118,7 @@ extension ChatViewController {
         textField.text = nil
         RequestSendChat.uploadInfo(channelId: chatRoomId, chatBody: chatText, completion: {
            status in
+            
             if status == 1 {
                 print("send chat success")
             }
@@ -215,15 +227,41 @@ extension ChatViewController {
                return
     
         }
-
-            //let keyboardHeight = keyboardRect.height
-    self.view.frame.origin.y = 0 - keyboardSize.height + 105
-            //self.textField.frame.origin.y = keyboardRect.origin.y - self.textField.frame.height
-            //commentTableView.contentSize.height += keyboardRect.height
+        
+        originalY = self.chatView.frame.origin.y
+        
+        self.chatView.frame.origin.y = originalY - keyboardSize.height + 98
+        
+        if self.chats.count > 4 {
+            
+            let contentInset = UIEdgeInsets(
+                top: 0.0,
+                left: 0.0,
+                bottom: keyboardSize.height - 70,
+                right: 0.0)
+            
+            chatTableView.contentInset = contentInset
+            
+            let indexPath = NSIndexPath(item: self.chats.count-1, section: 0);
+            self.chatTableView.scrollToRow(at: indexPath as IndexPath, at: UITableView.ScrollPosition.middle, animated: true)
+        }
     }
     @objc func keyboardWillHide(_ sender: Notification) {
-       
-        self.view.frame.origin.y = originalY // Move view to original position
+        print("originalY ",originalY)
+        self.chatView.frame.origin.y = originalY // Move view to original position
+        self.chatTableView.contentInset = UIEdgeInsets.zero
+      
             //commentTableView.contentSize.height -= keyboardRect.height
+    }
+}
+
+extension ChatViewController {
+    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
+        if touch.view?.tag == 777 {
+            //sendChat(touch.view as! UIButton)
+            print("hihi")
+            return false
+        }
+        return true
     }
 }

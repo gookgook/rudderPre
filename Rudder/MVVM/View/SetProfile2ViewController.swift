@@ -7,7 +7,7 @@
 
 import UIKit
 
-class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+final class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     var viewModel: SignUpViewModel? // setProfile1Viewcontroller 에서 넘겨줄거임
     
@@ -43,7 +43,7 @@ class SetProfile2ViewController: UIViewController, UIImagePickerControllerDelega
             DispatchQueue.main.async { /*self.spinner.stopAnimating()*/ }
             switch status {  // school name이 올 수도 있어서 오류상황들 앞에 놓고 그게 아니라면 school name 이 온걸로 간주해서 default에서 처리
             case -1 : DispatchQueue.main.async { Alert.showAlert(title: "Server Error", message: nil, viewController: self) }
-            case 5: DispatchQueue.main.async { Alert.showAlert(title: "photo count", message: nil, viewController: self)}
+            case 5: DispatchQueue.main.async { Alert.showAlert(title: "You must upload at least 2 photos", message: nil, viewController: self)}
             case 1 :
                 print("sign up process completed")
                 self.navigationController?.popToRootViewController(animated: true)

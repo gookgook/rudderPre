@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PreSettingViewModel {
+final class PreSettingViewModel {
     let cancellationFlag: Observable<Int?> = Observable(nil)
     let stopRecruiFlag: Observable<Int?> = Observable(nil)
     let fixTheMembersFlag: Observable<Int?> = Observable(nil)

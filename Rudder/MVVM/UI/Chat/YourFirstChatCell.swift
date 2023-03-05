@@ -24,7 +24,7 @@ extension YourFirstChatCell {
         
         self.chatBodyView.textContainerInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
         self.chatBodyView.text = chat.chatMessageBody
-        self.timeAgoLabel.text = "3:15pm"
+        self.timeAgoLabel.text = Utils.chatDate(date: chat.chatMessageTime)
         self.nicknameLabel.text = chat.sendUserNickname
     }
 }

@@ -21,6 +21,9 @@ class PartyCell : UITableViewCell {
         super.awakeFromNib()
         universityLogoImageView.layer.borderColor = UIColor.systemGray4.cgColor
         universityLogoImageView.layer.borderWidth = 0.5
+        partyThumbnailView.layer.borderColor = UIColor.systemGray4.cgColor
+        partyThumbnailView.layer.borderWidth = 0.5
+        
     }
 }
 

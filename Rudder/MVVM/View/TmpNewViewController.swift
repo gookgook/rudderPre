@@ -7,7 +7,7 @@
 
 import UIKit
 
-class TmpNewViewController: UIViewController {
+final class TmpNewViewController: UIViewController {
     
     weak var delegate: DoUpdateAcceptButtonDelegate?
     

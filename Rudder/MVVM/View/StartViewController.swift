@@ -7,7 +7,7 @@
 
 import UIKit
 
-class StartViewController: UIViewController {
+final class StartViewController: UIViewController {
     
     @IBOutlet weak var backgroundImageView: UIImageView!
     

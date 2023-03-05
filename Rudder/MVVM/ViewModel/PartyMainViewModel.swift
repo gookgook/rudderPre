@@ -7,7 +7,7 @@
 
 import Foundation
 
-class PartyMainViewModel {
+final class PartyMainViewModel {
     var parties: [Party] = []
     
     let getPartiesFlag: Observable<Int?> = Observable(nil)

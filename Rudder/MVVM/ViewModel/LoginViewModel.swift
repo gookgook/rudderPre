@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LoginViewModel {
+final class LoginViewModel {
     var userEmail: String!
     var userPassword: String!
     
@@ -24,6 +24,7 @@ extension LoginViewModel{
         guard userPassword != nil else { loginResultFlag.value = 5; return }
         
         isLoadingFlag.value = true
+        
         
         let ApnToken: String = UserDefaults.standard.string(forKey: "ApnToken") ?? "ApnTokenFail"
         let loginInfo = LoginInfo(userId: userEmail, userPassword: userPassword, os: "ios", token: ApnToken)

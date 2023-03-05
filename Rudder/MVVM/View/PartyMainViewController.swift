@@ -7,14 +7,13 @@
 
 import UIKit
 
-class PartyMainViewController: UIViewController {
+final class PartyMainViewController: UIViewController {
     
     let viewModel = PartyMainViewModel()
     
     var nowPaging: Bool = false
     var endPartyId: Int = -1
     
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
     @IBOutlet weak var partyTableView: UITableView!
     
     @IBOutlet weak var notificationButton: UIBarButtonItem!
@@ -97,11 +96,12 @@ extension PartyMainViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {
-                    self.spinner.startAnimating()
+                    LoadingScreen.shared.showLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = false
                 }
                 else {
-                    self.spinner.stopAnimating()
+                    
+                    LoadingScreen.shared.hideLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = true
                 }
             }

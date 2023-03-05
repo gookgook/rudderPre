@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MyPreViewModel {
+final class MyPreViewModel {
     
     init(){
         let k_moveToNotification = Notification.Name("chatReceived") //이거이름재설정 필요
@@ -31,15 +31,23 @@ class MyPreViewModel {
     var receivedOTOChatFlag: [Observable<Int?>] = []
     
     let refreshFlag: Observable<Bool> = Observable(false)
-    
     let isLoadingFlag: Observable<Bool> = Observable(false)
     //let currentPartyInfo:
 }
 
 extension MyPreViewModel {
+    
+    func prepareForRefresh(){
+        myPartyDates = []
+        myPartyApplicants = []
+        otoChatRooms = []
+        receivedOTOChatFlag = []
+    }
+    
     func requestPartyDates() {
+        
+        self.isLoadingFlag.value = true
         RequestMyPartyDates.uploadInfo( completion: { (myPartyDates: [MyPartyDate]?) in
-            self.isLoadingFlag.value = true
             guard let myPartyDates = myPartyDates else {
                 self.getPartyDatesFlag.value = -1
                 return

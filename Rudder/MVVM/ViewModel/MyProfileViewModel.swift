@@ -7,10 +7,11 @@
 
 import Foundation
 
-class MyProfileViewModel {
+final class MyProfileViewModel {
     var profile: PartyProfile!
     
     let getProfileFlag: Observable<Int?> = Observable(nil)
+    let deleteAccountFlag: Observable<Int?> = Observable(nil)
     
     let isLoadingFlag: Observable<Bool> = Observable(false)
 }
@@ -27,5 +28,13 @@ extension MyProfileViewModel {
             self.getProfileFlag.value = 1
             self.isLoadingFlag.value = false
         })
+    }
+    
+    func requestDeleteAccount() {
+        isLoadingFlag.value = true
+        RequestDeleteAccount.uploadInfo() {status in
+            self.deleteAccountFlag.value = status
+            self.isLoadingFlag.value = false
+        }
     }
 }

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PartyDetailViewController: UIViewController {
+final class PartyDetailViewController: UIViewController {
     
     let viewModel = PartyDetailViewModel()
     
@@ -16,8 +16,6 @@ class PartyDetailViewController: UIViewController {
     var numberOfApplicants: Int!
     
     @IBOutlet weak var scrollView: UIScrollView!
-    
-    @IBOutlet weak var spinner: UIActivityIndicatorView!
 
     @IBOutlet weak var partyThumbnailImageView: UIImageView!
     @IBOutlet weak var applyCountView: UIView!
@@ -118,11 +116,11 @@ extension PartyDetailViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {
-                    self.spinner.startAnimating()
+                    LoadingScreen.shared.showLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = false
                 }
                 else {
-                    self.spinner.stopAnimating()
+                    LoadingScreen.shared.hideLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = true
                 }
             }
@@ -143,9 +141,9 @@ extension PartyDetailViewController: DoApplyDelegate {
         tabBarController?.present(vc, animated: true, completion: nil)
     }
     
-    func doApply(numberOfApplicants: Int) {
+    func doApply(numberOfApplicants: Int, recommendationCode: String) {
         self.numberOfApplicants = numberOfApplicants
-        viewModel.requestApplyParty(numberApplicants: numberOfApplicants)
+        viewModel.requestApplyParty(numberApplicants: numberOfApplicants, recommendationCode: recommendationCode)
     }
 }
 

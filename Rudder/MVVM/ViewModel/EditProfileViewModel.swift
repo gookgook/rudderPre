@@ -7,7 +7,7 @@
 
 import Foundation
 
-class EditProfileViewModel {
+final class EditProfileViewModel {
     var profileBody: String!
     
     let editResultFlag: Observable<Int?> = Observable(nil)

@@ -7,23 +7,23 @@
 
 import Foundation
 
-protocol DoRefreshDelegate {
+protocol DoRefreshDelegate: AnyObject {
     func doRefreshChange()
 }
 
-protocol DoUpdateCharacterDelegate {
+protocol DoUpdateCharacterDelegate: AnyObject {
     func doUpdateCharacter()
 }
 
-protocol DoUpdatePostBodyDelegate {
+protocol DoUpdatePostBodyDelegate: AnyObject {
     func doUpdatePostBody(postBody: String)
 }
 
-protocol DoUpdateLikeButtonDelegate {
+protocol DoUpdateLikeButtonDelegate: AnyObject {
     func doUpdateLikeButton(likeCount: Int) // +1 or -1
 }
 
-protocol DoUpdateCommentCountDelegate {
+protocol DoUpdateCommentCountDelegate: AnyObject {
     func doUpdateCommentCount(commentCount: Int) // +1 or -1
 }
 
@@ -32,7 +32,7 @@ protocol GoSomePageDelegate: AnyObject {
 }
 
 protocol DoApplyDelegate: AnyObject {
-    func doApply(numberOfApplicants: Int)
+    func doApply(numberOfApplicants: Int, recommendationCode: String)
 }
 
 protocol DoRefreshPartyDelegate: AnyObject {

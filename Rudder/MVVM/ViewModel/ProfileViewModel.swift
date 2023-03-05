@@ -7,7 +7,7 @@
 
 import Foundation
 
-class ProfileViewModel {
+final class ProfileViewModel {
     var profile: PartyProfile!
     
     let getProfileFlag: Observable<Int?>  = Observable(nil)

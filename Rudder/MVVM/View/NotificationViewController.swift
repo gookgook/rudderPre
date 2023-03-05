@@ -7,7 +7,7 @@
 
 import UIKit
 
-class NotificationViewController: UIViewController {
+final class NotificationViewController: UIViewController {
     
     let viewModel = NotificationViewModel()
     
@@ -58,7 +58,6 @@ extension NotificationViewController {
             guard let self = self else {return}
             self.tabBarController?.selectedIndex = destination!
             self.navigationController?.popViewController(animated: false)
-            
         }
     }
 }

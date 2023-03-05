@@ -8,7 +8,7 @@
 import UIKit
 import GameKit
 
-class MyPreViewController: UIViewController {
+final class MyPreViewController: UIViewController {
     
     let viewModel = MyPreViewModel()
     
@@ -20,6 +20,7 @@ class MyPreViewController: UIViewController {
     @IBOutlet weak var aGPartyTitle: UILabel! //accepted group chat view
     @IBOutlet weak var aGChatBody: UILabel!
     @IBOutlet weak var aGChatImageView: UIImageView!
+    @IBOutlet weak var aGChatView: UIView!
     
     @IBOutlet weak var applicantLabel: UILabel!
     @IBOutlet weak var MessagesLabel: UILabel!
@@ -124,11 +125,12 @@ extension MyPreViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {
-                    self.spinner.startAnimating()
+                    LoadingScreen.shared.showLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = false
+
                 }
                 else {
-                    self.spinner.stopAnimating()
+                    LoadingScreen.shared.hideLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = true
                 }
             }
@@ -207,8 +209,8 @@ extension MyPreViewController {
         aGPartyTitle.text = viewModel.groupChatRoom.chatRoomTitle
         aGChatBody.text = viewModel.groupChatRoom.recentMessage
         RequestImage.downloadImage(from: URL(string: viewModel.groupChatRoom.chatRoomImageUrl)!, imageView: aGChatImageView)
-        aGChatImageView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchAGChatRoom(_:))))
-        aGChatImageView.isUserInteractionEnabled = true
+        aGChatView.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(touchAGChatRoom(_:))))
+        aGChatView.isUserInteractionEnabled = true
     }
     
     @objc func touchAGChatRoom(_ sender: Any?){
@@ -222,6 +224,10 @@ extension MyPreViewController {
         //print("party Id ", String(viewModel.))
         print("applications count", String(viewModel.myPartyApplicants.count))
         
+        for view in applicantsView.subviews {
+            view.removeFromSuperview()
+        }
+        
         if viewModel.myPartyApplicants.count == 0 {
             let imageView = UIImageView()
             applicantsView.addSubview(imageView)
@@ -229,7 +235,7 @@ extension MyPreViewController {
             imageView.widthAnchor.constraint(equalToConstant: 110).isActive = true
             imageView.topAnchor.constraint(equalTo: applicantsView.topAnchor).isActive = true
             imageView.bottomAnchor.constraint(equalTo: applicantsView.bottomAnchor).isActive = true
-            imageView.leadingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
+            imageView.leadingAnchor.constraint(equalTo: tmp, constant: 18).isActive = true
             imageView.layer.cornerRadius = 15
             imageView.clipsToBounds = true
             imageView.isUserInteractionEnabled = false
@@ -246,7 +252,11 @@ extension MyPreViewController {
             imageView.widthAnchor.constraint(equalToConstant: 110).isActive = true
             imageView.topAnchor.constraint(equalTo: applicantsView.topAnchor).isActive = true
             imageView.bottomAnchor.constraint(equalTo: applicantsView.bottomAnchor).isActive = true
-            imageView.leadingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
+            if i == 0 {
+                imageView.leadingAnchor.constraint(equalTo: tmp, constant: 18).isActive = true
+            } else {
+                imageView.leadingAnchor.constraint(equalTo: tmp, constant: 10).isActive = true
+            }
             imageView.layer.cornerRadius = 15
             imageView.clipsToBounds = true
             imageView.tag = i
@@ -265,7 +275,11 @@ extension MyPreViewController {
             nicknameLabel.layer.zPosition = 1
             nicknameLabel.heightAnchor.constraint(equalToConstant: 20).isActive = true
             nicknameLabel.widthAnchor.constraint(equalToConstant: 56).isActive = true
-            nicknameLabel.leadingAnchor.constraint(equalTo: tmp, constant: 20).isActive = true
+            if i == 0 {
+                nicknameLabel.leadingAnchor.constraint(equalTo: tmp, constant: 28).isActive = true
+            } else {
+                nicknameLabel.leadingAnchor.constraint(equalTo: tmp, constant: 20).isActive = true
+            }
             nicknameLabel.bottomAnchor.constraint(equalTo: applicantsView.bottomAnchor, constant: -5).isActive = true
             
             let numberLabel = UILabel()
@@ -324,6 +338,7 @@ extension MyPreViewController:UITableViewDelegate, UITableViewDataSource {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if let _: UITableViewCell = tableView.cellForRow(at: indexPath) {
             self.performSegue(withIdentifier: "GoChatRoom", sender: indexPath.row)
+            tableView.deselectRow(at: indexPath, animated: false)
             // cell.selectionStyle = .none
         }
     }
@@ -338,6 +353,7 @@ extension MyPreViewController: DoGoChatRoomDelegate, DoRefreshMyPreDelegate {
     }
     
     func doRefreshMyPre() {
+        viewModel.prepareForRefresh()
         viewModel.requestPartyDates()
     }
 }
@@ -401,8 +417,12 @@ extension MyPreViewController {
 
 extension MyPreViewController {
     func setUIs(){
-        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
         self.tabBarController?.tabBar.isHidden = false
+        guard UIFont(name: "SF Pro Text Bold", size: 20) != nil else {
+            return
+        }
+        self.navigationController?.navigationBar.titleTextAttributes = [NSAttributedString.Key.font: UIFont(name: "SF Pro Text Bold", size: 20)!]
+
     }
     
     func hideKeyboardWhenTappedAround() {

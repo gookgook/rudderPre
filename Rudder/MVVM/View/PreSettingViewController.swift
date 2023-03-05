@@ -7,7 +7,7 @@
 
 import UIKit
 
-class PreSettingViewController: UIViewController {
+final class PreSettingViewController: UIViewController {
     
     let viewModel = PreSettingViewModel()
     

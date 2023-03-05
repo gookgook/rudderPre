@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class MakePreViewModel {
+final class MakePreViewModel {
     var partyTitle: String!
     var partyDate: String! // timestamp로?
     var participantNumber: Int!

@@ -7,7 +7,7 @@
 
 import UIKit
 
-class MakePreViewController: UIViewController, UINavigationControllerDelegate {
+final class MakePreViewController: UIViewController, UINavigationControllerDelegate {
     
     let viewModel: MakePreViewModel = MakePreViewModel()
     
@@ -90,11 +90,11 @@ extension MakePreViewController {
             guard let self = self else {return}
             DispatchQueue.main.async {
                 if status {
-                    self.spinner.startAnimating()
+                    LoadingScreen.shared.showLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = false
                 }
                 else {
-                    self.spinner.stopAnimating()
+                    LoadingScreen.shared.hideLoadingPage(_view: self)
                     self.view.isUserInteractionEnabled = true
                 }
             }

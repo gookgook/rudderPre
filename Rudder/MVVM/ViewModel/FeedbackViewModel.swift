@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FeedbackViewModel {
+final class FeedbackViewModel {
     let sendFeedbackResultFlag : Observable<Int?> = Observable(nil)
     var feedbackBody: String!
 

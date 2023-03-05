@@ -7,7 +7,7 @@
 
 import Foundation
 
-class NotificationViewModel {
+final class NotificationViewModel {
     var notifications: [UserNotification] = []
     
     let getNotificationFlag: Observable<Int?> = Observable(nil)
